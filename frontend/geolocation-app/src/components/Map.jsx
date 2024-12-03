@@ -10,7 +10,11 @@ const Map = ({ allRoutes }) => {
       className="h-full w-full rounded"
     >
       {allRoutes?.map((route) => (
-        <MapRoute key={route._id} coordinates={route.coordinates} />
+        <MapRoute
+          key={route._id}
+          coordinates={route.coordinates}
+          title={route.title}
+        />
       ))}
     </MapContainer>
   );

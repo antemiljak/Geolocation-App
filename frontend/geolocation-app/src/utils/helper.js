@@ -22,14 +22,23 @@ export const haversineDistance = (point1, point2) => {
   const R = 6371e3; // Radius of Earth in meters.
   const toRad = (deg) => (deg * Math.PI) / 180;
 
-  const lat1 = toRad(point1.latitude);
-  const lat2 = toRad(point2.latitude);
-  const deltaLat = toRad(point2.latitude - point1.latitude);
-  const deltaLon = toRad(point2.longitude - point1.longitude);
+  // Destructure the arrays into latitudes and longitudes
+  const [lat1, lon1] = point1; // Point 1 is an array [latitude, longitude]
+  const [lat2, lon2] = point2; // Point 2 is an array [latitude, longitude]
+
+  const lat1Rad = toRad(lat1);
+  const lat2Rad = toRad(lat2);
+  const deltaLat = toRad(lat2 - lat1);
+  const deltaLon = toRad(lon2 - lon1);
 
   const a =
-    Math.sin(deltaLat / 2) ** 2 +
-    Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) ** 2;
+    Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+    Math.cos(lat1Rad) *
+      Math.cos(lat2Rad) *
+      Math.sin(deltaLon / 2) *
+      Math.sin(deltaLon / 2);
 
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // Haversine formula
+
+  return distance;
 };

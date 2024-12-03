@@ -4,7 +4,7 @@ import EndLogo from "../assets/racing-flag.png";
 import { TileLayer, Polyline, Popup, Marker } from "react-leaflet";
 import L from "leaflet";
 
-const MapRoute = ({ coordinates }) => {
+const MapRoute = ({ coordinates, title }) => {
   const startPosition = coordinates[0];
   const endPosition = coordinates[coordinates.length - 1];
 
@@ -31,7 +31,7 @@ const MapRoute = ({ coordinates }) => {
       <Polyline positions={coordinates} color="black" />{" "}
       {/* Draw polyline based on hardcoded coordinates */}
       <Marker position={startPosition} icon={startIcon}>
-        <Popup>Start</Popup> {/* Label for the start marker */}
+        <Popup>{title + ":Start"}</Popup> {/* Label for the start marker */}
       </Marker>
       {/* Finish Marker */}
       <Marker position={endPosition} icon={endIcon}>

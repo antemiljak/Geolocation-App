@@ -49,13 +49,11 @@ const Home = () => {
     <div>
       <Navbar userInfo={userInfo} />
       <div className="flex h-[90vh] p-6 mx-auto max-w-[95%]">
-        <div className="flex-[0.6] bg-gray-200 flex items-center justify-center rounded-lg border-r border-gray-300">
+        <div className="flex-[0.8] bg-gray-200 flex items-center justify-center rounded-lg border-r border-gray-300">
           <Map allRoutes={allRoutes} />
         </div>
-        <div className="flex-[0.6] flex flex-col gap-y-3 justify-center items-center rounded-lg">
+        <div className="flex-[0.4] flex flex-col gap-y-3 justify-center items-center rounded-lg">
           <NewRouteRecording />
-          <PastRoutes />
-          <Statistics />
         </div>
       </div>
     </div>

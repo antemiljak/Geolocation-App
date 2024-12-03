@@ -11,7 +11,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
 
-  const addNewRoute = async (title, coords) => {
+  const addNewRoute = async (title, coords, startTime, endTime) => {
     try {
       const routeData = {
         title: title,
@@ -19,7 +19,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
         startTime: startTime,
         endTime: endTime,
       };
-
+      console.log("Sending route data:", routeData); // Log data being sent
       const response = await axiosInstance.post("/add-map-route", routeData);
 
       if (response.status === 200) {
@@ -41,10 +41,11 @@ const RouteTracker = ({ onRouteUpdate }) => {
     const id = navigator.geolocation.watchPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        setCoords((coords) => [...coords, [latitude, longitude]]);
+        console.log(position.coords);
+        setCoords((prevCoords) => [...prevCoords, [latitude, longitude]]);
       },
       (error) => console.error("Error getting location:", error),
-      { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+      { enableHighAccuracy: true }
     );
 
     setWatchId(id); // Store the watch ID for later clearing
@@ -53,21 +54,10 @@ const RouteTracker = ({ onRouteUpdate }) => {
   const stopRoute = async () => {
     setIsRecording(false);
     setEndTime(Date.now());
-
+    console.log(coords);
     // Stop the geolocation watch
     if (watchId) {
       navigator.geolocation.clearWatch(watchId);
-    }
-
-    if (coords.length > 1) {
-      await addNewRoute(routeTitle, coords, startTime, endTime);
-
-      const totalLength = coords.reduce((acc, curr, index) => {
-        if (index === 0) return acc;
-        return acc + haversineDistance(coords[index - 1], curr);
-      }, 0);
-
-      setRouteLength(totalLength / 1000); // Convert to kilometers
     }
   };
 
@@ -94,6 +84,24 @@ const RouteTracker = ({ onRouteUpdate }) => {
     });
   }, [routeTitle, startTime, endTime, routeLength]);
 
+  useEffect(() => {
+    if (endTime && coords.length > 1) {
+      const totalLength = coords.reduce((acc, curr, index) => {
+        if (index === 0) return acc;
+        return acc + haversineDistance(coords[index - 1], curr);
+      }, 0);
+      console.log(totalLength);
+      setRouteLength(totalLength / 1000); // Convert to kilometers
+
+      const addRoute = async () => {
+        await addNewRoute(routeTitle, coords, startTime, endTime);
+        console.log("Route added to base");
+      };
+
+      addRoute(); // Call the function to save the route
+    }
+  }, [endTime]);
+
   return (
     <div>
       <input
@@ -102,12 +110,12 @@ const RouteTracker = ({ onRouteUpdate }) => {
         value={routeTitle}
         onChange={(e) => setRouteTitle(e.target.value)}
         disabled={isRecording}
-        className="w-4/5 text-sm bg-transparent border-[1.5px] border-green-300 px-3 py-2 mx-2 rounded-3xl outline-none"
+        className="w-full text-sm bg-transparent border-[1.5px] border-green-300 px-3 py-2 rounded-3xl outline-none"
       />
       {!isRecording ? (
         <button
           onClick={startRoute}
-          className="btn-primary w-4/5 bg-green-300 m-2 hover:bg-green-400"
+          className="btn-primary mx-0 bg-green-300 m-2 hover:bg-green-400"
         >
           Start
         </button>
