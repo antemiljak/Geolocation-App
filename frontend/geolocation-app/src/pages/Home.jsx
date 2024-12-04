@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Map from "../components/Map";
 import NewRouteRecording from "../components/NewRouteRecording";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 
 const Home = () => {
@@ -59,7 +59,7 @@ const Home = () => {
       </div>
       <div className="flex h-[90vh] p-6 mx-auto max-w-[95%]">
         <div className="flex-[0.8] bg-gray-200 flex items-center justify-center rounded-lg border-r border-gray-300">
-          <Map allRoutes={allRoutes} />
+          <Map />
         </div>
         <div className="flex-[0.4] flex flex-col gap-y-3 justify-center items-center rounded-lg">
           <NewRouteRecording />

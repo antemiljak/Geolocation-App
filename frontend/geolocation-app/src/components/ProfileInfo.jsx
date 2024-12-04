@@ -9,7 +9,10 @@ const ProfileInfo = ({ userInfo, onLogout }) => {
       </div>
       <div>
         <h4>{userInfo?.name}</h4>
-        <h5 className="text-sm text-slate-300" onClick={onLogout}>
+        <h5
+          className="text-sm text-slate-300 cursor-pointer"
+          onClick={onLogout}
+        >
           Logout
         </h5>
       </div>

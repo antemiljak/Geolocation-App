@@ -31,7 +31,7 @@ const NewRouteRecording = () => {
         <p className="text-sm text-slate-200 text-left mx-4 my-2">
           {!routeData.endTime
             ? "To track movement on map add Title and press Start."
-            : "Route recording complete!"}
+            : "Route recording complete! Clear to record again."}
         </p>
         <div className="w-full flex justify-center">
           <RouteTracker onRouteUpdate={handleRouteUpdate} />
@@ -59,7 +59,10 @@ const NewRouteRecording = () => {
             Route Length: {routeData.routeLength} km
           </li>
           <div>
-            <button className="btn-primary text-center bg-green-300 text-black rounded-full w-2/3  p-1">
+            <button
+              className="btn-primary text-center bg-green-300 text-black rounded-full w-2/3  p-1 disabled:bg-green-100 disabled:text-slate-500"
+              disabled={!routeData.endTime}
+            >
               More info...
             </button>
             <button

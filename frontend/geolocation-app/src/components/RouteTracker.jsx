@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { calculateDuration, haversineDistance } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
-
+import RecIcon from "../assets/rec-icon.png";
 const RouteTracker = ({ onRouteUpdate }) => {
   const [routeTitle, setRouteTitle] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [routeLength, setRouteLength] = useState(0);
   const [coords, setCoords] = useState([]);
-  const [isRecording, setIsRecording] = useState(false);
   const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
+  const [isRecording, setIsRecording] = useState(false);
 
   const addNewRoute = async (title, coords, startTime, endTime) => {
     try {
@@ -104,18 +104,29 @@ const RouteTracker = ({ onRouteUpdate }) => {
       />
       {!isRecording ? (
         <button
-          onClick={startRoute}
-          className="btn-primary mx-0 bg-green-300 m-2 hover:bg-green-400"
+          onClick={() => {
+            startRoute();
+          }}
+          className="btn-primary mx-0 bg-green-300 m-2 hover:bg-green-400 disabled:bg-green-100 disabled:text-slate-500"
+          disabled={!routeTitle || endTime}
         >
           Start
         </button>
       ) : (
         <button
           onClick={stopRoute}
-          className="btn-primary w-4/5 bg-green-500 m-2 hover:bg-green-600"
+          className="btn-primary mx-0 bg-green-500 m-2 hover:bg-green-600"
         >
           Stop
         </button>
+      )}
+
+      {isRecording && (
+        <img
+          src={RecIcon}
+          alt="RecIcon"
+          className="absolute top-0 right-1 w-16 animate-pulse"
+        ></img>
       )}
     </div>
   );
