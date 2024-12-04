@@ -1,26 +1,33 @@
 import React from "react";
+import { haversineDistance, calculateDuration } from "../utils/helper";
+import Map from "./Map";
 
-const RouteCard = ({
-  title,
-  startTime,
-  startStreet,
-  endTime,
-  endStreet,
-  routeDuration,
-  routeLength,
-}) => {
+const RouteCard = ({ id, title, coords, startTime, endTime }) => {
+  const totalLength =
+    coords.reduce((acc, curr, index) => {
+      if (index === 0) return acc;
+      return acc + haversineDistance(coords[index - 1], curr);
+    }, 0) / 1000;
+
   return (
-    <div className="rounded p-4 bg-slate-900 hover:shadow-xl transition-all ease-in-out">
+    <div className="rounded p-4 bg-gray-700">
       <div className="flex items-center justify-between">
         <div>
-          <h6 className="text-sm font-medium">{/*title*/}Route Title</h6>
-          <span className="text-xs text-slate-500">start Time, end Time</span>
+          <div className="flex items-center justify-between">
+            <h6 className="text-sm font-medium">{title}</h6>
+            <h6 className="text-sm text-slate-500">Date:{}</h6>
+            <h6 className="text-xs text-slate-500">#{id}</h6>
+          </div>
+          <span className="text-xs text-slate-500">
+            Duration: {calculateDuration(startTime, endTime)}
+          </span>
         </div>
       </div>
-      <p className="text-xs text-slate-600 mt-2">startStreet-----endStreet</p>
 
       <div className="flex items-center justify-between mt-2">
-        <div className="text-xs text-slate-500">duration and length</div>
+        <div className="text-xs text-slate-500">
+          Length: {totalLength.toFixed(3)} km
+        </div>
       </div>
     </div>
   );

@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const mapRouteSchema = new Schema({
   title: { type: String, required: true },
   coordinates: { type: Array, required: true },
-  startTime: { type: Date, required: true },
-  endTime: { type: Date, required: true },
+  startTime: { type: Number, required: true },
+  endTime: { type: Number, required: true },
   userId: { type: String, required: true },
 });
 

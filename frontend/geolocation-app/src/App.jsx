@@ -3,15 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import LandingPage from "./pages/LandingPage";
+import AllRoutesPage from "./pages/AllRoutesPage";
+import Stats from "./pages/Stats";
 
 const routes = (
   <Router>
     <Routes>
       <Route path="/home" exact element={<Home />} />
-      <Route path="/landingpage" exact element={<LandingPage />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/signup" exact element={<Signup />} />
+      <Route path="/allroutespage" exact element={<AllRoutesPage />} />
+      <Route path="/stats" exact element={<Stats />} />
     </Routes>
   </Router>
 );

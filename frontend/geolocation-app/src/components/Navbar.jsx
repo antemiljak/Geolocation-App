@@ -10,16 +10,20 @@ const Navbar = ({ userInfo }) => {
     navigate("/login");
   };
   const location = useLocation(); // Access current route
-  const showProfileSection = location.pathname === "/home";
+  let showProfileSection = false;
+  if (
+    location.pathname === "/home" ||
+    location.pathname === "/allroutespage" ||
+    location.pathname === "/stats"
+  ) {
+    showProfileSection = true;
+  } else {
+    showProfileSection = false;
+  }
+
   return (
     <div className="flex items-center justify-between px-6 py-2 ">
       <h2 className="text-xl font-medium text-green-300">Geolocation App</h2>
-
-      <ul className="flex gap-8 text-lg">
-        <li className="hover:text-green-300">Route Recording</li>
-        <li className="hover:text-green-300">All Routes</li>{" "}
-        <li className="hover:text-green-300">Statistics</li>
-      </ul>
 
       {showProfileSection ? (
         <ProfileInfo userInfo={userInfo} onLogout={onLogout} />

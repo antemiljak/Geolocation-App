@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { getInitials } from "../utils/helper";
-import DropDownProfile from "./DropDownProfile";
 
 const ProfileInfo = ({ userInfo, onLogout }) => {
-  const [showDropDownProfile, setShowDropDownProfile] = useState(false);
-
   return (
     <div className="flex items-center gap-3">
-      <h4>{userInfo?.name}</h4>
-      <div
-        onClick={() => setShowDropDownProfile(!showDropDownProfile)}
-        className="w-12 h-12 flex items-center justify-center rounded-full text-green-300 font-medium bg-gray-700 cursor-pointer"
-      >
+      <div className="w-12 h-12 flex items-center justify-center rounded-full text-green-300 font-medium bg-gray-700">
         {getInitials(userInfo?.name)}
       </div>
-
-      {showDropDownProfile && <DropDownProfile onLogout={onLogout} />}
+      <div>
+        <h4>{userInfo?.name}</h4>
+        <h5 className="text-sm text-slate-300" onClick={onLogout}>
+          Logout
+        </h5>
+      </div>
     </div>
   );
 };

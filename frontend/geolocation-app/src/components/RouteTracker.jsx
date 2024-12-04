@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { haversineDistance } from "../utils/helper";
+import { calculateDuration, haversineDistance } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
 
 const RouteTracker = ({ onRouteUpdate }) => {
@@ -61,17 +61,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
     }
   };
 
-  const calculateDuration = () => {
-    if (startTime && endTime) {
-      const durationMs = endTime - startTime;
-      const seconds = Math.floor((durationMs / 1000) % 60);
-      const minutes = Math.floor((durationMs / (1000 * 60)) % 60);
-      const hours = Math.floor(durationMs / (1000 * 60 * 60));
-
-      return `${hours}h ${minutes}m ${seconds}s`;
-    }
-    return "N/A";
-  };
+  const duration = calculateDuration(startTime, endTime);
 
   // Trigger updates for parent component.
   useEffect(() => {
@@ -79,7 +69,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
       routeTitle,
       startTime,
       endTime,
-      duration: calculateDuration(),
+      duration: duration,
       routeLength: routeLength.toFixed(2),
     });
   }, [routeTitle, startTime, endTime, routeLength]);
