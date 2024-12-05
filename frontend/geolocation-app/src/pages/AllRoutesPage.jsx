@@ -1,39 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RouteCard from "../components/RouteCard";
 import Navbar from "../components/Navbar";
 import MapRoute from "../components/MapRoute";
 import { MapContainer, TileLayer } from "react-leaflet";
+import axiosInstance from "../utils/axiosInstance";
 
 const AllRoutesPage = () => {
+  const [allRoutes, setAllRoutes] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { userInfo, allRoutes } = state;
+  const { userInfo } = state;
+
+  const getAllRoutes = async () => {
+    try {
+      const response = await axiosInstance.get("/get-all-map-routes");
+
+      if (response.data && response.data.mapRoute) {
+        setAllRoutes(response.data.mapRoute);
+      }
+    } catch (error) {
+      console.log("An unexpected error occured. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    getAllRoutes();
+    return () => {};
+  }, []);
 
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div className="ml-10 mt-2 text-lg">
-        <h4
-          onClick={() => navigate("/home")}
-          className="cursor-pointer hover:text-green-300"
-        >
-          {`<-Back to Home`}
-        </h4>
-      </div>
+      <p
+        onClick={() => navigate("/home")}
+        className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32 ml-[4%]"
+      >
+        Home
+      </p>
       <div className="flex items-center justify-center gap-x-3">
         {allRoutes?.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4 m-9 w-full h-1/3">
+          <div className="grid grid-cols-3 gap-4 m-9 w-[85%] h-1/3">
             {allRoutes?.map((item, index) => (
               <RouteCard
                 key={item._id}
                 id={item._id}
                 title={item.title}
                 coords={item.coordinates}
+                distance={item.distance}
                 startTime={item.startTime}
                 endTime={item.endTime}
+                duration={item.duration}
               />
             ))}
           </div>
@@ -43,7 +62,7 @@ const AllRoutesPage = () => {
       </div>
       <button
         onClick={() => setShowModal(true)}
-        className="btn-primary absolute bottom-5 right-9 flex w-72 text-lg items-center justify-center rounded-full"
+        className="btn-primary absolute bottom-5 right-9 flex w-72 text-lg items-center justify-center"
       >
         Show all recorded routes
       </button>

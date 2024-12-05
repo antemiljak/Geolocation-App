@@ -7,8 +7,6 @@ import axiosInstance from "../utils/axiosInstance";
 
 const Home = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [allRoutes, setAllRoutes] = useState(null);
-
   const navigate = useNavigate();
 
   const getUserInfo = async () => {
@@ -25,39 +23,29 @@ const Home = () => {
     }
   };
 
-  const getAllRoutes = async () => {
-    try {
-      const response = await axiosInstance.get("/get-all-map-routes");
-
-      if (response.data && response.data.mapRoute) {
-        setAllRoutes(response.data.mapRoute);
-      }
-    } catch (error) {
-      console.log("An unexpected error occured. Please try again.");
-    }
-  };
-
   useEffect(() => {
     getUserInfo();
-    getAllRoutes();
     return () => {};
   }, []);
 
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div className="flex gap-10 text-lg ml-[4%]">
+      <div className="flex gap-3 text-lg ml-[4%]">
         <h4
-          onClick={() =>
-            navigate("/allroutespage", { state: { userInfo, allRoutes } })
-          }
-          className="cursor-pointer hover:text-green-300"
+          onClick={() => navigate("/allroutespage", { state: { userInfo } })}
+          className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32"
         >
           All Routes
         </h4>
-        <h4>Stats</h4>
+        <h4
+          onClick={() => navigate("/stats", { state: { userInfo } })}
+          className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32"
+        >
+          Stats
+        </h4>
       </div>
-      <div className="flex h-[90vh] p-6 mx-auto max-w-[95%]">
+      <div className="flex h-[85vh] p-6 mx-auto max-w-[95%]">
         <div className="flex-[0.8] bg-gray-200 flex items-center justify-center rounded-lg border-r border-gray-300">
           <Map />
         </div>

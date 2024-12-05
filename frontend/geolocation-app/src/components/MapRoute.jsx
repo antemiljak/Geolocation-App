@@ -8,7 +8,6 @@ const MapRoute = ({ coordinates, title }) => {
   const startPosition = coordinates[0];
   const endPosition = coordinates[coordinates.length - 1];
 
-  // Custom Start and Finish icons
   const startIcon = L.icon({
     iconUrl: StartLogo,
     iconSize: [30, 30],
@@ -29,13 +28,11 @@ const MapRoute = ({ coordinates, title }) => {
         attribution="© OpenStreetMap contributors"
       />
       <Polyline positions={coordinates} color="black" />{" "}
-      {/* Draw polyline based on hardcoded coordinates */}
       <Marker position={startPosition} icon={startIcon}>
-        <Popup>{title + ":Start"}</Popup> {/* Label for the start marker */}
+        <Popup>{title + ":Start"}</Popup>
       </Marker>
-      {/* Finish Marker */}
       <Marker position={endPosition} icon={endIcon}>
-        <Popup>Finish</Popup> {/* Label for the finish marker */}
+        <Popup>Finish</Popup>
       </Marker>
     </div>
   );

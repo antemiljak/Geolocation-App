@@ -153,7 +153,8 @@ app.get("/get-user", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-map-route", authenticateToken, async (req, res) => {
-  const { title, coordinates, startTime, endTime } = req.body;
+  const { title, coordinates, distance, startTime, endTime, duration } =
+    req.body;
   const { user } = req.user;
 
   if (!title) {
@@ -164,6 +165,12 @@ app.post("/add-map-route", authenticateToken, async (req, res) => {
     return res
       .status(400)
       .json({ error: true, message: "No provided coordinates" });
+  }
+
+  if (!distance) {
+    return res
+      .status(400)
+      .json({ error: true, message: "Failed to calculate distance" });
   }
 
   if (!startTime) {
@@ -178,12 +185,20 @@ app.post("/add-map-route", authenticateToken, async (req, res) => {
       .json({ error: true, message: "No recorded end time" });
   }
 
+  if (!duration) {
+    return res
+      .status(400)
+      .json({ error: true, message: "Failed to calculate duration" });
+  }
+
   try {
     const mapRoute = new MapRoute({
       title,
       coordinates,
+      distance,
       startTime,
       endTime,
+      duration,
       userId: user._id,
     });
 

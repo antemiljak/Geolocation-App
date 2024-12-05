@@ -75,7 +75,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit" className="btn-primary">
+            <button
+              type="submit"
+              className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-full mb-2"
+            >
               Login
             </button>
             {error && <p className="text-red-500 text-xs pb-1">{error}</p>}

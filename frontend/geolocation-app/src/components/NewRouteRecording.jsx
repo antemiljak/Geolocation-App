@@ -3,11 +3,11 @@ import RouteTracker from "../components/RouteTracker";
 
 const NewRouteRecording = () => {
   const [routeData, setRouteData] = useState({
-    routeTitle: "N/A",
+    routeTitle: "",
     startTime: null,
     endTime: null,
-    duration: "N/A",
-    routeLength: "0.00",
+    duration: null,
+    distance: "0.00",
   });
 
   const handleRouteUpdate = (data) => {
@@ -16,11 +16,11 @@ const NewRouteRecording = () => {
 
   const onClear = () => {
     setRouteData({
-      routeTitle: "N/A",
+      routeTitle: null,
       startTime: null,
       endTime: null,
-      duration: "N/A",
-      routeLength: "0.00",
+      duration: null,
+      distance: "0.00",
     });
   };
 
@@ -39,7 +39,7 @@ const NewRouteRecording = () => {
       </div>
       <div className="h-2/3 bg-gray-700 rounded-lg">
         <h1 className="text-xl font-medium ml-4 mt-4">Route Info</h1>
-        <ul className="text-md text-slate-200 w-4/5 my-4 mx-auto">
+        <ul className="text-md text-slate-200 w-4/5 my-1 mx-auto">
           <li className="input-box">Route Title: {routeData.routeTitle}</li>
           <li className="input-box">
             Start:{" "}
@@ -55,9 +55,7 @@ const NewRouteRecording = () => {
               : null}
           </li>
           <li className="input-box">Route Duration: {routeData.duration}</li>
-          <li className="input-box">
-            Route Length: {routeData.routeLength} km
-          </li>
+          <li className="input-box">Distance: {routeData.distance} km</li>
           <div>
             <button
               className="btn-primary text-center bg-green-300 text-black rounded-full w-2/3  p-1 disabled:bg-green-100 disabled:text-slate-500"

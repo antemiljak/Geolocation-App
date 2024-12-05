@@ -43,8 +43,7 @@ export const haversineDistance = (point1, point2) => {
   return distance;
 };
 
-export const calculateDuration = (startTime, endTime) => {
-  const durationMs = endTime - startTime;
+export const calculateDuration = (durationMs) => {
   const seconds = Math.floor((durationMs / 1000) % 60);
   const minutes = Math.floor((durationMs / (1000 * 60)) % 60);
   const hours = Math.floor(durationMs / (1000 * 60 * 60));

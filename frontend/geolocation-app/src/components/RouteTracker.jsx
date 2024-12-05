@@ -2,24 +2,34 @@ import React, { useState, useEffect } from "react";
 import { calculateDuration, haversineDistance } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
 import RecIcon from "../assets/rec-icon.png";
+
 const RouteTracker = ({ onRouteUpdate }) => {
+  const [inputValue, setInputValue] = useState("");
   const [routeTitle, setRouteTitle] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
-  const [routeLength, setRouteLength] = useState(0);
   const [coords, setCoords] = useState([]);
   const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
   const [isRecording, setIsRecording] = useState(false);
 
-  const addNewRoute = async (title, coords, startTime, endTime) => {
+  const addNewRoute = async (
+    title,
+    coords,
+    distance,
+    startTime,
+    endTime,
+    duration
+  ) => {
     try {
       const routeData = {
         title: title,
         coordinates: coords,
+        distance: distance,
         startTime: startTime,
         endTime: endTime,
+        duration: duration,
       };
-      console.log("Sending route data:", routeData); // Log data being sent
+
       const response = await axiosInstance.post("/add-map-route", routeData);
 
       if (response.status === 200) {
@@ -33,6 +43,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
   };
 
   const startRoute = () => {
+    setRouteTitle(inputValue);
     setStartTime(Date.now());
     setIsRecording(true);
     setCoords([]); // Reset coordinates
@@ -54,25 +65,13 @@ const RouteTracker = ({ onRouteUpdate }) => {
   const stopRoute = async () => {
     setIsRecording(false);
     setEndTime(Date.now());
-    console.log(coords);
+    setInputValue("");
+
     // Stop the geolocation watch
     if (watchId) {
       navigator.geolocation.clearWatch(watchId);
     }
   };
-
-  const duration = calculateDuration(startTime, endTime);
-
-  // Trigger updates for parent component.
-  useEffect(() => {
-    onRouteUpdate({
-      routeTitle,
-      startTime,
-      endTime,
-      duration: duration,
-      routeLength: routeLength.toFixed(2),
-    });
-  }, [routeTitle, startTime, endTime, routeLength]);
 
   useEffect(() => {
     if (endTime && coords.length > 1) {
@@ -80,25 +79,42 @@ const RouteTracker = ({ onRouteUpdate }) => {
         if (index === 0) return acc;
         return acc + haversineDistance(coords[index - 1], curr);
       }, 0);
-      console.log(totalLength);
-      setRouteLength(totalLength / 1000); // Convert to kilometers
+      const totalDistance = totalLength / 1000; // Calculate distance in km
+
+      //const calcDuration = calculateDuration(startTime, endTime);
+      const calcDuration = endTime - startTime;
 
       const addRoute = async () => {
-        await addNewRoute(routeTitle, coords, startTime, endTime);
+        await addNewRoute(
+          routeTitle,
+          coords,
+          totalDistance,
+          startTime,
+          endTime,
+          calcDuration
+        );
         console.log("Route added to base");
       };
 
       addRoute(); // Call the function to save the route
+
+      onRouteUpdate({
+        routeTitle,
+        startTime,
+        endTime,
+        duration: calculateDuration(calcDuration),
+        distance: totalDistance.toFixed(2),
+      });
     }
-  }, [endTime]);
+  }, [routeTitle, startTime, endTime]);
 
   return (
     <div>
       <input
         type="text"
         placeholder="Route Title"
-        value={routeTitle}
-        onChange={(e) => setRouteTitle(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         disabled={isRecording}
         className="w-full text-sm bg-transparent border-[1.5px] border-green-300 px-3 py-2 rounded-3xl outline-none"
       />
@@ -108,7 +124,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
             startRoute();
           }}
           className="btn-primary mx-0 bg-green-300 m-2 hover:bg-green-400 disabled:bg-green-100 disabled:text-slate-500"
-          disabled={!routeTitle || endTime}
+          disabled={!inputValue || endTime}
         >
           Start
         </button>
@@ -125,7 +141,7 @@ const RouteTracker = ({ onRouteUpdate }) => {
         <img
           src={RecIcon}
           alt="RecIcon"
-          className="absolute top-0 right-1 w-16 animate-pulse"
+          className="absolute top-0 right-0 w-12 animate-pulse"
         ></img>
       )}
     </div>

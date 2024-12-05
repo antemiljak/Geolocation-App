@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { haversineDistance, calculateDuration } from "../utils/helper";
+import { calculateDuration } from "../utils/helper";
 import { MapContainer, TileLayer } from "react-leaflet";
 import MapRoute from "../components/MapRoute";
 import MapIcon from "../assets/map-icon.png";
 
-const RouteCard = ({ id, title, coords, startTime, endTime }) => {
+const RouteCard = ({
+  id,
+  title,
+  coords,
+  distance,
+  startTime,
+  endTime,
+  duration,
+}) => {
   const [showModal, setShowModal] = useState(false);
-  const totalLength =
-    coords.reduce((acc, curr, index) => {
-      if (index === 0) return acc;
-      return acc + haversineDistance(coords[index - 1], curr);
-    }, 0) / 1000;
-
   const formatedDate = new Date(startTime).toLocaleString();
-
-  const avgSpeed = ((totalLength * 1000000) / (endTime - startTime)) * 3.6;
+  const avgSpeed = ((distance * 1000000) / (endTime - startTime)) * 3.6;
 
   return (
     <div className="rounded p-4 bg-gray-700 relative">
@@ -24,8 +25,8 @@ const RouteCard = ({ id, title, coords, startTime, endTime }) => {
       </div>
       <ul className="text-sm text-slate-300">
         <li>Date: {formatedDate}</li>
-        <li>Duration: {calculateDuration(startTime, endTime)}</li>
-        <li>Length: {totalLength.toFixed(3)} km</li>
+        <li>Duration: {calculateDuration(duration)}</li>
+        <li>Distance: {distance.toFixed(2)} km</li>
         <li>Average Speed: {avgSpeed.toFixed(1)} km/h</li>
       </ul>
       <button
@@ -59,8 +60,8 @@ const RouteCard = ({ id, title, coords, startTime, endTime }) => {
                 <h4 className="text-3xl font-bold mb-4">Route: {title}</h4>
                 <ul className="text-md my-2">
                   <li>Date: {formatedDate}</li>
-                  <li>Duration: {calculateDuration(startTime, endTime)}</li>
-                  <li>Length: {totalLength.toFixed(3)} km</li>
+                  <li>Duration: {calculateDuration(duration)}</li>
+                  <li>Distance: {distance.toFixed(2)} km</li>
                   <li>Average Speed: {avgSpeed.toFixed(1)} km/h</li>
                 </ul>
               </div>

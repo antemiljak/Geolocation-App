@@ -46,7 +46,6 @@ const Map = () => {
     }
   }, []);
 
-  console.log(position);
   return (
     <MapContainer
       center={[43.513295, 16.454859]}
