@@ -32,24 +32,24 @@ const Home = () => {
     <div>
       <Navbar userInfo={userInfo} />
       <div className="flex gap-3 text-lg ml-[4%]">
-        <h4
+        <button
           onClick={() => navigate("/allroutespage", { state: { userInfo } })}
-          className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32"
+          className="btn-secondary w-32"
         >
           All Routes
-        </h4>
-        <h4
+        </button>
+        <button
           onClick={() => navigate("/stats", { state: { userInfo } })}
-          className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32"
+          className="btn-secondary w-32"
         >
           Stats
-        </h4>
+        </button>
       </div>
       <div className="flex h-[85vh] p-6 mx-auto max-w-[95%]">
-        <div className="flex-[0.8] bg-gray-200 flex items-center justify-center rounded-lg border-r border-gray-300">
+        <div className="flex-[0.8] rounded-lg">
           <Map />
         </div>
-        <div className="flex-[0.4] flex flex-col gap-y-3 justify-center items-center rounded-lg">
+        <div className="flex-[0.4] flex flex-col gap-y-4 justify-center items-center rounded-lg">
           <NewRouteRecording />
         </div>
       </div>

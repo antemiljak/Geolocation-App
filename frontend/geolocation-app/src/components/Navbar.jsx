@@ -22,19 +22,25 @@ const Navbar = ({ userInfo }) => {
   }
 
   return (
-    <div className="flex items-center justify-between px-6 py-2 ">
-      <h2 className="text-xl font-medium text-green-300">Geolocation App</h2>
+    <div className="flex items-center justify-between p-4 ">
+      <h2 className="text-3xl font-medium text-green-300">Geolocation App</h2>
 
       {showProfileSection ? (
         <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
       ) : (
-        <div className="space-x-3">
-          <Link to={"/login"} className="btn-secondary w-24 px-8">
+        <div className="flex space-x-2">
+          <button
+            onClick={() => navigate("/login")}
+            className="btn-secondary w-32"
+          >
             Login
-          </Link>
-          <Link to={"/signup"} className="btn-primary w-48 px-12">
+          </button>
+          <button
+            onClick={() => navigate("/allroutespage")}
+            className="btn-primary w-64"
+          >
             Get Started for Free
-          </Link>
+          </button>
         </div>
       )}
     </div>

@@ -87,13 +87,12 @@ const Signup = () => {
     <div>
       <div>
         <Navbar />
-
         <div className="flex items-center justify-center mt-28 ">
-          <div className="w-7/12  px-7 py-9 flex rounded drop-shadow-lg">
+          <div className="w-5/12 p-5 flex rounded drop-shadow-lg">
             <form onSubmit={handleSignUp}>
               <h4 className="text-3xl font-bold mb-4">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
-              <div className="flex gap-6">
+              <div className="flex gap-4">
                 <div className="w-1/2">
                   <p className="mb-2">Name</p>
                   <input
@@ -103,7 +102,7 @@ const Signup = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     <div>
                       <p className="mb-2">Age</p>
                       <input
@@ -152,7 +151,7 @@ const Signup = () => {
                   />
                 </div>
               </div>
-              <div className="flex">
+              <div className="mt-2 flex gap-2">
                 <button type="submit" className="btn-primary w-1/2">
                   Sign Up
                 </button>

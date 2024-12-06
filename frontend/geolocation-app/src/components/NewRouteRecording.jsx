@@ -1,72 +1,185 @@
-import React, { useState } from "react";
-import RouteTracker from "../components/RouteTracker";
+import React, { useState, useEffect } from "react";
+import { calculateDuration, haversineDistance } from "../utils/helper";
+import axiosInstance from "../utils/axiosInstance";
+import RecIcon from "../assets/rec-icon.png";
+import useGeolocation from "../utils/useGeolocation";
 
 const NewRouteRecording = () => {
-  const [routeData, setRouteData] = useState({
-    routeTitle: "",
-    startTime: null,
-    endTime: null,
-    duration: null,
-    distance: "0.00",
-  });
+  const [inputValue, setInputValue] = useState("");
+  const [routeTitle, setRouteTitle] = useState("");
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [coords, setCoords] = useState([]);
+  const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
+  const [isRecording, setIsRecording] = useState(false);
+  const [distance, setDistance] = useState(0); // Store distance in state
+  const [duration, setDuration] = useState(0);
 
-  const handleRouteUpdate = (data) => {
-    setRouteData(data);
+  const position = useGeolocation();
+
+  const addNewRoute = async (
+    title,
+    coords,
+    distance,
+    startTime,
+    endTime,
+    duration
+  ) => {
+    try {
+      const routeData = {
+        title: title,
+        coordinates: coords,
+        distance: distance,
+        startTime: startTime,
+        endTime: endTime,
+        duration: duration,
+      };
+
+      const response = await axiosInstance.post("/add-map-route", routeData);
+
+      if (response.status === 200) {
+        console.log("Route successfully saved:", response.data);
+      } else {
+        console.log("Failed to save route:", response.data);
+      }
+    } catch (error) {
+      console.error("Error saving route:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Save coordinates only if we are recording
+    if (isRecording && position) {
+      setCoords((prevCoords) => [...prevCoords, [position.lat, position.lng]]);
+    }
+  }, [position, isRecording]); // When position changes, and recording is true, save the position
+
+  const startRoute = () => {
+    setRouteTitle(inputValue);
+    setStartTime(Date.now());
+    setIsRecording(true);
+    setCoords([]); // Reset coordinates
+  };
+
+  const stopRoute = async () => {
+    setIsRecording(false);
+    setEndTime(Date.now());
+
+    // Stop the geolocation watch
+    if (watchId) {
+      navigator.geolocation.clearWatch(watchId);
+    }
   };
 
   const onClear = () => {
-    setRouteData({
-      routeTitle: null,
-      startTime: null,
-      endTime: null,
-      duration: null,
-      distance: "0.00",
-    });
+    setInputValue("");
+    setRouteTitle("");
+    setCoords([]);
+    setStartTime(null);
+    setEndTime(null);
   };
+
+  useEffect(() => {
+    if (endTime && coords.length > 1) {
+      const totalLength = coords.reduce((acc, curr, index) => {
+        if (index === 0) return acc;
+        return acc + haversineDistance(coords[index - 1], curr);
+      }, 0);
+      const totalDistance = totalLength / 1000; // Calculate distance in km
+      const totalDuration = endTime - startTime;
+
+      setDistance(totalDistance);
+      setDuration(totalDuration);
+
+      const addRoute = async () => {
+        await addNewRoute(
+          routeTitle,
+          coords,
+          totalDistance,
+          startTime,
+          endTime,
+          totalDuration
+        );
+
+        console.log("Route added to base");
+      };
+
+      addRoute(); // Call the function to save the route
+    }
+  }, [routeTitle, startTime, endTime]);
 
   return (
     <div className="w-4/5 h-full rounded-lg flex flex-col">
-      <div className="h-1/3 relative bg-gray-700 rounded-lg mb-2">
-        <h1 className="text-3xl font-medium  ml-4 text-left">Record Route</h1>
-        <p className="text-sm text-slate-200 text-left mx-4 my-2">
-          {!routeData.endTime
-            ? "To track movement on map add Title and press Start."
+      <div className="h-1/3 relative bg-gray-700 rounded-lg mb-4">
+        <h1 className="text-3xl font-medium ml-4 my-2">Record Route</h1>
+        <p className="text-sm text-slate-200 text-left mx-4 mb-4">
+          {!endTime
+            ? "To track movement on map press Start."
             : "Route recording complete! Clear to record again."}
         </p>
-        <div className="w-full flex justify-center">
-          <RouteTracker onRouteUpdate={handleRouteUpdate} />
+        <div className=" mx-auto flex flex-col items-center">
+          <input
+            type="text"
+            placeholder="Route Title"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            disabled={isRecording}
+            className="input-box w-4/5 mx-auto"
+          />
+          {!isRecording ? (
+            <button
+              onClick={() => {
+                startRoute();
+              }}
+              className="btn-primary transition-colors duration-500 ease-in-out disabled:text-slate-400 disabled:scale-100 w-4/5 mx-auto"
+              disabled={!inputValue || endTime}
+            >
+              Start
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                stopRoute();
+              }}
+              className="text-gray-900 bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:bg-gradient-to-l hover:from-red-500 hover:via-red-600 hover:to-red-500 transition duration-150 ease-out hover:scale-105 hover:ease-in focus:ring-2 focus:outline-none focus:ring-red-500  font-medium rounded-lg text-sm px-5 py-2 text-center mx-auto w-4/5"
+            >
+              Stop
+            </button>
+          )}
+
+          {isRecording && (
+            <img
+              src={RecIcon}
+              alt="RecIcon"
+              className="absolute top-0 right-0 w-12 animate-pulse"
+            ></img>
+          )}
         </div>
       </div>
       <div className="h-2/3 bg-gray-700 rounded-lg">
-        <h1 className="text-xl font-medium ml-4 mt-4">Route Info</h1>
-        <ul className="text-md text-slate-200 w-4/5 my-1 mx-auto">
-          <li className="input-box">Route Title: {routeData.routeTitle}</li>
-          <li className="input-box">
-            Start:{" "}
-            {routeData.startTime
-              ? new Date(routeData.startTime).toLocaleString()
-              : null}
+        <ul className="text-slate-200 w-4/5 mt-4 mx-auto">
+          <li className="input-box bg-gray-600">Route Title: {routeTitle}</li>
+          <li className="input-box bg-gray-600">
+            Start: {startTime ? new Date(startTime).toLocaleString() : null}
           </li>
 
-          <li className="input-box">
-            Stop:{" "}
-            {routeData.endTime
-              ? new Date(routeData.endTime).toLocaleString()
-              : null}
+          <li className="input-box bg-gray-600">
+            Stop: {endTime ? new Date(endTime).toLocaleString() : null}
           </li>
-          <li className="input-box">Route Duration: {routeData.duration}</li>
-          <li className="input-box">Distance: {routeData.distance} km</li>
-          <div>
+          <li className="input-box bg-gray-600">
+            Route Duration: {duration ? calculateDuration(duration) : ""}
+          </li>
+          <li className="input-box bg-gray-600">
+            Distance (km): {distance ? distance.toFixed(2) : ""}
+          </li>
+          <div className="mt-6">
             <button
-              className="btn-primary text-center bg-green-300 text-black rounded-full w-2/3  p-1 disabled:bg-green-100 disabled:text-slate-500"
-              disabled={!routeData.endTime}
+              className="btn-primary transition-colors duration-500 ease-in-out disabled:text-slate-400 disabled:scale-100 mb-4"
+              disabled={!endTime}
             >
               More info...
             </button>
-            <button
-              onClick={onClear}
-              className="text-center rounded-full w-1/3  p-1"
-            >
+            <button onClick={onClear} className="btn-secondary bg-black">
               Clear
             </button>
           </div>

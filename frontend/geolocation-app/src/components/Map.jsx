@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import useGeolocation from "../utils/useGeolocation";
 
 const Map = () => {
-  const [position, setPosition] = useState(null);
+  const position = useGeolocation();
 
   const MapUpdater = ({ position }) => {
     const map = useMap();
@@ -16,35 +17,6 @@ const Map = () => {
 
     return null;
   };
-
-  useEffect(() => {
-    // Check if geolocation is available
-    if (navigator.geolocation) {
-      const tracker = navigator.geolocation.watchPosition(
-        (position) => {
-          setPosition({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-        },
-        {
-          enableHighAccuracy: true, // Ensure we get the most accurate position
-          maximumAge: 0, // Don't use cached position
-          timeout: 5000, // Timeout after 5 seconds
-        }
-      );
-      return () => {
-        if (tracker) {
-          navigator.geolocation.clearWatch(tracker);
-        }
-      };
-    } else {
-      alert("Geolocation is not supported by your browser.");
-    }
-  }, []);
 
   return (
     <MapContainer

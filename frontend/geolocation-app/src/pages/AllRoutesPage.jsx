@@ -34,15 +34,15 @@ const AllRoutesPage = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <p
+      <button
         onClick={() => navigate("/home")}
-        className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-32 ml-[4%]"
+        className="btn-secondary w-32 ml-[4%]"
       >
         Home
-      </p>
-      <div className="flex items-center justify-center gap-x-3">
+      </button>
+      <div className="flex items-center justify-center max-w-[95%] p-6 mx-auto">
         {allRoutes?.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4 m-9 w-[85%] h-1/3">
+          <div className="grid grid-cols-3 gap-6  h-1/3 w-full">
             {allRoutes?.map((item, index) => (
               <RouteCard
                 key={item._id}
@@ -57,23 +57,23 @@ const AllRoutesPage = () => {
             ))}
           </div>
         ) : (
-          <h1>No routes</h1>
+          <h1 className="text-xl font-medium">No routes</h1>
         )}
       </div>
       <button
         onClick={() => setShowModal(true)}
-        className="btn-primary absolute bottom-5 right-9 flex w-72 text-lg items-center justify-center"
+        className="btn-primary absolute bottom-9 right-9 flex w-72 text-md items-center justify-center"
       >
         Show all recorded routes
       </button>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-transparent w-5/6 h-5/6 rounded-lg relative">
-            <div className="w-full h-full rounded-lg">
+            <div className="w-full h-[95%] rounded-lg">
               <MapContainer
                 center={[43, 16]}
                 zoom={10}
-                className="h-full w-full rounded"
+                className="h-full w-full rounded-lg"
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -91,7 +91,7 @@ const AllRoutesPage = () => {
             </div>
             <button
               onClick={() => setShowModal(false)}
-              className="btn-primary w-72 mt-2 absolute left-1/2 transform -translate-x-1/2"
+              className="btn-primary w-32 mt-4 absolute left-1/2 transform -translate-x-1/2"
             >
               Close
             </button>
