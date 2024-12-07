@@ -50,3 +50,41 @@ export const calculateDuration = (durationMs) => {
 
   return `${hours}h ${minutes}m ${seconds}s`;
 };
+
+export const options = {
+  scales: {
+    x: {
+      ticks: {
+        color: "white",
+        font: {
+          family: "Roboto Slab",
+          size: 16, // Change the font size of X-axis labels
+        }, // X-axis label color
+      },
+    },
+    y: {
+      ticks: {
+        color: "white",
+        font: {
+          family: "Roboto Slab",
+          size: 16, // Change the font size of X-axis labels
+        },
+      },
+    },
+  },
+  plugins: {
+    tooltip: {
+      titleColor: "white", // Tooltip title color
+      bodyColor: "white", // Tooltip body color
+    },
+    legend: {
+      labels: {
+        color: "white",
+        font: {
+          family: "Roboto Slab",
+          size: 20, // Change the font size of X-axis labels
+        }, // Legend text color
+      },
+    },
+  },
+};

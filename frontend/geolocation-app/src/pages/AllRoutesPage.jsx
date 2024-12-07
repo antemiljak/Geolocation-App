@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import MapRoute from "../components/MapRoute";
 import { MapContainer, TileLayer } from "react-leaflet";
 import axiosInstance from "../utils/axiosInstance";
+import AllRoutesPagination from "../components/AllRoutesPagination";
 
 const AllRoutesPage = () => {
   const [allRoutes, setAllRoutes] = useState(null);
@@ -40,26 +41,7 @@ const AllRoutesPage = () => {
       >
         Home
       </button>
-      <div className="flex items-center justify-center max-w-[95%] p-6 mx-auto">
-        {allRoutes?.length > 0 ? (
-          <div className="grid grid-cols-3 gap-6  h-1/3 w-full">
-            {allRoutes?.map((item, index) => (
-              <RouteCard
-                key={item._id}
-                id={item._id}
-                title={item.title}
-                coords={item.coordinates}
-                distance={item.distance}
-                startTime={item.startTime}
-                endTime={item.endTime}
-                duration={item.duration}
-              />
-            ))}
-          </div>
-        ) : (
-          <h1 className="text-xl font-medium">No routes</h1>
-        )}
-      </div>
+      <AllRoutesPagination allRoutes={allRoutes} />
       <button
         onClick={() => setShowModal(true)}
         className="btn-primary absolute bottom-9 right-9 flex w-72 text-md items-center justify-center"

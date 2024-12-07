@@ -18,27 +18,29 @@ const RouteCard = ({
   const avgSpeed = ((distance * 1000000) / (endTime - startTime)) * 3.6;
 
   return (
-    <div className="rounded-lg p-4 bg-gray-700 relative transition-shadow duration-300 shadow-none hover:shadow-md hover:shadow-neutral-500">
-      <div className="flex items-center justify-between mb-2">
+    <div className="rounded-lg p-4 bg-gray-900 relative transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)]">
+      <div className="flex items-center justify-between ">
         <h4 className="text-2xl font-medium">{title}</h4>
         <h6 className="text-xs text-slate-500">#{id}</h6>
       </div>
-      <ul className="text-sm ">
-        <div className="flex items-center gap-2">
-          <li className="text-slate-300">Date:</li>
-          <li className="text-lg">{formatedDate}</li>
-        </div>
+      <div className="flex items-center justify-end gap-2">
+        <p className="text-slate-500 text-sm">Date:</p>
+        <p>{formatedDate}</p>
+      </div>
+      <ul className=" mt-2">
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Duration:</li>
-          <li className="text-lg">{calculateDuration(duration)}</li>
+          <li className="text-xl text-rose-500">
+            {calculateDuration(duration)}
+          </li>
         </div>
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Distance: </li>
-          <li className="text-lg">{distance.toFixed(2)} km</li>
+          <li className="text-xl text-rose-500">{distance.toFixed(2)} km</li>
         </div>
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Avg Speed:</li>
-          <li className="text-lg">{avgSpeed.toFixed(1)} km/h</li>
+          <li className="text-xl text-rose-500">{avgSpeed.toFixed(1)} km/h</li>
         </div>
       </ul>
       <button

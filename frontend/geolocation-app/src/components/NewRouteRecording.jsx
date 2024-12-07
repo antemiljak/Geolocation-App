@@ -12,7 +12,7 @@ const NewRouteRecording = () => {
   const [coords, setCoords] = useState([]);
   const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
   const [isRecording, setIsRecording] = useState(false);
-  const [distance, setDistance] = useState(0); // Store distance in state
+  const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const position = useGeolocation();
@@ -111,7 +111,9 @@ const NewRouteRecording = () => {
   return (
     <div className="w-4/5 h-full rounded-lg flex flex-col">
       <div className="h-1/3 relative bg-gray-700 rounded-lg mb-4">
-        <h1 className="text-3xl font-medium ml-4 my-2">Record Route</h1>
+        <h1 className="text-3xl font-medium ml-4 my-2 italic text-rose-500">
+          Record Route
+        </h1>
         <p className="text-sm text-slate-200 text-left mx-4 mb-4">
           {!endTime
             ? "To track movement on map press Start."
@@ -124,14 +126,14 @@ const NewRouteRecording = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isRecording}
-            className="input-box w-4/5 mx-auto"
+            className="input-box w-4/5 mx-auto bg-gray-600"
           />
           {!isRecording ? (
             <button
               onClick={() => {
                 startRoute();
               }}
-              className="btn-primary transition-colors duration-500 ease-in-out disabled:text-slate-400 disabled:scale-100 w-4/5 mx-auto"
+              className="btn-primary transition-all ease-in-out disabled:text-slate-400 disabled:scale-100 w-4/5 mx-auto"
               disabled={!inputValue || endTime}
             >
               Start
@@ -141,7 +143,7 @@ const NewRouteRecording = () => {
               onClick={() => {
                 stopRoute();
               }}
-              className="text-gray-900 bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:bg-gradient-to-l hover:from-red-500 hover:via-red-600 hover:to-red-500 transition duration-150 ease-out hover:scale-105 hover:ease-in focus:ring-2 focus:outline-none focus:ring-red-500  font-medium rounded-lg text-sm px-5 py-2 text-center mx-auto w-4/5"
+              className="text-gray-900 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 hover:bg-gradient-to-l hover:from-rose-500 hover:via-rose-600 hover:to-rose-500 transition duration-150 ease-out hover:scale-105 hover:ease-in focus:ring-2 focus:outline-none focus:ring-rose-500  font-medium rounded-lg text-sm px-5 py-2 text-center mx-auto w-4/5"
             >
               Stop
             </button>
@@ -167,19 +169,23 @@ const NewRouteRecording = () => {
             Stop: {endTime ? new Date(endTime).toLocaleString() : null}
           </li>
           <li className="input-box bg-gray-600">
-            Route Duration: {duration ? calculateDuration(duration) : ""}
+            Route Duration: {endTime ? calculateDuration(duration) : ""}
           </li>
           <li className="input-box bg-gray-600">
-            Distance (km): {distance ? distance.toFixed(2) : ""}
+            Distance: {endTime ? distance.toFixed(2) + " km" : ""}
           </li>
           <div className="mt-6">
             <button
-              className="btn-primary transition-colors duration-500 ease-in-out disabled:text-slate-400 disabled:scale-100 mb-4"
+              className="btn-primary transition-all ease-in-out disabled:text-slate-400 disabled:scale-100 mb-4"
               disabled={!endTime}
             >
               More info...
             </button>
-            <button onClick={onClear} className="btn-secondary bg-black">
+            <button
+              onClick={onClear}
+              disabled={!endTime}
+              className="btn-secondary transition-all bg-black disabled:scale-100 disabled:text-slate-400"
+            >
               Clear
             </button>
           </div>

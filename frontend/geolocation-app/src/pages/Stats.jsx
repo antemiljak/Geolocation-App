@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Charts from "../components/Charts";
+import Charts from "../components/Charts/Charts";
 import {
   getInitials,
   haversineDistance,
@@ -54,17 +54,51 @@ const Stats = () => {
     return () => {};
   }, []);
 
-  return (
-    <div className="bg-black">
-      <Navbar userInfo={userInfo} />
-      <button
-        onClick={() => navigate("/home")}
-        className="btn-secondary w-32 ml-[4%]"
-      >
-        Home
-      </button>
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-      <div className="bg-gray-700 rounded-lg my-6 p-6 max-w-[75%] mx-auto">
+  return (
+    <div>
+      <Navbar userInfo={userInfo} />
+      <div className="flex gap-3">
+        <button
+          onClick={() => navigate("/home")}
+          className="btn-secondary w-32 ml-[4%]"
+        >
+          Home
+        </button>
+        <button
+          onClick={() => scrollToSection("profile-section")}
+          className="btn-secondary w-32 mr-[4%]"
+        >
+          Profile Info
+        </button>
+      </div>
+      <div className="flex items-center justify-center gap-12">
+        <div className="flex-[0.4] ml-[4%]">
+          <h2 className="text-5xl text-green-300 font-bold mb-4 italic">
+            CHARTS
+          </h2>
+          <p>
+            Welcome to{" "}
+            <span className="font-bold text-rose-500">Geolocation App</span>{" "}
+            chart section, take a look at your stats, workouts, routes, profile
+            info and more. Data is visulaized using js library Charts.js. To
+            take a look at drawn routes on map go to All routes section.
+          </p>
+        </div>
+        <div className="flex-[0.8] p-4 mr-[4%] mb-8">
+          <Charts allRoutes={allRoutes} />
+        </div>
+      </div>
+      <div
+        id="profile-section"
+        className="bg-gray-700 rounded-lg my-6 p-6 max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
+      >
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Profile Info</h2>
 
@@ -74,7 +108,7 @@ const Stats = () => {
             <option>This Week</option>
           </select>
         </div>
-        <div className=" mt-6">
+        <div className=" mt-6 ">
           {/* Profile Info */}
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center text-2xl font-bold text-green-300">
@@ -110,14 +144,16 @@ const Stats = () => {
               <i class="fas fa-flag-checkered fa-2xl"></i>
               <div>
                 <p className="text-sm">Number of Routes</p>
-                <h4 className="text-2xl font-semibold">{allRoutes?.length}</h4>
+                <h4 className="text-2xl text-rose-500 font-semibold">
+                  {allRoutes?.length}
+                </h4>
               </div>
             </div>
             <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-stopwatch fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Duration</p>
-                <h4 className="text-2xl font-semibold">
+                <h4 className="text-2xl text-rose-500 font-semibold">
                   {calculateDuration(calcDuration / allRoutes?.length)}
                 </h4>
               </div>
@@ -126,7 +162,7 @@ const Stats = () => {
               <i class="fas fa-line-chart fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Length</p>
-                <h4 className="text-2xl font-semibold">
+                <h4 className="text-2xl text-rose-500 font-semibold">
                   {(calcDistance / allRoutes?.length).toFixed(2)} km
                 </h4>
               </div>
@@ -135,21 +171,25 @@ const Stats = () => {
               <i class="fas fa-gauge-high fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Speed</p>
-                <h4 className="text-2xl font-semibold">{avgSpeed} km/h</h4>
+                <h4 className="text-2xl text-rose-500 font-semibold">
+                  {avgSpeed} km/h
+                </h4>
               </div>
             </div>
             <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-road fa-2xl"></i>
               <div>
                 <p className="text-sm">Total Distance Covered</p>
-                <h4 className="text-2xl font-semibold">{calcDistance} km</h4>
+                <h4 className="text-2xl text-rose-500 font-semibold">
+                  {calcDistance} km
+                </h4>
               </div>
             </div>
             <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-clock fa-2xl"></i>
               <div>
                 <p className="text-sm">Total Time Recorded</p>
-                <h4 className="text-2xl font-semibold">
+                <h4 className="text-2xl text-rose-500 font-semibold">
                   {calculateDuration(calcDuration)}
                 </h4>
               </div>
@@ -158,7 +198,7 @@ const Stats = () => {
               <i class="fas fa-medal fa-2xl"></i>
               <div>
                 <p className="text-sm">{`Longest Route (distance)`}</p>
-                <h4 className="text-2xl font-semibold">
+                <h4 className="text-2xl text-rose-500 font-semibold">
                   {longestDistanceRoute?.title || "N/A"}
                 </h4>
               </div>
@@ -167,17 +207,13 @@ const Stats = () => {
               <i class="fas fa-person-running fa-2xl"></i>
               <div>
                 <p className="text-sm">{`Longest Route (time)`}</p>
-                <h4 className="text-2xl font-semibold">
+                <h4 className="text-2xl text-rose-500 font-semibold">
                   {longestDurationRoute?.title || "N/A"}
                 </h4>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <h2 className="text-2xl font-bold my-6 text-center">Charts</h2>
-      <div className="rounded-lg p-6 w-[75%] mx-auto mb-16">
-        <Charts allRoutes={allRoutes} />
       </div>
     </div>
   );
