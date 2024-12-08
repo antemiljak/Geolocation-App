@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import RouteCard from "../components/RouteCard";
 import Navbar from "../components/Navbar";
 import MapRoute from "../components/MapRoute";
 import { MapContainer, TileLayer } from "react-leaflet";
@@ -10,6 +9,7 @@ import AllRoutesPagination from "../components/AllRoutesPagination";
 
 const AllRoutesPage = () => {
   const [allRoutes, setAllRoutes] = useState(null);
+  const [allRoutesSaved, setAllRoutesSaved] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -21,9 +21,72 @@ const AllRoutesPage = () => {
 
       if (response.data && response.data.mapRoute) {
         setAllRoutes(response.data.mapRoute);
+        setAllRoutesSaved(response.data.mapRoute);
       }
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
+    }
+  };
+
+  const handleFilter = (time) => {
+    console.log("Handle called");
+    let filterRoutes;
+    const now = new Date();
+    if (time === "last-year") {
+      filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear() - 1,
+            now.getMonth(),
+            now.getDate(),
+            0,
+            0,
+            0
+          )
+      );
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "last-month") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            now.getDate(),
+            0,
+            0,
+            0
+          )
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "last-week") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - 7,
+            0,
+            0,
+            0
+          )
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "today") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
     }
   };
 
@@ -35,12 +98,23 @@ const AllRoutesPage = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <button
-        onClick={() => navigate("/home")}
-        className="btn-secondary w-32 ml-[4%]"
-      >
-        Home
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={() => navigate("/home")}
+          className="btn-secondary w-32 ml-[4%]"
+        >
+          Home
+        </button>
+        <select
+          className="btn-primary w-32"
+          onChange={(e) => handleFilter(e.target.value)} // Handle filtering on change
+        >
+          <option value="last-year">Last Year</option>
+          <option value="last-month">Last Month</option>
+          <option value="last-week">Last Week</option>
+          <option value="today">Today</option>
+        </select>
+      </div>
       <AllRoutesPagination allRoutes={allRoutes} />
       <button
         onClick={() => setShowModal(true)}
@@ -53,7 +127,7 @@ const AllRoutesPage = () => {
           <div className="bg-transparent w-5/6 h-5/6 rounded-lg relative">
             <div className="w-full h-[95%] rounded-lg">
               <MapContainer
-                center={[43, 16]}
+                center={[43.515904, 16.4593664]}
                 zoom={10}
                 className="h-full w-full rounded-lg"
               >

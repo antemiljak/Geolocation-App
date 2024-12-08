@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProfileInfo from "../components/ProfileInfo";
 
 const Navbar = ({ userInfo }) => {
@@ -38,7 +38,7 @@ const Navbar = ({ userInfo }) => {
             Login
           </button>
           <button
-            onClick={() => navigate("/allroutespage")}
+            onClick={() => navigate("/signup")}
             className="btn-primary w-64"
           >
             Get Started for Free

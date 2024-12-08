@@ -88,7 +88,7 @@ const Signup = () => {
       <div>
         <Navbar />
         <div className="flex items-center justify-center mt-28 ">
-          <div className="w-5/12 p-5 flex rounded drop-shadow-lg">
+          <div className="w-5/12 p-5 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
               <h4 className="text-3xl font-bold mb-4">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
@@ -151,11 +151,11 @@ const Signup = () => {
                   />
                 </div>
               </div>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 flex gap-2 items-center justify-center">
                 <button type="submit" className="btn-primary w-1/2">
                   Sign Up
                 </button>
-                <p className="text-sm text-center mt-4 w-1/2">
+                <p className="text-sm text-center w-1/2">
                   Already have account?{" "}
                   <Link to="/login" className="underline font-medium">
                     Login

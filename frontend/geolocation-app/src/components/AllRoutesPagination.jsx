@@ -4,8 +4,6 @@ import RouteCard from "./RouteCard";
 const AllRoutesPagination = ({ allRoutes }) => {
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [animatingOut, setAnimatingOut] = useState(false);
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;

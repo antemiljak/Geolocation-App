@@ -82,7 +82,8 @@ export const options = {
         color: "white",
         font: {
           family: "Roboto Slab",
-          size: 20, // Change the font size of X-axis labels
+          size: 20,
+          // Change the font size of X-axis labels
         }, // Legend text color
       },
     },

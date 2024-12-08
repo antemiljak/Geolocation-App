@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Charts from "../components/Charts/Charts";
-import {
-  getInitials,
-  haversineDistance,
-  calculateDuration,
-} from "../utils/helper";
+import Charts from "../components/Charts";
+import { getInitials, calculateDuration } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
 
 const Stats = () => {
   const [allRoutes, setAllRoutes] = useState(null);
+  const [allRoutesSaved, setAllRoutesSaved] = useState(null);
   const navigate = useNavigate();
   const { state } = useLocation();
   const { userInfo } = state;
@@ -21,9 +18,72 @@ const Stats = () => {
 
       if (response.data && response.data.mapRoute) {
         setAllRoutes(response.data.mapRoute);
+        setAllRoutesSaved(response.data.mapRoute);
       }
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
+    }
+  };
+
+  const handleFilter = (time) => {
+    console.log("Handle called");
+    let filterRoutes;
+    const now = new Date();
+    if (time === "last-year") {
+      filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear() - 1,
+            now.getMonth(),
+            now.getDate(),
+            0,
+            0,
+            0
+          )
+      );
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "last-month") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            now.getDate(),
+            0,
+            0,
+            0
+          )
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "last-week") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - 7,
+            0,
+            0,
+            0
+          )
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
+    }
+    if (time === "today") {
+      const filterRoutes = allRoutesSaved.filter(
+        (route) =>
+          new Date(route.startTime) >=
+          new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
+      );
+      console.log(filterRoutes);
+      setAllRoutes(filterRoutes);
     }
   };
 
@@ -73,10 +133,19 @@ const Stats = () => {
         </button>
         <button
           onClick={() => scrollToSection("profile-section")}
-          className="btn-secondary w-32 mr-[4%]"
+          className="btn-secondary w-32"
         >
           Profile Info
         </button>
+        <select
+          className="btn-primary w-32"
+          onChange={(e) => handleFilter(e.target.value)} // Handle filtering on change
+        >
+          <option value="last-year">Last Year</option>
+          <option value="last-month">Last Month</option>
+          <option value="last-week">Last Week</option>
+          <option value="today">Today</option>
+        </select>
       </div>
       <div className="flex items-center justify-center gap-12">
         <div className="flex-[0.4] ml-[4%]">
@@ -99,15 +168,10 @@ const Stats = () => {
         id="profile-section"
         className="bg-gray-700 rounded-lg my-6 p-6 max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
       >
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold">Profile Info</h2>
+        <h2 className="text-3xl font-semibold italic text-rose-500">
+          Profile Info
+        </h2>
 
-          <select className="btn-primary w-32 ">
-            <option>This Year</option>
-            <option>This Month</option>
-            <option>This Week</option>
-          </select>
-        </div>
         <div className=" mt-6 ">
           {/* Profile Info */}
           <div className="flex items-center gap-4 mb-6">

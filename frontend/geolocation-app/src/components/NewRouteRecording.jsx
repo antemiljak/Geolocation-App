@@ -160,19 +160,36 @@ const NewRouteRecording = () => {
       </div>
       <div className="h-2/3 bg-gray-700 rounded-lg">
         <ul className="text-slate-200 w-4/5 mt-4 mx-auto">
-          <li className="input-box bg-gray-600">Route Title: {routeTitle}</li>
-          <li className="input-box bg-gray-600">
+          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
+            Route Title: {routeTitle}
+            <span>
+              <i class="fas fa-tag text-lg text-rose-500"></i>
+            </span>
+          </li>
+          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
             Start: {startTime ? new Date(startTime).toLocaleString() : null}
+            <span>
+              <i class="fas fa-person-running text-lg text-rose-500"></i>
+            </span>
           </li>
 
-          <li className="input-box bg-gray-600">
+          <li className="input-box bg-gray-600 flex justify-between items-center">
             Stop: {endTime ? new Date(endTime).toLocaleString() : null}
+            <span>
+              <i class="fas fa-flag-checkered text-lg text-rose-500"></i>
+            </span>
           </li>
-          <li className="input-box bg-gray-600">
+          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
             Route Duration: {endTime ? calculateDuration(duration) : ""}
+            <span>
+              <i class="fas fa-clock text-lg text-rose-500"></i>
+            </span>
           </li>
-          <li className="input-box bg-gray-600">
+          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
             Distance: {endTime ? distance.toFixed(2) + " km" : ""}
+            <span>
+              <i class="fas fa-road text-lg text-rose-500"></i>
+            </span>
           </li>
           <div className="mt-6">
             <button
