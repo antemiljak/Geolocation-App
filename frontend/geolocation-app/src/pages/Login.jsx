@@ -78,7 +78,9 @@ const Login = () => {
             <button type="submit" className="btn-primary my-2">
               Login
             </button>
-            {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-xs pb-1 text-center">{error}</p>
+            )}
             <p className="text-sm text-center">
               Not registered yet?{" "}
               <Link to="/signup" className="underline font-medium">

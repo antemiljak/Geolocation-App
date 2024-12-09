@@ -22,7 +22,7 @@ const Map = () => {
     <MapContainer
       center={[43.513295, 16.454859]}
       zoom={13}
-      className="h-full w-full rounded"
+      className="h-full w-full rounded-xl"
       whenCreated={(map) => map.invalidateSize()}
     >
       <TileLayer

@@ -4,6 +4,7 @@ import Map from "../components/Map";
 import NewRouteRecording from "../components/NewRouteRecording";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -46,13 +47,14 @@ const Home = () => {
         </button>
       </div>
       <div className="flex h-[85vh] p-6 mx-auto max-w-[95%]">
-        <div className="flex-[0.8] rounded-lg">
+        <div className="flex-[0.8]">
           <Map />
         </div>
-        <div className="flex-[0.4] flex flex-col gap-y-4 justify-center items-center rounded-lg">
+        <div className="flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
           <NewRouteRecording />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

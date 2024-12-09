@@ -94,7 +94,7 @@ const Charts = ({ allRoutes }) => {
         <button onClick={handlePrev}>
           <i class="fas fa-chevron-left fa-lg"></i>
         </button>
-        <div className="mb-8 bg-gray-700 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out hover:scale-105 hover:ease-in w-full h-full p-2">
+        <div className="mb-8 bg-zinc-900 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out hover:scale-105 hover:ease-in w-full h-full p-2">
           {currentChartIndex === 0 && (
             <Line data={distance} options={options} />
           )}
@@ -117,7 +117,7 @@ const Charts = ({ allRoutes }) => {
           <button
             key={i + 1}
             onClick={() => handleClick(i)} // Always use a unique key for list items in React
-            className="text-md border rounded-lg px-4 py-2 w-10 text-center hover:scale-110"
+            className="bg-zinc-900 rounded-lg px-4 py-2 w-10 text-center hover:scale-125 transition-all ease-in-out duration-150"
           >
             {i + 1}
           </button>

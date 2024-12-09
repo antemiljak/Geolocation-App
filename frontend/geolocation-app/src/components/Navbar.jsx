@@ -7,7 +7,7 @@ const Navbar = ({ userInfo }) => {
 
   const onLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
   const location = useLocation(); // Access current route
   let showProfileSection = false;

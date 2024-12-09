@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Charts from "../components/Charts";
 import { getInitials, calculateDuration } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
+import Footer from "../components/Footer";
 
 const Stats = () => {
   const [allRoutes, setAllRoutes] = useState(null);
@@ -147,12 +148,12 @@ const Stats = () => {
           <option value="today">Today</option>
         </select>
       </div>
-      <div className="flex items-center justify-center gap-12">
+      <div className="flex items-center justify-center gap-12 mt-20 mb-10">
         <div className="flex-[0.4] ml-[4%]">
           <h2 className="text-5xl text-green-300 font-bold mb-4 italic">
             CHARTS
           </h2>
-          <p>
+          <p className="bg-zinc-900 rounded-xl p-6">
             Welcome to{" "}
             <span className="font-bold text-rose-500">Geolocation App</span>{" "}
             chart section, take a look at your stats, workouts, routes, profile
@@ -166,7 +167,7 @@ const Stats = () => {
       </div>
       <div
         id="profile-section"
-        className="bg-gray-700 rounded-lg my-6 p-6 max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
+        className="bg-zinc-900 rounded-xl mt-6 mb-24 p-6 max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
       >
         <h2 className="text-3xl font-semibold italic text-rose-500">
           Profile Info
@@ -204,7 +205,7 @@ const Stats = () => {
           </div>
 
           <div className="grid grid-cols-4 gap-4 flex-1 ">
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-flag-checkered fa-2xl"></i>
               <div>
                 <p className="text-sm">Number of Routes</p>
@@ -213,7 +214,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-stopwatch fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Duration</p>
@@ -222,7 +223,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-line-chart fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Length</p>
@@ -231,7 +232,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-gauge-high fa-2xl"></i>
               <div>
                 <p className="text-sm">Avg Route Speed</p>
@@ -240,7 +241,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-road fa-2xl"></i>
               <div>
                 <p className="text-sm">Total Distance Covered</p>
@@ -249,7 +250,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-clock fa-2xl"></i>
               <div>
                 <p className="text-sm">Total Time Recorded</p>
@@ -258,7 +259,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-medal fa-2xl"></i>
               <div>
                 <p className="text-sm">{`Longest Route (distance)`}</p>
@@ -267,7 +268,7 @@ const Stats = () => {
                 </h4>
               </div>
             </div>
-            <div className="flex items-center  gap-4 bg-gray-900 p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
+            <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-person-running fa-2xl"></i>
               <div>
                 <p className="text-sm">{`Longest Route (time)`}</p>
@@ -279,6 +280,7 @@ const Stats = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

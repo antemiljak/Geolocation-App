@@ -109,8 +109,8 @@ const NewRouteRecording = () => {
   }, [routeTitle, startTime, endTime]);
 
   return (
-    <div className="w-4/5 h-full rounded-lg flex flex-col">
-      <div className="h-1/3 relative bg-gray-700 rounded-lg mb-4">
+    <div className="w-4/5 h-full rounded-xl flex flex-col">
+      <div className="h-1/3 relative bg-zinc-900 rounded-lg mb-4">
         <h1 className="text-3xl font-medium ml-4 my-2 italic text-rose-500">
           Record Route
         </h1>
@@ -126,7 +126,7 @@ const NewRouteRecording = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isRecording}
-            className="input-box w-4/5 mx-auto bg-gray-600"
+            className="input-box w-4/5 mx-auto"
           />
           {!isRecording ? (
             <button
@@ -158,34 +158,34 @@ const NewRouteRecording = () => {
           )}
         </div>
       </div>
-      <div className="h-2/3 bg-gray-700 rounded-lg">
+      <div className="h-2/3 bg-zinc-900 rounded-xl">
         <ul className="text-slate-200 w-4/5 mt-4 mx-auto">
-          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
+          <li className="input-box py-1 flex justify-between items-center">
             Route Title: {routeTitle}
             <span>
               <i class="fas fa-tag text-lg text-rose-500"></i>
             </span>
           </li>
-          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
+          <li className="input-box py-1 flex justify-between items-center">
             Start: {startTime ? new Date(startTime).toLocaleString() : null}
             <span>
               <i class="fas fa-person-running text-lg text-rose-500"></i>
             </span>
           </li>
 
-          <li className="input-box bg-gray-600 flex justify-between items-center">
+          <li className="input-box flex justify-between items-center">
             Stop: {endTime ? new Date(endTime).toLocaleString() : null}
             <span>
               <i class="fas fa-flag-checkered text-lg text-rose-500"></i>
             </span>
           </li>
-          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
+          <li className="input-box py-1 flex justify-between items-center">
             Route Duration: {endTime ? calculateDuration(duration) : ""}
             <span>
               <i class="fas fa-clock text-lg text-rose-500"></i>
             </span>
           </li>
-          <li className="input-box py-1 bg-gray-600 flex justify-between items-center">
+          <li className="input-box py-1 flex justify-between items-center">
             Distance: {endTime ? distance.toFixed(2) + " km" : ""}
             <span>
               <i class="fas fa-road text-lg text-rose-500"></i>
@@ -201,7 +201,7 @@ const NewRouteRecording = () => {
             <button
               onClick={onClear}
               disabled={!endTime}
-              className="btn-secondary transition-all bg-black disabled:scale-100 disabled:text-slate-400"
+              className="btn-secondary transition-all disabled:scale-100 disabled:text-slate-400"
             >
               Clear
             </button>
