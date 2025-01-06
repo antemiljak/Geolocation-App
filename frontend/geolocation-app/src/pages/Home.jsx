@@ -51,7 +51,7 @@ const Home = () => {
           <Map />
         </div>
         <div className="flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
-          <NewRouteRecording />
+          <NewRouteRecording userInfo={userInfo} />
         </div>
       </div>
       <Footer />

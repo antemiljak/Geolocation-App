@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { calculateDuration, haversineDistance } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
 import RecIcon from "../assets/rec-icon.png";
 import useGeolocation from "../utils/useGeolocation";
 
-const NewRouteRecording = () => {
+const NewRouteRecording = ({ userInfo }) => {
   const [inputValue, setInputValue] = useState("");
   const [routeTitle, setRouteTitle] = useState("");
   const [startTime, setStartTime] = useState(null);
@@ -16,6 +17,7 @@ const NewRouteRecording = () => {
   const [duration, setDuration] = useState(0);
 
   const position = useGeolocation();
+  const navigate = useNavigate();
 
   const addNewRoute = async (
     title,
@@ -193,6 +195,9 @@ const NewRouteRecording = () => {
           </li>
           <div className="mt-6">
             <button
+              onClick={() =>
+                navigate("/allroutespage", { state: { userInfo } })
+              }
               className="btn-primary transition-all ease-in-out disabled:text-slate-400 disabled:scale-100 mb-4"
               disabled={!endTime}
             >

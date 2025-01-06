@@ -52,9 +52,9 @@ const RouteCard = ({
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-gray-800 w-5/6 h-5/6 rounded-lg flex">
+          <div className="bg-zinc-900 w-5/6 h-5/6 rounded-lg flex">
             {/* Map Section */}
-            <div className="w-2/3 h-full bg-gray-900 rounded-l-lg">
+            <div className="w-2/3 h-full rounded-l-lg">
               <MapContainer
                 center={coords[Math.round(coords.length / 2)]}
                 zoom={13}
@@ -71,13 +71,60 @@ const RouteCard = ({
 
             <div className="w-1/3 h-full p-6 flex flex-col justify-between">
               <div>
-                <h4 className="text-3xl font-bold mb-4">Route: {title}</h4>
-                <ul className="text-md my-2">
-                  <li>Date: {formatedDate}</li>
-                  <li>Duration: {calculateDuration(duration)}</li>
-                  <li>Distance: {distance.toFixed(2)} km</li>
-                  <li>Average Speed: {avgSpeed.toFixed(1)} km/h</li>
+                <h4 className="text-3xl font-bold mb-4 italic">
+                  Title: {title}
+                </h4>
+                <ul className="my-2 text-slate-300">
+                  <li>
+                    Date:
+                    <span className="text-rose-500 text-lg font-semibold">
+                      {" "}
+                      {formatedDate}
+                    </span>
+                  </li>
+                  <li>
+                    Duration:
+                    <span className="text-rose-500 text-lg font-semibold">
+                      {" "}
+                      {calculateDuration(duration)}
+                    </span>
+                  </li>
+                  <li>
+                    Distance:
+                    <span className="text-rose-500 text-lg font-semibold">
+                      {" "}
+                      {distance.toFixed(2)} km
+                    </span>
+                  </li>
+                  <li>
+                    Average Speed:
+                    <span className="text-rose-500 text-lg font-semibold">
+                      {" "}
+                      {avgSpeed.toFixed(1)} km/h
+                    </span>
+                  </li>
                 </ul>
+                <div className="mt-12">
+                  <h1 className="text-lg font-bold">Route Details:</h1>
+                  <p className="text-slate-300">
+                    From:{" "}
+                    <span className="text-rose-500 text-lg font-semibold">
+                      Ulica Domovinskog Rata 10
+                    </span>
+                  </p>
+                  <p className="text-slate-300">
+                    Via:{" "}
+                    <span className="text-rose-500 text-lg font-semibold">
+                      Solinska Ulica 12
+                    </span>
+                  </p>
+                  <p className="text-slate-300">
+                    To:{" "}
+                    <span className="text-rose-500 text-lg font-semibold">
+                      Vukovarska 1
+                    </span>
+                  </p>
+                </div>
               </div>
               <button
                 className="btn-primary"

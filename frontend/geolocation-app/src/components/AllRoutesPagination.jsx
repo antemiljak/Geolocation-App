@@ -7,7 +7,9 @@ const AllRoutesPagination = ({ allRoutes }) => {
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const currentCards = allRoutes?.slice(startIndex, endIndex);
+  const reversedRoutes = [...(allRoutes || [])].reverse();
+  console.log(reversedRoutes);
+  const currentCards = reversedRoutes?.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(allRoutes?.length / cardsPerPage);
 

@@ -6,6 +6,7 @@ import MapRoute from "../components/MapRoute";
 import { MapContainer, TileLayer } from "react-leaflet";
 import axiosInstance from "../utils/axiosInstance";
 import AllRoutesPagination from "../components/AllRoutesPagination";
+import Footer from "../components/Footer";
 
 const AllRoutesPage = () => {
   const [allRoutes, setAllRoutes] = useState(null);
@@ -98,7 +99,7 @@ const AllRoutesPage = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div className="flex gap-3">
+      <div className="flex gap-3 items-center">
         <button
           onClick={() => navigate("/home")}
           className="btn-secondary w-32 ml-[4%]"
@@ -114,6 +115,12 @@ const AllRoutesPage = () => {
           <option value="last-week">Last Week</option>
           <option value="today">Today</option>
         </select>
+        <p className="text-slate-300 text-xs italic">
+          Press Map Icon For More Info{" "}
+          <span>
+            <i class="fas fa-map text-green-300 text-sm"></i>
+          </span>
+        </p>
       </div>
       <AllRoutesPagination allRoutes={allRoutes} />
       <button
