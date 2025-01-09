@@ -46,14 +46,15 @@ const Home = () => {
           Stats
         </button>
       </div>
-      <div className="flex h-[85vh] p-6 mx-auto max-w-[95%]">
-        <div className="flex-[0.8]">
+      <div className="md:flex md:h-[85vh] py-6 md:p-6 mx-auto md:max-w-[95%]">
+        <div className="md:flex-[0.8] w-full h-[65vh] md:h-full">
           <Map />
         </div>
-        <div className="flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
+        <div className="p-6 md:p-0 md:flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
           <NewRouteRecording userInfo={userInfo} />
         </div>
       </div>
+
       <Footer />
     </div>
   );

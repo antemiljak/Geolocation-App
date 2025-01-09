@@ -122,13 +122,15 @@ const AllRoutesPage = () => {
           </span>
         </p>
       </div>
-      <AllRoutesPagination allRoutes={allRoutes} />
+
       <button
         onClick={() => setShowModal(true)}
-        className="btn-primary absolute bottom-9 right-9 flex w-72 text-md items-center justify-center"
+        className="btn-primary md:absolute md:bottom-9 md:right-9 flex w-72 mx-auto mt-6 text-md items-center justify-center"
       >
         Show all recorded routes
       </button>
+      <AllRoutesPagination allRoutes={allRoutes} />
+
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-transparent w-5/6 h-5/6 rounded-lg relative">

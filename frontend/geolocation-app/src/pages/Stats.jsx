@@ -148,8 +148,8 @@ const Stats = () => {
           <option value="today">Today</option>
         </select>
       </div>
-      <div className="flex items-center justify-center gap-12 mt-20 mb-10">
-        <div className="flex-[0.4] ml-[4%]">
+      <div className="md:flex items-center justify-center gap-12 mt-20 mb-10">
+        <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
           <h2 className="text-5xl text-green-300 font-bold mb-4 italic">
             CHARTS
           </h2>
@@ -161,7 +161,7 @@ const Stats = () => {
             take a look at drawn routes on map go to All routes section.
           </p>
         </div>
-        <div className="flex-[0.8] p-4 mr-[4%] mb-8">
+        <div className="flex-[0.8] p-4 md:mr-[4%] mt-4 md:mt-0 mb-8">
           <Charts allRoutes={allRoutes} />
         </div>
       </div>
@@ -180,7 +180,7 @@ const Stats = () => {
               {" "}
               {getInitials(userInfo?.name)}
             </div>
-            <div className="flex w-full justify-between">
+            <div className="md:flex w-full md:justify-between">
               <div>
                 <h3 className="text-xl font-bold">{userInfo.name}</h3>
                 <h3 className="text-xs text-slate-300">#{userInfo._id}</h3>
@@ -204,7 +204,7 @@ const Stats = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-4 flex-1 ">
+          <div className="grid md:grid-cols-4 gap-4 flex-1 ">
             <div className="flex items-center  gap-4 bg-black p-4 rounded-lg shadow-lg transition duration-150 ease-out hover:scale-105 hover:ease-in">
               <i class="fas fa-flag-checkered fa-2xl"></i>
               <div>

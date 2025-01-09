@@ -90,11 +90,8 @@ const Charts = ({ allRoutes }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-8">
-        <button onClick={handlePrev}>
-          <i class="fas fa-chevron-left fa-lg"></i>
-        </button>
-        <div className="mb-8 bg-zinc-900 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out hover:scale-105 hover:ease-in w-full h-full p-2">
+      <div className="flex items-center justify-between md:gap-8">
+        <div className="mb-8 bg-zinc-900 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out md:hover:scale-105 hover:ease-in w-full h-full p-2">
           {currentChartIndex === 0 && (
             <Line data={distance} options={options} />
           )}
@@ -108,11 +105,11 @@ const Charts = ({ allRoutes }) => {
           )}
           {currentChartIndex === 5 && <Bar data={avgSpeed} options={options} />}
         </div>
-        <button onClick={handleNext}>
-          <i class="fas fa-chevron-right fa-lg"></i>
-        </button>
       </div>
       <div className=" mx-auto flex gap-4 items-center justify-center">
+        <button onClick={handlePrev}>
+          <i class="fas fa-chevron-left fa-lg"></i>
+        </button>
         {Array.from({ length: numOfCharts }, (_, i) => (
           <button
             key={i + 1}
@@ -122,6 +119,9 @@ const Charts = ({ allRoutes }) => {
             {i + 1}
           </button>
         ))}
+        <button onClick={handleNext}>
+          <i class="fas fa-chevron-right fa-lg"></i>
+        </button>
       </div>
     </div>
   );

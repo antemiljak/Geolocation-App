@@ -111,7 +111,7 @@ const NewRouteRecording = ({ userInfo }) => {
   }, [routeTitle, startTime, endTime]);
 
   return (
-    <div className="w-4/5 h-full rounded-xl flex flex-col">
+    <div className="w-full md:w-4/5 h-full rounded-xl flex flex-col">
       <div className="h-1/3 relative bg-zinc-900 rounded-lg mb-4">
         <h1 className="text-3xl font-medium ml-4 my-2 italic text-rose-500">
           Record Route
@@ -135,7 +135,7 @@ const NewRouteRecording = ({ userInfo }) => {
               onClick={() => {
                 startRoute();
               }}
-              className="btn-primary transition-all ease-in-out disabled:text-slate-400 disabled:scale-100 w-4/5 mx-auto"
+              className="btn-primary transition-all ease-in-out disabled:text-slate-400 disabled:scale-100 w-4/5 mx-auto mb-4"
               disabled={!inputValue || endTime}
             >
               Start
@@ -145,7 +145,7 @@ const NewRouteRecording = ({ userInfo }) => {
               onClick={() => {
                 stopRoute();
               }}
-              className="text-gray-900 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 hover:bg-gradient-to-l hover:from-rose-500 hover:via-rose-600 hover:to-rose-500 transition duration-150 ease-out hover:scale-105 hover:ease-in focus:ring-2 focus:outline-none focus:ring-rose-500  font-medium rounded-lg text-sm px-5 py-2 text-center mx-auto w-4/5"
+              className="text-gray-900 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 hover:bg-gradient-to-l hover:from-rose-500 hover:via-rose-600 hover:to-rose-500 transition duration-150 ease-out hover:scale-105 hover:ease-in focus:ring-2 focus:outline-none focus:ring-rose-500  font-medium rounded-lg text-sm px-5 py-2 text-center mx-auto w-4/5 mb-4"
             >
               Stop
             </button>
@@ -206,7 +206,7 @@ const NewRouteRecording = ({ userInfo }) => {
             <button
               onClick={onClear}
               disabled={!endTime}
-              className="btn-secondary transition-all disabled:scale-100 disabled:text-slate-400"
+              className="btn-secondary transition-all disabled:scale-100 disabled:text-slate-400 mb-4"
             >
               Clear
             </button>
