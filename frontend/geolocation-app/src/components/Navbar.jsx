@@ -23,14 +23,17 @@ const Navbar = ({ userInfo }) => {
 
   return (
     <div className="flex items-center justify-between p-4">
-      <h2 className="text-xl md:text-3xl font-medium text-green-300">
+      <h2
+        className="text-xl md:text-3xl font-medium text-green-300 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         Geolocation <span className="text-rose-500">App</span>
       </h2>
 
       {showProfileSection ? (
         <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
       ) : (
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 mr-2">
           <button
             onClick={() => navigate("/login")}
             className="btn-secondary w-24 md:w-32"

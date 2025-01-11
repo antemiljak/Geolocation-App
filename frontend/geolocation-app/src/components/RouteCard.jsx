@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { calculateDuration } from "../utils/helper";
 import { MapContainer, TileLayer } from "react-leaflet";
 import MapRoute from "../components/MapRoute";
 import MapIcon from "../assets/map-icon.png";
+import axios from "axios";
 
 const RouteCard = ({
   id,
@@ -14,6 +15,72 @@ const RouteCard = ({
   duration,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [startAddress, setStartAddress] = useState("");
+  const [middleAddress, setMiddleAddress] = useState("");
+  const [endAddress, setEndAddress] = useState("");
+  const [error, setError] = useState("");
+
+  const getAddress = async (lat, lng) => {
+    const apiKey = "AIzaSyDoxLwouyKMFoNPRZLtW1S93LL_I2hFxCc"; // Replace with your Google API key
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+    console.log(`Fetching address for coordinates: ${lat}, ${lng}`); // Log coordinates
+
+    try {
+      const response = await axios.get(url);
+      const results = response.data.results;
+      if (results && results.length > 0) {
+        return results[0].formatted_address;
+      } else {
+        console.warn(`No address found for ${lat}, ${lng}`); // Log warning if no address is found
+        return "No address found";
+      }
+    } catch (err) {
+      console.error("Error fetching address:", err); // Log error if request fails
+      return "Error fetching address";
+    }
+  };
+
+  // Automatically fetch addresses when the component mounts and coords change
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (coords && coords.length > 0) {
+        try {
+          const firstCoordinate = coords[0]; // First coordinate
+          const middleCoordinate = coords[Math.floor(coords.length / 2)]; // Middle coordinate
+          const lastCoordinate = coords[coords.length - 1]; // Last coordinate
+
+          console.log("First Coordinate:", firstCoordinate);
+          console.log("Middle Coordinate:", middleCoordinate);
+          console.log("Last Coordinate:", lastCoordinate);
+
+          // Fetch addresses for the first, middle, and last coordinates
+          const firstAddress = await getAddress(
+            firstCoordinate[0],
+            firstCoordinate[1]
+          );
+          const middleAddress = await getAddress(
+            middleCoordinate[0],
+            middleCoordinate[1]
+          );
+          const endAddress = await getAddress(
+            lastCoordinate[0],
+            lastCoordinate[1]
+          );
+
+          // Update state with the fetched addresses
+          setStartAddress(firstAddress);
+          setMiddleAddress(middleAddress);
+          setEndAddress(endAddress);
+          setError(""); // Reset error state
+        } catch (err) {
+          setError("Error fetching addresses");
+        }
+      }
+    };
+
+    fetchAddresses();
+  }, [coords]);
+
   const formatedDate = new Date(startTime).toLocaleString();
   const avgSpeed = ((distance * 1000000) / (endTime - startTime)) * 3.6;
 
@@ -109,19 +176,19 @@ const RouteCard = ({
                   <p className="text-slate-300">
                     From:{" "}
                     <span className="text-rose-500 md:text-lg font-semibold">
-                      Ulica Domovinskog Rata 10
+                      {startAddress}
                     </span>
                   </p>
                   <p className="text-slate-300">
                     Via:{" "}
                     <span className="text-rose-500 md:text-lg font-semibold">
-                      Solinska Ulica 12
+                      {middleAddress}
                     </span>
                   </p>
                   <p className="text-slate-300">
                     To:{" "}
                     <span className="text-rose-500 md:text-lg font-semibold">
-                      Vukovarska 1
+                      {endAddress}
                     </span>
                   </p>
                 </div>
