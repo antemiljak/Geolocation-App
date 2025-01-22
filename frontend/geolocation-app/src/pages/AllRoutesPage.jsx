@@ -129,7 +129,7 @@ const AllRoutesPage = () => {
       >
         Show all recorded routes
       </button>
-      <AllRoutesPagination allRoutes={allRoutes} />
+      <AllRoutesPagination allRoutes={allRoutes} getAllRoutes={getAllRoutes} />
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">

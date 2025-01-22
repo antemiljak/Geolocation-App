@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RouteCard from "./RouteCard";
 
-const AllRoutesPagination = ({ allRoutes }) => {
+const AllRoutesPagination = ({ allRoutes, getAllRoutes }) => {
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,6 +37,7 @@ const AllRoutesPagination = ({ allRoutes }) => {
                 startTime={item.startTime}
                 endTime={item.endTime}
                 duration={item.duration}
+                getAllRoutes={getAllRoutes}
               />
             ))}
           </div>

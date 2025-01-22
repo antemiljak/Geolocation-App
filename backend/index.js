@@ -268,6 +268,8 @@ app.delete(
   }
 );
 
-app.listen(8000);
+app.listen(8000, "0.0.0.0", () => {
+  console.log("Server is running on 0.0.0.0");
+});
 
 module.exports = app;

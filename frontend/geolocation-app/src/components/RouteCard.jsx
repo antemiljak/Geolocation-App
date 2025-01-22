@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { calculateDuration } from "../utils/helper";
 import { MapContainer, TileLayer } from "react-leaflet";
 import MapRoute from "../components/MapRoute";
 import MapIcon from "../assets/map-icon.png";
 import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
 
 const RouteCard = ({
   id,
@@ -13,12 +14,27 @@ const RouteCard = ({
   startTime,
   endTime,
   duration,
+  getAllRoutes,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [startAddress, setStartAddress] = useState("");
   const [middleAddress, setMiddleAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
   const [error, setError] = useState("");
+
+  const deleteRoute = async () => {
+    try {
+      const response = await axiosInstance.delete("/delete-map-route/" + id);
+
+      if (response.data && !response.data.error) {
+        getAllRoutes();
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.message) {
+        console.log("An unexpected error occured. Please try again.");
+      }
+    }
+  };
 
   const getAddress = async (lat, lng) => {
     const apiKey = "AIzaSyDoxLwouyKMFoNPRZLtW1S93LL_I2hFxCc"; // Replace with your Google API key
@@ -41,45 +57,42 @@ const RouteCard = ({
   };
 
   // Automatically fetch addresses when the component mounts and coords change
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      if (coords && coords.length > 0) {
-        try {
-          const firstCoordinate = coords[0]; // First coordinate
-          const middleCoordinate = coords[Math.floor(coords.length / 2)]; // Middle coordinate
-          const lastCoordinate = coords[coords.length - 1]; // Last coordinate
 
-          console.log("First Coordinate:", firstCoordinate);
-          console.log("Middle Coordinate:", middleCoordinate);
-          console.log("Last Coordinate:", lastCoordinate);
+  const fetchAddresses = async () => {
+    if (coords && coords.length > 0) {
+      try {
+        const firstCoordinate = coords[0]; // First coordinate
+        const middleCoordinate = coords[Math.floor(coords.length / 2)]; // Middle coordinate
+        const lastCoordinate = coords[coords.length - 1]; // Last coordinate
 
-          // Fetch addresses for the first, middle, and last coordinates
-          const firstAddress = await getAddress(
-            firstCoordinate[0],
-            firstCoordinate[1]
-          );
-          const middleAddress = await getAddress(
-            middleCoordinate[0],
-            middleCoordinate[1]
-          );
-          const endAddress = await getAddress(
-            lastCoordinate[0],
-            lastCoordinate[1]
-          );
+        console.log("First Coordinate:", firstCoordinate);
+        console.log("Middle Coordinate:", middleCoordinate);
+        console.log("Last Coordinate:", lastCoordinate);
 
-          // Update state with the fetched addresses
-          setStartAddress(firstAddress);
-          setMiddleAddress(middleAddress);
-          setEndAddress(endAddress);
-          setError(""); // Reset error state
-        } catch (err) {
-          setError("Error fetching addresses");
-        }
+        // Fetch addresses for the first, middle, and last coordinates
+        const firstAddress = await getAddress(
+          firstCoordinate[0],
+          firstCoordinate[1]
+        );
+        const middleAddress = await getAddress(
+          middleCoordinate[0],
+          middleCoordinate[1]
+        );
+        const endAddress = await getAddress(
+          lastCoordinate[0],
+          lastCoordinate[1]
+        );
+
+        // Update state with the fetched addresses
+        setStartAddress(firstAddress);
+        setMiddleAddress(middleAddress);
+        setEndAddress(endAddress);
+        setError(""); // Reset error state
+      } catch (err) {
+        setError("Error fetching addresses");
       }
-    };
-
-    fetchAddresses();
-  }, [coords]);
+    }
+  };
 
   const formatedDate = new Date(startTime).toLocaleString();
   const avgSpeed = ((distance * 1000000) / (endTime - startTime)) * 3.6;
@@ -111,7 +124,10 @@ const RouteCard = ({
         </div>
       </ul>
       <button
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setShowModal(true);
+          fetchAddresses();
+        }}
         className="absolute bottom-4 right-4 text-xs transition duration-150 ease-out hover:scale-125 hover:ease-in"
       >
         <img src={MapIcon} alt="MapIcon" />
@@ -193,12 +209,23 @@ const RouteCard = ({
                   </p>
                 </div>
               </div>
-              <button
-                className="btn-primary mt-4 md:mt-0"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
+              <div className="flex">
+                <button
+                  className="btn-secondary mt-4 md:mt-0"
+                  onClick={() => {
+                    deleteRoute();
+                    setShowModal(false);
+                  }}
+                >
+                  Delete Route
+                </button>
+                <button
+                  className="btn-primary mt-4 md:mt-0"
+                  onClick={() => setShowModal(false)}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
