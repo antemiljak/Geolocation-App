@@ -1,1 +1,1 @@
-export const BASE_URL = "geolocation-j5kmwlkgs-antemiljaks-projects.vercel.app";
+export const BASE_URL = "http://192.168.100.8:8000";
