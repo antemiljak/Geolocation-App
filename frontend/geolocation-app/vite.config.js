@@ -9,4 +9,7 @@ export default defineConfig({
     port: 5173, // Ensure it runs on port 5173
   },
   base: "/",
+  build: {
+    outDir: "dist",
+  },
 });
