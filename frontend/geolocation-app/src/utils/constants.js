@@ -1,1 +1,1 @@
-export const BASE_URL = "https://geolocation-app-server-pywz.onrender.com";
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
