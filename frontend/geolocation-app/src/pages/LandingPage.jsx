@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Earth from "../assets/earth.jpg";
+import Earth from "../assets/earth.png";
 import Footer from "../components/Footer";
 import Traffic from "../assets/traffic.jpg";
 import Road from "../assets/road.jpg";

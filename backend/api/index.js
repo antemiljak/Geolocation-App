@@ -14,7 +14,6 @@ const app = express();
 
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./utilities");
-const serverless = require("serverless-http");
 
 app.use(express.json());
 
@@ -269,8 +268,8 @@ app.delete(
   }
 );
 
-/**app.listen(8000, "0.0.0.0", () => {
+app.listen(8000, "0.0.0.0", () => {
   console.log("Server is running on 0.0.0.0");
-});**/
+});
 
-module.exports = serverless(app);
+module.exports = app;
