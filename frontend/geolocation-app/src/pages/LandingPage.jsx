@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Earth from "../assets/earth.png";
+import LandingPic from "../assets/landingpic.png";
 import Footer from "../components/Footer";
 import Traffic from "../assets/traffic.jpg";
 import Road from "../assets/road.jpg";
@@ -19,8 +19,8 @@ const LandingPage = () => {
     <div>
       <section className="md:w-screen md:h-screen">
         <Navbar />
-        <div className="md:flex md:items-center md:justify-center mt-16 md:mr-[4%]">
-          <div className="flex flex-col items-center md:ml-[4%] mt-12 mt-16 md:w-1/2 relative">
+        <div className="md:flex md:justify-center mt-24 md:mr-[4%]">
+          <div className="flex flex-col items-center md:ml-[4%] md:w-1/2 relative">
             <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-green-300 to-white bg-clip-text text-transparent">
               Discover the World
               <br /> Around You
@@ -58,13 +58,13 @@ const LandingPage = () => {
             </div>
           </div>
           <img
-            src={Earth}
+            src={LandingPic}
             alt=""
-            className="rounded-lg w-[75%] md:w-[40%] md:h-auto mx-auto mb-8 md:mt-16"
+            className="rounded-lg w-[85%] md:w-[50%] md:h-auto mx-auto mb-8 transition duration-500 ease-out hover:scale-110 hover:ease-in"
           />{" "}
         </div>
       </section>
-      <section id="about" className="h-fit md:h-screen w-screen bg-white">
+      <section id="about" className="h-screen md:h-screen w-screen bg-white">
         <div className="md:flex items-center justify-between px-12 md:px-36 py-12 text-black">
           <h1 className="mt-12 text-3xl md:text-5xl font-bold md:w-1/2">
             About Us
