@@ -21,7 +21,7 @@ const LandingPage = () => {
         <Navbar />
         <div className="md:flex md:items-center md:justify-center mt-16 md:mr-[4%]">
           <div className="flex flex-col items-center md:ml-[4%] mt-12 mt-16 md:w-1/2 relative">
-            <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-green-300 via-white to-rose-500 bg-clip-text text-transparent">
+            <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-green-300 to-white bg-clip-text text-transparent">
               Discover the World
               <br /> Around You
             </p>
