@@ -39,15 +39,18 @@ const RouteCard = ({
   const getAddress = async (lat, lng) => {
     const apiKey = "AIzaSyDoxLwouyKMFoNPRZLtW1S93LL_I2hFxCc"; // Replace with your Google API key
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
-    console.log(`Fetching address for coordinates: ${lat}, ${lng}`); // Log coordinates
 
     try {
       const response = await axios.get(url);
       const results = response.data.results;
       if (results && results.length > 0) {
-        return results[0].formatted_address;
+        const formattedAddress = results[0].formatted_address;
+
+        const addressParts = formattedAddress.split(",");
+        const shortAddress = `${addressParts[0]}, ${addressParts[1].trim()}`;
+        return shortAddress;
       } else {
-        console.warn(`No address found for ${lat}, ${lng}`); // Log warning if no address is found
+        console.warn(`No address found for ${lat}, ${lng}`);
         return "No address found";
       }
     } catch (err) {
@@ -140,7 +143,7 @@ const RouteCard = ({
             <div className="md:w-2/3 h-full md:rounded-l-lg">
               <MapContainer
                 center={coords[Math.round(coords.length / 2)]}
-                zoom={13}
+                zoom={16}
                 className="h-full w-full md:rounded"
               >
                 <TileLayer
@@ -152,9 +155,9 @@ const RouteCard = ({
               </MapContainer>
             </div>
 
-            <div className="md:w-1/3 h-full p-6 flex flex-col md:justify-between">
+            <div className="md:w-1/3 h-full p-4 md:p-6 flex flex-col md:justify-between">
               <div>
-                <h4 className="text-2xl md:text-3xl font-bold mb-4 italic">
+                <h4 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 italic">
                   Title: {title}
                 </h4>
                 <ul className="md:my-2 text-slate-300">
@@ -187,7 +190,7 @@ const RouteCard = ({
                     </span>
                   </li>
                 </ul>
-                <div className="mt-6 md:mt-12">
+                <div className="md:mt-6 md:mt-12">
                   <h1 className="text-lg font-bold">Route Details:</h1>
                   <p className="text-slate-300">
                     From:{" "}

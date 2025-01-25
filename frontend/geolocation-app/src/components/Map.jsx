@@ -11,7 +11,7 @@ const Map = () => {
     useEffect(() => {
       if (position) {
         // Center the map to the user's position once it's available
-        map.setView([position.lat, position.lng], 13);
+        map.setView([position.lat, position.lng], 16);
       }
     }, [position, map]);
 
@@ -21,7 +21,7 @@ const Map = () => {
   return (
     <MapContainer
       center={[43.513295, 16.454859]}
-      zoom={13}
+      zoom={16}
       className="h-full w-full md:rounded-xl"
       whenCreated={(map) => map.invalidateSize()}
     >

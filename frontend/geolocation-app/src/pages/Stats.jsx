@@ -176,13 +176,12 @@ const Stats = () => {
         <div className=" mt-6 ">
           {/* Profile Info */}
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center text-2xl font-bold text-green-300">
-              {" "}
-              {getInitials(userInfo?.name)}
-            </div>
             <div className="md:flex w-full md:justify-between">
               <div>
-                <h3 className="text-xl font-bold">{userInfo.name}</h3>
+                <div className="flex items-center gap-2">
+                  <i class="fas fa-user fa-lg md:fa-2xl"></i>
+                  <h3 className="text-xl font-bold">{userInfo.name}</h3>
+                </div>
                 <h3 className="text-xs text-slate-300">#{userInfo._id}</h3>
               </div>
               <div>
