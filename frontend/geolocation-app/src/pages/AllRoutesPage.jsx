@@ -137,7 +137,7 @@ const AllRoutesPage = () => {
             <div className="w-full h-[95%] rounded-lg">
               <MapContainer
                 center={[43.515904, 16.4593664]}
-                zoom={10}
+                zoom={13}
                 className="h-full w-full rounded-lg"
               >
                 <TileLayer
