@@ -87,10 +87,10 @@ const Signup = () => {
     <div>
       <div>
         <Navbar />
-        <div className="flex items-center justify-center mt-28 ">
+        <div className="flex items-center justify-center mt-28">
           <div className="w-3/4 md:w-5/12 p-5 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
-              <h4 className="text-3xl font-bold mb-4">Sign Up</h4>
+              <h4 className="text-4xl font-bold mb-4 txt-color">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
               <div className="md:flex gap-4">
                 <div className="md:w-1/2">

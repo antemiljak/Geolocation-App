@@ -57,8 +57,8 @@ export const options = {
       ticks: {
         color: "white",
         font: {
-          family: "Roboto Slab",
-          size: 16, // Change the font size of X-axis labels
+          family: "Montserrat",
+          size: 13, // Change the font size of X-axis labels
         }, // X-axis label color
       },
     },
@@ -66,8 +66,8 @@ export const options = {
       ticks: {
         color: "white",
         font: {
-          family: "Roboto Slab",
-          size: 16, // Change the font size of X-axis labels
+          family: "Montserrat",
+          size: 13, // Change the font size of X-axis labels
         },
       },
     },
@@ -81,8 +81,8 @@ export const options = {
       labels: {
         color: "white",
         font: {
-          family: "Roboto Slab",
-          size: 20,
+          family: "Montserrat",
+          size: 16,
           // Change the font size of X-axis labels
         }, // Legend text color
       },

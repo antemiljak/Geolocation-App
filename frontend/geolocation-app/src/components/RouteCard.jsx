@@ -103,7 +103,7 @@ const RouteCard = ({
   return (
     <div className="rounded-xl p-4 bg-zinc-900 relative transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:mb-0">
       <div className="flex items-center justify-between ">
-        <h4 className="text-2xl font-medium">{title}</h4>
+        <h4 className="text-3xl font-bold txt-color">{title}</h4>
         <h6 className="text-xs text-slate-500">#{id.slice(0, 10)}</h6>
       </div>
       <div className="flex items-center justify-end gap-2">
@@ -113,17 +113,21 @@ const RouteCard = ({
       <ul className=" mt-2">
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Duration:</li>
-          <li className="text-xl text-rose-500">
+          <li className="text-xl font-semibold text-rose-500">
             {calculateDuration(duration)}
           </li>
         </div>
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Distance: </li>
-          <li className="text-xl text-rose-500">{distance.toFixed(2)} km</li>
+          <li className="text-xl font-semibold text-rose-500">
+            {distance.toFixed(2)} km
+          </li>
         </div>
         <div className="flex items-center gap-2">
           <li className="text-slate-300">Avg Speed:</li>
-          <li className="text-xl text-rose-500">{avgSpeed.toFixed(1)} km/h</li>
+          <li className="text-xl font-semibold text-rose-500">
+            {avgSpeed.toFixed(1)} km/h
+          </li>
         </div>
       </ul>
       <button
@@ -157,7 +161,7 @@ const RouteCard = ({
 
             <div className="md:w-1/3 h-full p-4 md:p-6 flex flex-col md:justify-between">
               <div>
-                <h4 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 italic">
+                <h4 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 italic txt-color">
                   Title: {title}
                 </h4>
                 <ul className="md:my-2 text-slate-300">

@@ -150,16 +150,17 @@ const Stats = () => {
       </div>
       <div className="md:flex items-center justify-center gap-12 mt-20 mb-10">
         <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
-          <h2 className="text-5xl text-green-300 font-bold mb-4 italic">
-            CHARTS
-          </h2>
-          <p className="bg-zinc-900 rounded-xl p-6">
-            Welcome to{" "}
-            <span className="font-bold text-rose-500">Geolocation App</span>{" "}
-            chart section, take a look at your stats, workouts, routes, profile
-            info and more. Data is visulaized using js library Charts.js. To
-            take a look at drawn routes on map go to All routes section.
-          </p>
+          <h2 className="text-5xl txt-color font-bold mb-4 italic">CHARTS</h2>
+          <div className="md:bg-zinc-900 md:p-6 rounded-xl">
+            <p className="txt-color font-semibold text-lg">
+              Welcome to{" "}
+              <span className="font-bold text-green-300">GeoLocc </span> app
+              chart section, take a look at your stats, workouts, routes,
+              profile info and more. Data is visulaized using js library
+              Charts.js. To take a look at drawn routes on map go to All routes
+              section.
+            </p>
+          </div>
         </div>
         <div className="flex-[0.8] p-4 md:mr-[4%] mt-4 md:mt-0 mb-8">
           <Charts allRoutes={allRoutes} />
@@ -169,8 +170,8 @@ const Stats = () => {
         id="profile-section"
         className="bg-zinc-900 rounded-xl mt-6 mb-24 p-6 max-w-[85%] md:max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
       >
-        <h2 className="text-3xl font-semibold italic text-rose-500">
-          Profile Info
+        <h2 className="text-3xl md:text-5xl font-bold italic txt-color">
+          PROFILE INFO
         </h2>
 
         <div className=" mt-6 ">

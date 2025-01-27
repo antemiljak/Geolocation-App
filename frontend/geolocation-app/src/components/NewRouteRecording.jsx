@@ -113,7 +113,7 @@ const NewRouteRecording = ({ userInfo }) => {
   return (
     <div className="w-full md:w-5/6 h-full rounded-xl flex flex-col">
       <div className="h-1/3 relative bg-zinc-900 rounded-lg mb-4">
-        <h1 className="text-3xl font-medium ml-4 my-2 italic text-rose-500">
+        <h1 className="text-3xl font-semibold ml-4 my-2 italic txt-color">
           Record Route
         </h1>
         <p className="text-sm text-slate-200 text-left mx-4 mb-4">

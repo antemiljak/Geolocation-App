@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import useGeolocation from "../utils/useGeolocation";
+import L from "leaflet";
 
 const Map = () => {
   const position = useGeolocation();
@@ -18,6 +19,13 @@ const Map = () => {
     return null;
   };
 
+  const customIcon = L.divIcon({
+    html: '<i class="fas fa-map-marker-alt fa-2x" style="color: black;"></i>',
+    className: "custom-marker-icon",
+    iconSize: [32, 32], // Adjust icon size
+    iconAnchor: [10, 20],
+  });
+
   return (
     <MapContainer
       center={[43.513295, 16.454859]}
@@ -31,7 +39,12 @@ const Map = () => {
       />
 
       <MapUpdater position={position} />
-      {position && <Marker position={[position.lat, position.lng]}></Marker>}
+      {position && (
+        <Marker
+          position={[position.lat, position.lng]}
+          icon={customIcon}
+        ></Marker>
+      )}
     </MapContainer>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProfileInfo from "../components/ProfileInfo";
+import Logo from "../assets/logo.png";
 
 const Navbar = ({ userInfo }) => {
   const navigate = useNavigate();
@@ -23,12 +24,12 @@ const Navbar = ({ userInfo }) => {
 
   return (
     <div className="flex items-center justify-between p-4">
-      <h2
-        className="text-xl md:text-3xl font-bold text-green-300 cursor-pointer"
+      <img
+        className="w-32 md:w-36 h-auto cursor-pointer"
         onClick={() => navigate("/")}
-      >
-        GeoloCC <span className="text-rose-500">App</span>
-      </h2>
+        src={Logo}
+        alt="logo"
+      />
 
       {showProfileSection ? (
         <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
