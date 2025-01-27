@@ -26,7 +26,7 @@ const LandingPage = () => {
               Discover the World
               <br /> Around You
             </p>
-            <ul className="flex justify-center justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic">
+            <ul className="flex justify-center justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic text-sm">
               <li>REAL-TIME</li>
               <li>TRACKING</li>
               <li>MANAGE</li>
