@@ -29,10 +29,10 @@ const MapRoute = ({ coordinates, title }) => {
       />
       <Polyline positions={coordinates} color="black" />{" "}
       <Marker position={startPosition} icon={startIcon}>
-        <Popup>{title + ":Start"}</Popup>
+        <Popup>{title + " : Start"}</Popup>
       </Marker>
       <Marker position={endPosition} icon={endIcon}>
-        <Popup>Finish</Popup>
+        <Popup>{title + " : Finish"}</Popup>
       </Marker>
     </div>
   );

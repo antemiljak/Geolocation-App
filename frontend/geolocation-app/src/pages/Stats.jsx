@@ -185,17 +185,19 @@ const Stats = () => {
                 </div>
                 <h3 className="text-xs text-slate-300">#{userInfo._id}</h3>
               </div>
-              <div>
-                <p className="text-sm text-slate-300">Age:</p>
-                <p className="text-xl font-bold">{userInfo.age}</p>
-              </div>
-              <div>
-                <p className="text-sm text-slate-300">Height:</p>
-                <p className="text-xl font-bold">{userInfo.height} cm</p>
-              </div>
-              <div>
-                <p className="text-sm text-slate-300">Weight:</p>
-                <p className="text-xl font-bold">{userInfo.weight} kg</p>
+              <div className="flex gap-12">
+                <div>
+                  <p className="text-sm text-slate-300">Age:</p>
+                  <p className="text-xl font-bold">{userInfo.age}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-300">Height:</p>
+                  <p className="text-xl font-bold">{userInfo.height} cm</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-300">Weight:</p>
+                  <p className="text-xl font-bold">{userInfo.weight} kg</p>
+                </div>
               </div>
               <div>
                 <p className="text-sm text-slate-300">Email:</p>

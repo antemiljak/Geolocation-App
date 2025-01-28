@@ -141,7 +141,7 @@ const RouteCard = ({
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50 overflow-y-auto">
           <div className="bg-zinc-900 w-full h-1/2 md:w-5/6 md:h-5/6 rounded-lg md:flex">
             {/* Map Section */}
             <div className="md:w-2/3 h-full md:rounded-l-lg">
@@ -195,7 +195,9 @@ const RouteCard = ({
                   </li>
                 </ul>
                 <div className="md:mt-6 md:mt-12">
-                  <h1 className="text-lg font-bold">Route Details:</h1>
+                  <h2 className="text-lg font-bold txt-color">
+                    Route Details:
+                  </h2>
                   <p className="text-slate-300">
                     From:{" "}
                     <span className="text-rose-500 md:text-lg font-semibold">
@@ -215,8 +217,29 @@ const RouteCard = ({
                     </span>
                   </p>
                 </div>
+                <div>
+                  <h2 className="text-lg font-bold txt-color">Payment:</h2>
+                  <p className="text-slate-300">
+                    Rate:{" "}
+                    <span className="text-rose-500 md:text-lg font-semibold">
+                      1,6 $/km
+                    </span>
+                  </p>
+                  <p className="text-slate-300">
+                    Total:{" "}
+                    <span className="text-rose-500 md:text-lg font-semibold">
+                      {(1.6 * distance).toFixed(2)} $
+                    </span>
+                  </p>
+                  <p className="text-slate-300">
+                    Status:{" "}
+                    <span className="text-rose-500 md:text-lg font-semibold">
+                      To be paid
+                    </span>
+                  </p>
+                </div>
               </div>
-              <div className="flex">
+              <div className="flex pb-4">
                 <button
                   className="btn-secondary mt-4 md:mt-0"
                   onClick={() => {
