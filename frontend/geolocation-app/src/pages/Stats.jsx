@@ -187,24 +187,43 @@ const Stats = () => {
                 </div>
                 <h3 className="text-xs text-slate-300">#{userInfo._id}</h3>
               </div>
-              <div className="flex gap-12">
+              <div className="md:flex gap-12">
                 <div>
                   <p className="text-sm text-slate-300">Age:</p>
                   <p className="text-xl font-bold">{userInfo.age}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-300">Height:</p>
-                  <p className="text-xl font-bold">{userInfo.company} cm</p>
+                  <p className="text-sm text-slate-300">Company:</p>
+                  <p className="text-xl font-bold">{userInfo.company}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-300">Weight:</p>
-                  <p className="text-xl font-bold">{userInfo.weight} kg</p>
+                  <p className="text-sm text-slate-300">Licence plate:</p>
+                  <p className="text-xl font-bold">{userInfo.carPlate}</p>
                 </div>
               </div>
               <div>
                 <p className="text-sm text-slate-300">Email:</p>
                 <p className="text-xl font-bold">{userInfo.email}</p>
               </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-12 mb-6">
+            <div>
+              <p className="text-sm text-slate-300">Rate:</p>
+              <p className="text-xl font-bold">0,60 $/km</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-300">To be paid:</p>
+              <p className="text-xl font-bold text-rose-500">42 $</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-300">Paid out:</p>
+              <p className="text-xl font-bold text-green-300">50 $</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-300">Total:</p>
+              <p className="text-xl font-bold">92 $</p>
             </div>
           </div>
 

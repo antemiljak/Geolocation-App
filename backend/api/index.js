@@ -156,11 +156,14 @@ app.post("/login", async (req, res) => {
       expiresIn: "36000m",
     });
 
+    const isAdmin = userInfo.role === "admin";
+
     return res.json({
       error: false,
       message: "Login Successful",
       email,
       accessToken,
+      isAdmin,
     });
   } else {
     return res.status(400).json({

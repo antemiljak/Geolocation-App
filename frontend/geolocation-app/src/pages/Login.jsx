@@ -34,7 +34,11 @@ const Login = () => {
       //Handle successful login response
       if (response.data && response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
-        navigate("/home");
+        if (response.data.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/home");
+        }
       }
     } catch (error) {
       //Handle login error
