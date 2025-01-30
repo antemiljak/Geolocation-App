@@ -196,6 +196,48 @@ app.get("/get-user", authenticateToken, async (req, res) => {
   });
 });
 
+app.get("/get-all-users", authenticateToken, async (req, res) => {
+  const { user } = req.user;
+
+  // Check if the user is an admin
+  if (user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ error: true, message: "Unauthorized. Admins only." });
+  }
+
+  try {
+    // Fetch users with the same company as the admin
+    const users = await User.find({ company: user.company });
+
+    // If no users are found
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: true,
+        message: `No users found for company: ${user.company}`,
+      });
+    }
+
+    // Return the users with relevant fields
+    return res.json({
+      users: users.map((user) => ({
+        name: user.name,
+        age: user.age,
+        company: user.company,
+        carPlate: user.carPlate,
+        email: user.email,
+        _id: user._id,
+        createdOn: user.createdOn,
+      })),
+      message: "Users fetched successfully",
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: true, message: "Failed to retrieve users" });
+  }
+});
+
 app.post("/add-map-route", authenticateToken, async (req, res) => {
   const { title, coordinates, distance, startTime, endTime, duration } =
     req.body;
