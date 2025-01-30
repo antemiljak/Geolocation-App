@@ -142,7 +142,7 @@ const RouteCard = ({
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50 overflow-y-auto">
-          <div className="bg-zinc-900 w-full h-1/2 md:w-5/6 md:h-5/6 rounded-lg md:flex">
+          <div className="bg-zinc-900 w-full h-2/3 md:w-5/6 md:h-5/6 rounded-lg md:flex">
             {/* Map Section */}
             <div className="md:w-2/3 h-full md:rounded-l-lg">
               <MapContainer
@@ -159,86 +159,83 @@ const RouteCard = ({
               </MapContainer>
             </div>
 
-            <div className="md:w-1/3 h-full p-4 md:p-6 flex flex-col md:justify-between">
-              <div>
-                <h4 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 italic txt-color">
-                  Title: {title}
-                </h4>
-                <ul className="md:my-2 text-slate-300">
-                  <li>
-                    Date:
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {" "}
-                      {formatedDate}
-                    </span>
-                  </li>
-                  <li>
-                    Duration:
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {" "}
-                      {calculateDuration(duration)}
-                    </span>
-                  </li>
-                  <li>
-                    Distance:
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {" "}
-                      {distance.toFixed(2)} km
-                    </span>
-                  </li>
-                  <li>
-                    Average Speed:
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {" "}
-                      {avgSpeed.toFixed(1)} km/h
-                    </span>
-                  </li>
-                </ul>
-                <div className="md:mt-6 md:mt-12">
-                  <h2 className="text-lg font-bold txt-color">
-                    Route Details:
-                  </h2>
-                  <p className="text-slate-300">
-                    From:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {startAddress}
-                    </span>
-                  </p>
-                  <p className="text-slate-300">
-                    Via:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {middleAddress}
-                    </span>
-                  </p>
-                  <p className="text-slate-300">
-                    To:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {endAddress}
-                    </span>
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold txt-color">Payment:</h2>
-                  <p className="text-slate-300">
-                    Rate:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      1,6 $/km
-                    </span>
-                  </p>
-                  <p className="text-slate-300">
-                    Total:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      {(1.6 * distance).toFixed(2)} $
-                    </span>
-                  </p>
-                  <p className="text-slate-300">
-                    Status:{" "}
-                    <span className="text-rose-500 md:text-lg font-semibold">
-                      To be paid
-                    </span>
-                  </p>
-                </div>
+            <div className="md:w-1/3 p-4 md:p-6 flex flex-col md:justify-between">
+              <h4 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 italic txt-color">
+                Title: {title}
+              </h4>
+              <ul className="md:my-2 text-slate-300">
+                <li>
+                  Date:
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {" "}
+                    {formatedDate}
+                  </span>
+                </li>
+                <li>
+                  Duration:
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {" "}
+                    {calculateDuration(duration)}
+                  </span>
+                </li>
+                <li>
+                  Distance:
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {" "}
+                    {distance.toFixed(2)} km
+                  </span>
+                </li>
+                <li>
+                  Average Speed:
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {" "}
+                    {avgSpeed.toFixed(1)} km/h
+                  </span>
+                </li>
+              </ul>
+              <div className="md:mt-6 md:mt-12">
+                <h2 className="text-lg font-bold txt-color">Route Details:</h2>
+                <p className="text-slate-300">
+                  From:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {startAddress}
+                  </span>
+                </p>
+                <p className="text-slate-300">
+                  Via:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {middleAddress}
+                  </span>
+                </p>
+                <p className="text-slate-300">
+                  To:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {endAddress}
+                  </span>
+                </p>
               </div>
+              <div>
+                <h2 className="text-lg font-bold txt-color">Payment:</h2>
+                <p className="text-slate-300">
+                  Rate:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    1,6 $/km
+                  </span>
+                </p>
+                <p className="text-slate-300">
+                  Total:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    {(1.6 * distance).toFixed(2)} $
+                  </span>
+                </p>
+                <p className="text-slate-300">
+                  Status:{" "}
+                  <span className="text-rose-500 md:text-lg font-semibold">
+                    To be paid
+                  </span>
+                </p>
+              </div>
+
               <div className="flex pb-4">
                 <button
                   className="btn-secondary mt-4 md:mt-0"

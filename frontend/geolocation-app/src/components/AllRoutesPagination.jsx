@@ -45,7 +45,7 @@ const AllRoutesPagination = ({ allRoutes, getAllRoutes }) => {
           <h1 className="text-xl font-medium">No routes</h1>
         )}
       </div>
-      <div className="flex items-center justify-center gap-4 text-sm md:mt-12 ">
+      <div className="flex items-center justify-center gap-4 text-sm md:mt-12 pb-8">
         <button
           onClick={() => handlePageChange("prev")}
           disabled={currentPage === 1}

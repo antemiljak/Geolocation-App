@@ -168,7 +168,7 @@ const Stats = () => {
       </div>
       <div
         id="profile-section"
-        className="bg-zinc-900 rounded-xl mt-6 mb-24 p-6 max-w-[85%] md:max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
+        className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[85%] md:max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
       >
         <h2 className="text-3xl md:text-5xl font-bold italic txt-color">
           PROFILE INFO

@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 //Create Account
 app.post("/create-account", async (req, res) => {
-  const { name, age, height, weight, email, password } = req.body;
+  const { name, age, company, carPlate, email, password, role } = req.body;
 
   if (!name) {
     return res.status(400).json({ error: true, message: "Name is required" });
@@ -43,12 +43,16 @@ app.post("/create-account", async (req, res) => {
     return res.status(400).json({ error: true, message: "Age is required" });
   }
 
-  if (!height) {
-    return res.status(400).json({ error: true, message: "Height is required" });
+  if (!company) {
+    return res
+      .status(400)
+      .json({ error: true, message: "Company is required" });
   }
 
-  if (!weight) {
-    return res.status(400).json({ error: true, message: "Weight is required" });
+  if (!carPlate) {
+    return res
+      .status(400)
+      .json({ error: true, message: "License plate is required" });
   }
   if (!password) {
     return res
@@ -65,13 +69,42 @@ app.post("/create-account", async (req, res) => {
     });
   }
 
+  // Default role is "user"
+  let userRole = "user";
+
+  // If trying to create an admin, check authorization
+  if (role === "admin") {
+    if (!req.headers.authorization) {
+      return res
+        .status(403)
+        .json({ error: true, message: "Unauthorized to create admin" });
+    }
+
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      if (decoded.role !== "admin") {
+        return res.status(403).json({
+          error: true,
+          message: "Only admins can create another admin",
+        });
+      }
+      userRole = "admin"; // Allow admin creation if authorized
+    } catch (error) {
+      return res
+        .status(403)
+        .json({ error: true, message: "Invalid or expired token" });
+    }
+  }
+
   const user = new User({
     name,
     age,
-    height,
-    weight,
+    company,
+    carPlate,
     email,
     password,
+    role: userRole,
   });
 
   await user.save();
@@ -82,7 +115,15 @@ app.post("/create-account", async (req, res) => {
 
   return res.json({
     error: false,
-    user,
+    user: {
+      name,
+      age,
+      company,
+      carPlate,
+      email,
+      role: userRole,
+      _id: user._id,
+    },
     accessToken,
     message: "Registration Successful",
   });

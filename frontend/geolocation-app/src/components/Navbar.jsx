@@ -37,13 +37,13 @@ const Navbar = ({ userInfo }) => {
         <div className="flex space-x-2 md:mr-2">
           <button
             onClick={() => navigate("/login")}
-            className="btn-secondary w-24 md:w-48 md:text-lg md:rounded-full"
+            className="btn-secondary w-24 md:w-32"
           >
             Login
           </button>
           <button
             onClick={() => navigate("/signup")}
-            className="btn-primary w-32 md:w-64 md:text-lg md:rounded-full"
+            className="btn-primary w-32 md:w-48"
           >
             Get Started for Free
           </button>

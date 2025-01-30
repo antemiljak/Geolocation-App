@@ -163,6 +163,7 @@ const AllRoutesPage = () => {
           </div>
         </div>
       )}
+      <Footer></Footer>
     </div>
   );
 };
