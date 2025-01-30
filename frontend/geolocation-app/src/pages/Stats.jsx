@@ -13,6 +13,8 @@ const Stats = () => {
   const { state } = useLocation();
   const { userInfo } = state;
 
+  console.log(userInfo);
+
   const getAllRoutes = async () => {
     try {
       const response = await axiosInstance.get("/get-all-map-routes");
@@ -192,7 +194,7 @@ const Stats = () => {
                 </div>
                 <div>
                   <p className="text-sm text-slate-300">Height:</p>
-                  <p className="text-xl font-bold">{userInfo.height} cm</p>
+                  <p className="text-xl font-bold">{userInfo.company} cm</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-300">Weight:</p>

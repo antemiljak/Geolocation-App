@@ -183,8 +183,8 @@ app.get("/get-user", authenticateToken, async (req, res) => {
     user: {
       name: isUser.name,
       age: isUser.age,
-      height: isUser.height,
-      weight: isUser.weight,
+      company: isUser.company,
+      carPlate: isUser.carPlate,
       email: isUser.email,
       _id: isUser._id,
       createdOn: isUser.createdOn,
