@@ -81,15 +81,17 @@ app.post("/create-account", async (req, res) => {
     }
 
     const token = req.headers.authorization.split(" ")[1];
+    console.log("Received Token:", token); // Log the token
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      console.log("Received decoded:", decoded); // Log the token
       if (decoded.role !== "admin") {
         return res.status(403).json({
           error: true,
           message: "Only admins can create another admin",
         });
       }
-      userRole = "admin"; // Allow admin creation if authorized
+      userRole = "admin";
     } catch (error) {
       return res
         .status(403)
@@ -199,7 +201,6 @@ app.get("/get-user", authenticateToken, async (req, res) => {
 app.get("/get-all-users", authenticateToken, async (req, res) => {
   const { user } = req.user;
 
-  // Check if the user is an admin
   if (user.role !== "admin") {
     return res
       .status(403)
@@ -207,10 +208,8 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
   }
 
   try {
-    // Fetch users with the same company as the admin
     const users = await User.find({ company: user.company });
 
-    // If no users are found
     if (users.length === 0) {
       return res.status(404).json({
         error: true,
@@ -218,7 +217,6 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
       });
     }
 
-    // Return the users with relevant fields
     return res.json({
       users: users.map((user) => ({
         name: user.name,
