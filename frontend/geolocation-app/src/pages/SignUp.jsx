@@ -8,8 +8,8 @@ import axiosInstance from "../utils/axiosInstance";
 const Signup = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [company, setCompany] = useState("");
+  const [carPlate, setCarPlate] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -28,13 +28,13 @@ const Signup = () => {
       return;
     }
 
-    if (!height || height < 100 || height > 250) {
-      setError("Please enter valid height");
+    if (!company) {
+      setError("Please enter company name");
       return;
     }
 
-    if (!weight || weight < 0 || weight > 300) {
-      setError("Please enter valid weight");
+    if (!carPlate) {
+      setError("Please enter car licence plate");
       return;
     }
 
@@ -55,8 +55,8 @@ const Signup = () => {
       const response = await axiosInstance.post("/create-account", {
         name: name,
         age: age,
-        weight: weight,
-        height: height,
+        company: company,
+        carPlate: carPlate,
         email: email,
         password: password,
       });
@@ -87,70 +87,66 @@ const Signup = () => {
     <div>
       <div>
         <Navbar />
-        <div className="flex items-center justify-center mt-28">
+        <div className="flex items-center justify-center mt-4">
           <div className="w-3/4 md:w-5/12 p-5 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
               <h4 className="text-4xl font-bold mb-4 txt-color">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
-              <div className="md:flex gap-4">
-                <div className="md:w-1/2">
-                  <p className="mb-2">Name</p>
+              <div className=" gap-4">
+                <p className="mb-2">Name</p>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="input-box"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+
+                <div>
+                  <p className="mb-2">Age</p>
                   <input
-                    type="text"
-                    placeholder="Name"
+                    type="number"
+                    placeholder="years"
                     className="input-box"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <div className="flex gap-2">
-                    <div>
-                      <p className="mb-2">Age</p>
-                      <input
-                        type="number"
-                        placeholder="years"
-                        className="input-box"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <p className="mb-2">Height </p>
-                      <input
-                        type="number"
-                        placeholder="cm"
-                        className="input-box"
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <p className="mb-2">Weight </p>
-                      <input
-                        type="number"
-                        placeholder="kg"
-                        className="input-box"
-                        value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-1/2">
-                  <p className="mb-2">Email</p>
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    className="input-box"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <p className="mb-2">Password</p>
-                  <PasswordInput
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className=""
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
                   />
                 </div>
+                <div>
+                  <p className="mb-2">Company</p>
+                  <input
+                    type="text"
+                    placeholder="Company"
+                    className="input-box"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="mb-2">Car Licence Plate</p>
+                  <input
+                    type="text"
+                    placeholder="Licence Plate"
+                    className="input-box"
+                    value={carPlate}
+                    onChange={(e) => setCarPlate(e.target.value)}
+                  />
+                </div>
+
+                <p className="mb-2">Email</p>
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="input-box"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <p className="mb-2">Password</p>
+                <PasswordInput
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className=""
+                />
               </div>
               <div className="mt-4 md:mt-2 flex gap-2 items-center justify-center">
                 <button type="submit" className="btn-primary w-1/2">

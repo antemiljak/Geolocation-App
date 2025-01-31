@@ -81,10 +81,8 @@ app.post("/create-account", async (req, res) => {
     }
 
     const token = req.headers.authorization.split(" ")[1];
-    console.log("Received Token:", token); // Log the token
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-      console.log("Received decoded:", decoded); // Log the token
       if (decoded.role !== "admin") {
         return res.status(403).json({
           error: true,
@@ -191,6 +189,7 @@ app.get("/get-user", authenticateToken, async (req, res) => {
       company: isUser.company,
       carPlate: isUser.carPlate,
       email: isUser.email,
+      role: isUser.role,
       _id: isUser._id,
       createdOn: isUser.createdOn,
     },
