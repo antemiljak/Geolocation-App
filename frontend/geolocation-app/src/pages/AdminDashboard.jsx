@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import UserCard from "../components/UserCard";
 
 const AdminDashboard = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -33,7 +34,6 @@ const AdminDashboard = () => {
       });
       if (response.data && response.data.users) {
         setAllUsers(response.data.users);
-        console.log(allUsers);
       }
     } catch (error) {
       console.log(error);
@@ -48,7 +48,17 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div></div>
+      <div className="w-full h-full md:grid md:grid-cols-3 gap-6 mb-6 ">
+        {allUsers?.map((item, index) => (
+          <UserCard
+            key={item._id}
+            id={item._id}
+            name={item.name}
+            email={item.email}
+            carPlate={item.carPlate}
+          />
+        ))}
+      </div>
     </div>
   );
 };

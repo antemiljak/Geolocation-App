@@ -14,6 +14,7 @@ const Navbar = ({ userInfo }) => {
   let showProfileSection = false;
   if (
     location.pathname === "/home" ||
+    location.pathname === "/admin" ||
     location.pathname === "/allroutespage" ||
     location.pathname === "/stats"
   ) {

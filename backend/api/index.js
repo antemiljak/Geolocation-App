@@ -208,6 +208,7 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
 
   try {
     const users = await User.find({ company: user.company });
+    console.log("Users found:", users);
 
     if (users.length === 0) {
       return res.status(404).json({
@@ -301,8 +302,16 @@ app.post("/add-map-route", authenticateToken, async (req, res) => {
 
 app.get("/get-all-map-routes", authenticateToken, async (req, res) => {
   const { user } = req.user;
+  const { userId } = req.query;
 
   try {
+    let queryUserId;
+
+    if (user.role === "admin" && userId) {
+      queryUserId = userId;
+    } else {
+      queryUserId = user._id;
+    }
     const mapRoute = await MapRoute.find({ userId: user._id });
 
     return res.json({
