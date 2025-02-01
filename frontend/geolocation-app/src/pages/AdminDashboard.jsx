@@ -34,6 +34,7 @@ const AdminDashboard = () => {
       });
       if (response.data && response.data.users) {
         setAllUsers(response.data.users);
+        console.log(response.data.users);
       }
     } catch (error) {
       console.log(error);
@@ -48,16 +49,18 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div className="w-full h-full md:grid md:grid-cols-3 gap-6 mb-6 ">
-        {allUsers?.map((item, index) => (
-          <UserCard
-            key={item._id}
-            id={item._id}
-            name={item.name}
-            email={item.email}
-            carPlate={item.carPlate}
-          />
-        ))}
+      <div className="w-full h-full">
+        {allUsers
+          ?.filter((user) => user.role === "user")
+          .map((item, index) => (
+            <UserCard
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              email={item.email}
+              carPlate={item.carPlate}
+            />
+          ))}
       </div>
     </div>
   );

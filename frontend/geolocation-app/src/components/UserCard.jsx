@@ -24,7 +24,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
   }, [id]);
 
   return (
-    <div className="rounded-xl p-4 bg-zinc-900 transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:mb-0">
+    <div className="rounded-xl p-4 bg-zinc-900 transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:m-2">
       <div className="flex items-center justify-between">
         <h4 className="text-3xl font-bold txt-color">{name}</h4>
         <h6 className="text-xs text-slate-500">#{id.slice(0, 10)}</h6>

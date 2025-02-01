@@ -224,6 +224,7 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
         company: user.company,
         carPlate: user.carPlate,
         email: user.email,
+        role: user.role,
         _id: user._id,
         createdOn: user.createdOn,
       })),
