@@ -15,6 +15,7 @@ const NewRouteRecording = ({ userInfo }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [status, setStatus] = useState(null);
 
   const position = useGeolocation();
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const NewRouteRecording = ({ userInfo }) => {
     distance,
     startTime,
     endTime,
-    duration
+    duration,
+    status
   ) => {
     try {
       const routeData = {
@@ -35,6 +37,7 @@ const NewRouteRecording = ({ userInfo }) => {
         startTime: startTime,
         endTime: endTime,
         duration: duration,
+        status: status,
       };
 
       const response = await axiosInstance.post("/add-map-route", routeData);
@@ -66,7 +69,7 @@ const NewRouteRecording = ({ userInfo }) => {
   const stopRoute = async () => {
     setIsRecording(false);
     setEndTime(Date.now());
-
+    setStatus(false);
     // Stop the geolocation watch
     if (watchId) {
       navigator.geolocation.clearWatch(watchId);
@@ -100,7 +103,8 @@ const NewRouteRecording = ({ userInfo }) => {
           totalDistance,
           startTime,
           endTime,
-          totalDuration
+          totalDuration,
+          status
         );
 
         console.log("Route added to base");

@@ -14,6 +14,7 @@ const RouteCard = ({
   startTime,
   endTime,
   duration,
+  status,
   getAllRoutes,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -21,6 +22,7 @@ const RouteCard = ({
   const [middleAddress, setMiddleAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
   const [error, setError] = useState("");
+  const rate = 0.6;
 
   const deleteRoute = async () => {
     try {
@@ -110,26 +112,44 @@ const RouteCard = ({
         <p className="text-slate-500 text-sm">Date:</p>
         <p>{formatedDate}</p>
       </div>
-      <ul className=" mt-2">
-        <div className="flex items-center gap-2">
-          <li className="text-slate-300">Duration:</li>
-          <li className="text-xl font-semibold text-rose-500">
-            {calculateDuration(duration)}
-          </li>
-        </div>
-        <div className="flex items-center gap-2">
-          <li className="text-slate-300">Distance: </li>
-          <li className="text-xl font-semibold text-rose-500">
-            {distance.toFixed(2)} km
-          </li>
-        </div>
-        <div className="flex items-center gap-2">
-          <li className="text-slate-300">Avg Speed:</li>
-          <li className="text-xl font-semibold text-rose-500">
-            {avgSpeed.toFixed(1)} km/h
-          </li>
-        </div>
-      </ul>
+      <div className="flex gap-6">
+        <ul className=" mt-2">
+          <div className="flex items-center gap-2">
+            <li className="text-slate-300">Duration:</li>
+            <li className="text-xl font-semibold text-rose-500">
+              {calculateDuration(duration)}
+            </li>
+          </div>
+          <div className="flex items-center gap-2">
+            <li className="text-slate-300">Distance: </li>
+            <li className="text-xl font-semibold text-rose-500">
+              {distance.toFixed(2)} km
+            </li>
+          </div>
+          <div className="flex items-center gap-2">
+            <li className="text-slate-300">Avg Speed:</li>
+            <li className="text-xl font-semibold text-rose-500">
+              {avgSpeed.toFixed(1)} km/h
+            </li>
+          </div>
+        </ul>
+        <ul className=" mt-2">
+          <div className="flex items-center gap-2">
+            <li className="text-slate-300">Payment:</li>
+            <li className="text-xl font-semibold text-rose-500">
+              {(rate * distance).toFixed(2)}€
+            </li>
+          </div>
+          <div className="flex items-center gap-2">
+            <li className="text-slate-300">Status: </li>
+            {status ? (
+              <li className="text-xl font-semibold text-green-300">Payed</li>
+            ) : (
+              <li className="text-xl font-semibold text-rose-500">pending</li>
+            )}
+          </div>
+        </ul>
+      </div>
       <button
         onClick={() => {
           setShowModal(true);
@@ -219,13 +239,13 @@ const RouteCard = ({
                 <p className="text-slate-300">
                   Rate:{" "}
                   <span className="text-rose-500 md:text-lg font-semibold">
-                    1,6 $/km
+                    {rate} €/km
                   </span>
                 </p>
                 <p className="text-slate-300">
                   Total:{" "}
                   <span className="text-rose-500 md:text-lg font-semibold">
-                    {(1.6 * distance).toFixed(2)} $
+                    {(1.6 * distance).toFixed(2)} €
                   </span>
                 </p>
                 <p className="text-slate-300">

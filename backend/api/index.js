@@ -238,7 +238,7 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-map-route", authenticateToken, async (req, res) => {
-  const { title, coordinates, distance, startTime, endTime, duration } =
+  const { title, coordinates, distance, startTime, endTime, duration, status } =
     req.body;
   const { user } = req.user;
 
@@ -284,6 +284,7 @@ app.post("/add-map-route", authenticateToken, async (req, res) => {
       startTime,
       endTime,
       duration,
+      status,
       userId: user._id,
     });
 

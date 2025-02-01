@@ -9,6 +9,7 @@ const mapRouteSchema = new Schema({
   startTime: { type: Number, required: true },
   endTime: { type: Number, required: true },
   duration: { type: Number, required: true },
+  status: { type: Boolean, required: true },
   userId: { type: String, required: true },
 });
 
