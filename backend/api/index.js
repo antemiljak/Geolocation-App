@@ -313,7 +313,7 @@ app.get("/get-all-map-routes", authenticateToken, async (req, res) => {
     } else {
       queryUserId = user._id;
     }
-    const mapRoute = await MapRoute.find({ userId: user._id });
+    const mapRoute = await MapRoute.find({ userId: queryUserId });
 
     return res.json({
       error: false,

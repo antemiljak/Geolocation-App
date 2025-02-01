@@ -36,7 +36,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
             <li className="text-xl font-semibold text-rose-500">{email}</li>
           </div>
           <div className="flex items-center gap-2">
-            <li className="text-slate-300">carPlate: </li>
+            <li className="text-slate-300">Car licence plate: </li>
             <li className="text-xl font-semibold text-rose-500">{carPlate}</li>
           </div>
         </ul>
