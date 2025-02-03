@@ -5,7 +5,11 @@ import { getInitials } from "../utils/helper";
 
 const UserCard = ({ id, name, email, carPlate }) => {
   const [allRoutes, setAllRoutes] = useState(null);
+  const [totalPaidOut, setTotalPaidOut] = useState(0);
+  const [totalPayDue, setTotalPayDue] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
+  const rate = 0.6;
   const getAllRoutes = async () => {
     try {
       const response = await axiosInstance.get(
@@ -16,6 +20,16 @@ const UserCard = ({ id, name, email, carPlate }) => {
         setAllRoutes(response.data.mapRoute);
         console.log("Routes for ", name, ": ", response.data.mapRoute);
       }
+      const total = response.data.mapRoute
+        .filter((route) => route.status === true) // Filter routes with status: true
+        .reduce((acc, route) => acc + route.distance, 0); // Sum the distances
+
+      const totalDue = response.data.mapRoute
+        .filter((route) => route.status === false) // Filter routes with status: false
+        .reduce((acc, route) => acc + route.distance, 0);
+
+      setTotalPayDue(totalDue * rate);
+      setTotalPaidOut(total * rate); // Set the total paid distance
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
     }
@@ -36,6 +50,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
         </div>
         <h6 className="text-xs text-slate-500">#{id.slice(0, 10)}</h6>
       </div>
+      <hr className="m-4 border-slate-300"></hr>
       <div>
         <ul className=" mt-2 md:flex gap-4 mb-4">
           <div className="flex items-center gap-2">
@@ -58,31 +73,122 @@ const UserCard = ({ id, name, email, carPlate }) => {
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Total comision: </li>
-            <li className="text-xl font-semibold text-green-300">0 €</li>
+            <li className="text-xl font-semibold text-green-300">
+              {totalPaidOut.toFixed(2)} €
+            </li>
           </div>
         </ul>
       </div>
       <div>
         {allRoutes?.length > 0 ? (
-          <div className="w-full h-full md:grid md:grid-cols-3 gap-4 mb-4 ">
-            {allRoutes?.map((item, index) => (
-              <RouteCard
-                key={item._id}
-                id={item._id}
-                title={item.title}
-                coords={item.coordinates}
-                distance={item.distance}
-                startTime={item.startTime}
-                endTime={item.endTime}
-                duration={item.duration}
-                getAllRoutes={getAllRoutes}
-              />
-            ))}
+          <div className="w-full h-[404px] overflow-y-auto custom-scrollbar scrollbar-thumb-rose-500 scrollbar-track-zinc-800">
+            <div className="w-full md:grid md:grid-cols-3 gap-4 mt-2 mb-4 px-2">
+              {[...(allRoutes || [])].reverse().map((item, index) => (
+                <RouteCard
+                  key={item._id}
+                  id={item._id}
+                  title={item.title}
+                  coords={item.coordinates}
+                  distance={item.distance}
+                  startTime={item.startTime}
+                  endTime={item.endTime}
+                  duration={item.duration}
+                  status={item.status}
+                  getAllRoutes={getAllRoutes}
+                />
+              ))}
+            </div>
           </div>
         ) : (
-          <h1 className="text-xl font-medium">No routes</h1>
+          <div className="w-full h-[404px] flex items-center justify-center">
+            <h1 className="text-3xl font-bold mx-auto">No routes</h1>
+          </div>
         )}
       </div>
+      <hr className="m-4 border-slate-300"></hr>
+
+      <div className="flex items-center justify-center gap-4">
+        <h4 className="text-xl text-slate-300">Payment due:</h4>
+
+        {totalPayDue ? (
+          <div className="flex gap-4">
+            <p className="text-3xl font-semibold text-rose-500">
+              {totalPayDue.toFixed(2)}€
+            </p>
+            <button
+              className="btn-primary w-32"
+              onClick={() => {
+                setShowModal(true);
+                fetchAddresses();
+              }}
+            >
+              Pay out <i class="fas fa-money-bill"></i>
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-4">
+            <p className="text-3xl font-semibold text-green-300">
+              {totalPayDue.toFixed(2)}€
+            </p>
+            <button className="btn-secondary w-32 cursor-default">
+              Paid <i class="fas fa-check"></i>
+            </button>
+          </div>
+        )}
+      </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50 overflow-y-auto">
+          <div className="bg-zinc-900 w-full md:w-5/6 rounded-lg ">
+            <h1 className="mx-auto text-3xl txt-color font-bold p-4">
+              Routes due:
+            </h1>
+            {allRoutes
+              ?.filter((route) => route.status === false)
+              .map((item, index) => (
+                <div
+                  key={item._id}
+                  className="rounded-xl p-4 bg-zinc-800 mb-4 md:m-2 "
+                >
+                  <ul className=" mt-2 md:flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <li className="text-slate-300">Title:</li>
+                      <li className="text-xl font-semibold text-rose-500">
+                        {item.title}
+                      </li>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <li className="text-slate-300">Distance: </li>
+                      <li className="text-xl font-semibold text-rose-500">
+                        {item.distance.toFixed(2)} km
+                      </li>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <li className="text-slate-300">Price: </li>
+                      <li className="text-xl font-semibold text-rose-500">
+                        {(item.distance * rate).toFixed(2)}€
+                      </li>
+                    </div>
+
+                    <button className="btn-primary w-32">
+                      Pay now <i class="fas fa-money-bill"></i>
+                    </button>
+                  </ul>
+                </div>
+              ))}
+            <div className="flex gap-4 mt-4 items-center justify-center my-4">
+              <button className="btn-primary w-32">
+                Pay all <i class="fas fa-money-bill"></i>
+              </button>
+              <button
+                className="btn-secondary w-32"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

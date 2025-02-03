@@ -45,4 +45,17 @@
   .txt-color {
     @apply bg-gradient-to-r from-green-300 via-slate-300 to-slate-300 bg-clip-text text-transparent;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #f43f5e;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #27272a;
+  }
 }

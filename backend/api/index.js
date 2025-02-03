@@ -2,6 +2,9 @@ require("dotenv").config();
 
 const config = require("./config.json");
 const mongoose = require("mongoose");
+const stripe = require("stripe")(
+  "sk_test_51QoTBY2fQZGvHcvHGkIJH6O5NsB48fXQOIVUyjawcZcVf62g6ZxIZp7GQeYzO2qVOt6XYiKKx7HMgjJxRXTZrGPJ00kdb9EsIO"
+);
 
 mongoose.connect(config.connectionString);
 
@@ -361,6 +364,25 @@ app.delete(
     }
   }
 );
+
+app.post("/create-payment-intent", async (req, res) => {
+  const { amount } = req.body; // Amount in cents (e.g. 1000 = 10€)
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "eur", // Your currency code (EUR in this case)
+      payment_method_types: ["card"],
+    });
+
+    res.json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.listen(8000, "0.0.0.0", () => {
   console.log("Server is running on 0.0.0.0");

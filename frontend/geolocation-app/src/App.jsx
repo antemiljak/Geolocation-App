@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import AllRoutesPage from "./pages/AllRoutesPage";
 import Stats from "./pages/Stats";
 import AdminDashboard from "./pages/AdminDashboard";
+import PaymentPage from "./pages/PaymentPage";
 
 const routes = (
   <Router>
@@ -18,6 +19,7 @@ const routes = (
       <Route path="/signup" exact element={<SignUp />} />
       <Route path="/allroutespage" exact element={<AllRoutesPage />} />
       <Route path="/stats" exact element={<Stats />} />
+      <Route path="/paymentpage" exact element={<PaymentPage />} />
     </Routes>
   </Router>
 );

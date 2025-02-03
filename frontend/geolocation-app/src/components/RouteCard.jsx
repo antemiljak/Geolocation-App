@@ -145,7 +145,7 @@ const RouteCard = ({
             {status ? (
               <li className="text-xl font-semibold text-green-300">Payed</li>
             ) : (
-              <li className="text-xl font-semibold text-rose-500">pending</li>
+              <li className="text-xl font-semibold text-rose-500">Pending</li>
             )}
           </div>
         </ul>
@@ -161,7 +161,7 @@ const RouteCard = ({
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50 overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-start md:items-center justify-center z-50 overflow-y-auto custom-scrollbar">
           <div className="bg-zinc-900 w-full h-2/3 md:w-5/6 md:h-5/6 rounded-lg md:flex">
             {/* Map Section */}
             <div className="md:w-2/3 h-full md:rounded-l-lg">
