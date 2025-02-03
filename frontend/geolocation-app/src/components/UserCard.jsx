@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import RouteCard from "./RouteCard";
 import { getInitials } from "../utils/helper";
@@ -8,6 +9,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
   const [totalPaidOut, setTotalPaidOut] = useState(0);
   const [totalPayDue, setTotalPayDue] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const rate = 0.6;
   const getAllRoutes = async () => {
@@ -33,6 +35,21 @@ const UserCard = ({ id, name, email, carPlate }) => {
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
     }
+  };
+
+  const updateRouteStatus = async (paidRoutes) => {
+    try {
+      await axiosInstance.put("/update-route-status", {
+        routes: paidRoutes, // Array of route IDs that need to be marked as paid
+      });
+      getAllRoutes(); // Refresh routes after payment
+    } catch (error) {
+      console.error("Failed to update route status:", error);
+    }
+  };
+
+  const handlePayment = (amount, paidRoutes) => {
+    navigate("/paymentpage", { state: { amount, paidRoutes } });
   };
 
   useEffect(() => {
@@ -63,13 +80,13 @@ const UserCard = ({ id, name, email, carPlate }) => {
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Number of routes: </li>
-            <li className="text-xl font-semibold text-rose-500">
-              {allRoutes?.length}
-            </li>
+            <li className="text-xl font-semibold">{allRoutes?.length}</li>
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">To be paid: </li>
-            <li className="text-xl font-semibold text-rose-500">1</li>
+            <li className="text-xl font-semibold text-rose-500">
+              {allRoutes.filter((route) => route.status === false).length}
+            </li>
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Total comision: </li>
@@ -176,7 +193,16 @@ const UserCard = ({ id, name, email, carPlate }) => {
                 </div>
               ))}
             <div className="flex gap-4 mt-4 items-center justify-center my-4">
-              <button className="btn-primary w-32">
+              <button
+                className="btn-primary w-32"
+                onClick={() => {
+                  const paidRoutes = allRoutes.filter(
+                    (route) => route.status === false
+                  );
+                  updateRouteStatus(paidRoutes.map((route) => route._id));
+                  handlePayment(totalPayDue.toFixed(2));
+                }}
+              >
                 Pay all <i class="fas fa-money-bill"></i>
               </button>
               <button

@@ -384,6 +384,22 @@ app.post("/create-payment-intent", async (req, res) => {
   }
 });
 
+app.put("/update-route-status", async (req, res) => {
+  try {
+    const { routes } = req.body; // array of route IDs
+    const updatedRoutes = await Route.updateMany(
+      { _id: { $in: routes } },
+      { $set: { status: true } } // Set status to 'true'
+    );
+    res.status(200).json({ message: "Routes updated successfully!" });
+  } catch (error) {
+    console.error("Error updating routes:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while updating routes" });
+  }
+});
+
 app.listen(8000, "0.0.0.0", () => {
   console.log("Server is running on 0.0.0.0");
 });

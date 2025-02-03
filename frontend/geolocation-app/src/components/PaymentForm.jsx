@@ -1,63 +1,82 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axiosInstance from "../utils/axiosInstance";
 
-const PaymentForm = ({ amount }) => {
+const PaymentForm = () => {
+  const location = useLocation();
+  const { amount } = location.state || {};
+  const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!stripe || !elements) {
       return;
     }
 
     setLoading(true);
 
-    // Get a client secret from your server
-    const { data } = await axiosInstance.post("/create-payment-intent", {
-      amount: amount, // Pass the amount to be paid (in cents)
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
     });
 
-    const clientSecret = data.clientSecret;
-
-    // Confirm the payment with Stripe
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: "Customer Name",
-          },
-        },
-      }
-    );
-
     if (error) {
-      console.log("Payment failed", error);
-      alert(error.message);
+      console.error("Payment failed:", error);
+      setLoading(false);
     } else {
-      if (paymentIntent.status === "succeeded") {
-        console.log("Payment succeeded", paymentIntent);
-        alert("Payment Successful!");
-        // Optionally, you can call an API to store the payment info in your database
-      }
+      // Here, you would typically send `paymentMethod.id` to your backend
+      console.log("Payment method created:", paymentMethod);
+      setLoading(false);
+      alert("Payment successful!");
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="payment-form">
-      <h2>Pay {amount / 100}€</h2>
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        <button disabled={loading || !stripe} type="submit">
-          {loading ? "Processing..." : "Pay now"}
-        </button>
-      </form>
+    <div className="w-full h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+          Pay {amount}€
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="border-2 border-gray-300 p-4 rounded-lg bg-gray-50">
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#333",
+                    backgroundColor: "#f8f8f8",
+                    borderRadius: "0.375rem",
+                    padding: "12px",
+                    "::placeholder": {
+                      color: "#bbb",
+                    },
+                  },
+                  complete: {
+                    color: "#4caf50",
+                  },
+                  empty: {
+                    color: "#ff6347",
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading || !stripe}
+            className={`w-full py-3 text-white rounded-lg mt-4 ${
+              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+            }`}
+          >
+            {loading ? "Processing..." : "Pay Now"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
