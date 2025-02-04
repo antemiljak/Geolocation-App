@@ -6,6 +6,7 @@ import { getInitials } from "../utils/helper";
 
 const UserCard = ({ id, name, email, carPlate }) => {
   const [allRoutes, setAllRoutes] = useState(null);
+  const [unpaidRoutes, setUnpaidRoutes] = useState(null);
   const [totalPaidOut, setTotalPaidOut] = useState(0);
   const [totalPayDue, setTotalPayDue] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -30,6 +31,9 @@ const UserCard = ({ id, name, email, carPlate }) => {
         .filter((route) => route.status === false) // Filter routes with status: false
         .reduce((acc, route) => acc + route.distance, 0);
 
+      setUnpaidRoutes(
+        allRoutes.filter((route) => route.status === false).length
+      );
       setTotalPayDue(totalDue * rate);
       setTotalPaidOut(total * rate); // Set the total paid distance
     } catch (error) {
@@ -85,7 +89,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
           <div className="flex items-center gap-2">
             <li className="text-slate-300">To be paid: </li>
             <li className="text-xl font-semibold text-rose-500">
-              {allRoutes.filter((route) => route.status === false).length}
+              {unpaidRoutes}
             </li>
           </div>
           <div className="flex items-center gap-2">
