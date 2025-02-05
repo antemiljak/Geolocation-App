@@ -4,7 +4,15 @@ import axiosInstance from "../utils/axiosInstance";
 import RouteCard from "./RouteCard";
 import { getInitials } from "../utils/helper";
 
-const UserCard = ({ id, name, email, carPlate }) => {
+const UserCard = ({
+  id,
+  name,
+  email,
+  carPlate,
+  reportPaidComission,
+  reportUnpaidComission,
+  selectedMonth,
+}) => {
   const [allRoutes, setAllRoutes] = useState(null);
   const [unpaidRoutes, setUnpaidRoutes] = useState(null);
   const [totalPaidOut, setTotalPaidOut] = useState(0);
@@ -13,6 +21,20 @@ const UserCard = ({ id, name, email, carPlate }) => {
   const navigate = useNavigate();
 
   const rate = 0.6;
+
+  // Function to filter routes by selected month
+  const filterRoutesByMonth = (routes, month) => {
+    if (!month) return routes; // If no month is selected, show all routes
+
+    const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
+    const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+
+    return routes.filter((route) => {
+      const routeDate = new Date(route.startTime); // Assuming startTime exists in the route
+      return routeDate >= monthStart && routeDate <= monthEnd;
+    });
+  };
+
   const getAllRoutes = async () => {
     try {
       const response = await axiosInstance.get(
@@ -20,22 +42,29 @@ const UserCard = ({ id, name, email, carPlate }) => {
       );
 
       if (response.data && response.data.mapRoute) {
-        setAllRoutes(response.data.mapRoute);
-        console.log("Routes for ", name, ": ", response.data.mapRoute);
+        const filteredRoutes = filterRoutesByMonth(
+          response.data.mapRoute,
+          selectedMonth
+        );
+
+        setAllRoutes(filteredRoutes);
+
+        const total = filteredRoutes
+          .filter((route) => route.status === true) // Filter routes with status: true
+          .reduce((acc, route) => acc + route.distance, 0); // Sum the distances
+
+        const totalDue = filteredRoutes
+          .filter((route) => route.status === false) // Filter routes with status: false
+          .reduce((acc, route) => acc + route.distance, 0);
+
+        setUnpaidRoutes(
+          filteredRoutes.filter((route) => route.status === false).length
+        );
+        setTotalPayDue(totalDue * rate);
+        reportUnpaidComission(totalDue * rate);
+        setTotalPaidOut(total * rate);
+        reportPaidComission(total * rate);
       }
-      const total = response.data.mapRoute
-        .filter((route) => route.status === true) // Filter routes with status: true
-        .reduce((acc, route) => acc + route.distance, 0); // Sum the distances
-
-      const totalDue = response.data.mapRoute
-        .filter((route) => route.status === false) // Filter routes with status: false
-        .reduce((acc, route) => acc + route.distance, 0);
-
-      setUnpaidRoutes(
-        allRoutes.filter((route) => route.status === false).length
-      );
-      setTotalPayDue(totalDue * rate);
-      setTotalPaidOut(total * rate); // Set the total paid distance
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
     }
@@ -58,7 +87,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
 
   useEffect(() => {
     getAllRoutes();
-  }, [id]);
+  }, [id, selectedMonth]); // Trigger on user id or selected month change
 
   return (
     <div className="rounded-xl p-4 bg-zinc-800 transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:m-2">
@@ -93,7 +122,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
             </li>
           </div>
           <div className="flex items-center gap-2">
-            <li className="text-slate-300">Total comision: </li>
+            <li className="text-slate-300">Total comission: </li>
             <li className="text-xl font-semibold text-green-300">
               {totalPaidOut.toFixed(2)} €
             </li>
@@ -103,7 +132,7 @@ const UserCard = ({ id, name, email, carPlate }) => {
       <div>
         {allRoutes?.length > 0 ? (
           <div className="w-full h-[404px] overflow-y-auto custom-scrollbar scrollbar-thumb-rose-500 scrollbar-track-zinc-800">
-            <div className="w-full md:grid md:grid-cols-3 gap-4 mt-2 mb-4 px-2">
+            <div className="w-full md:grid md:grid-cols-3 gap-2 mt-2 mb-4 px-2">
               {[...(allRoutes || [])].reverse().map((item, index) => (
                 <RouteCard
                   key={item._id}
@@ -140,7 +169,6 @@ const UserCard = ({ id, name, email, carPlate }) => {
               className="btn-primary w-32"
               onClick={() => {
                 setShowModal(true);
-                fetchAddresses();
               }}
             >
               Pay out <i class="fas fa-money-bill"></i>

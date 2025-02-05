@@ -8,17 +8,19 @@ const MapRoute = ({ coordinates, title }) => {
   const startPosition = coordinates[0];
   const endPosition = coordinates[coordinates.length - 1];
 
-  const startIcon = L.icon({
-    iconUrl: StartLogo,
-    iconSize: [30, 30],
-    iconAnchor: [20, 30],
+  const startIcon = L.divIcon({
+    html: '<i class="fas fa-car fa-2x" style="color: black;"></i>',
+    className: "custom-start-icon",
+    iconSize: [32, 32], // Adjust icon size
+    iconAnchor: [3, 25],
     popupAnchor: [4, -31],
   });
 
-  const endIcon = L.icon({
-    iconUrl: EndLogo,
-    iconSize: [30, 30],
-    iconAnchor: [3, 30],
+  const endIcon = L.divIcon({
+    html: '<i class="fas fa-flag-checkered fa-2x" style="color: black;"></i>',
+    className: "custom-start-icon",
+    iconSize: [32, 32], // Adjust icon size
+    iconAnchor: [3, 25],
     popupAnchor: [4, -31],
   });
   return (

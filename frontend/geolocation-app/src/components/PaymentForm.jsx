@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const PaymentForm = () => {
@@ -8,6 +8,7 @@ const PaymentForm = () => {
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,6 +32,7 @@ const PaymentForm = () => {
       console.log("Payment method created:", paymentMethod);
       setLoading(false);
       alert("Payment successful!");
+      navigate("/admin");
     }
   };
 

@@ -136,9 +136,15 @@ const RouteCard = ({
         <ul className=" mt-2">
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Payment:</li>
-            <li className="text-xl font-semibold text-rose-500">
-              {(rate * distance).toFixed(2)}€
-            </li>
+            {status ? (
+              <li className="text-xl font-semibold text-green-300">
+                {(rate * distance).toFixed(2)}€
+              </li>
+            ) : (
+              <li className="text-xl font-semibold text-rose-500">
+                {(rate * distance).toFixed(2)}€
+              </li>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Status: </li>
