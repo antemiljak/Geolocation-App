@@ -84,7 +84,7 @@ const UserCard = ({
           <div className="w-16 h-16 flex items-center justify-center rounded-full text-green-300 text-2xl font-bold bg-zinc-900">
             {getInitials(name)}
           </div>
-          <h4 className="text-3xl font-bold txt-color">{name}</h4>
+          <h4 className="text-2xl md:text-3xl font-bold txt-color">{name}</h4>
         </div>
         <h6 className="text-xs text-slate-500">#{id.slice(0, 10)}</h6>
       </div>
@@ -120,7 +120,7 @@ const UserCard = ({
       <div>
         {allRoutes?.length > 0 ? (
           <div className="w-full h-[404px] overflow-y-auto custom-scrollbar scrollbar-thumb-rose-500 scrollbar-track-zinc-800">
-            <div className="w-full md:grid md:grid-cols-3 gap-2 mt-2 mb-4 px-2">
+            <div className="w-full md:grid md:grid-cols-3 gap-2 mt-2 mb-4 md:px-2">
               {[...(allRoutes || [])].reverse().map((item, index) => (
                 <RouteCard
                   key={item._id}

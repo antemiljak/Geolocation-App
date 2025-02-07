@@ -92,7 +92,7 @@ const Stats = () => {
         </button>
       </div>
 
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center my-4 md:block md:ml-[4%]">
         <MonthPicker
           onMonthChange={handleMonthChange}
           onAllTime={handleAllTimeClick}
@@ -119,7 +119,7 @@ const Stats = () => {
       </div>
       <div
         id="profile-section"
-        className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[85%] md:max-w-[75%] mx-auto transition duration-150 ease-out hover:scale-105 hover:ease-in"
+        className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[90%] md:max-w-[75%] mx-auto transition duration-150 ease-out md:hover:scale-105 hover:ease-in"
       >
         <h2 className="text-3xl md:text-5xl font-bold italic txt-color">
           PROFILE INFO
@@ -157,22 +157,26 @@ const Stats = () => {
             </div>
           </div>
 
-          <div className="flex justify-center gap-12 mb-6">
-            <div>
-              <p className="text-sm text-slate-300">Rate:</p>
-              <p className="text-xl font-bold">0,60 $/km</p>
+          <div className="flex  justify-between md:justify-center mb-6 mr-8 md:mr-0 md:gap-12">
+            <div className="md:flex gap-12">
+              <div>
+                <p className="text-sm text-slate-300">Rate:</p>
+                <p className="text-xl font-bold">0,60 $/km</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-300">To be paid:</p>
+                <p className="text-xl font-bold text-rose-500">42 $</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-slate-300">To be paid:</p>
-              <p className="text-xl font-bold text-rose-500">42 $</p>
-            </div>
-            <div>
-              <p className="text-sm text-slate-300">Paid out:</p>
-              <p className="text-xl font-bold text-green-300">50 $</p>
-            </div>
-            <div>
-              <p className="text-sm text-slate-300">Total:</p>
-              <p className="text-xl font-bold">92 $</p>
+            <div className="md:flex gap-12">
+              <div>
+                <p className="text-sm text-slate-300">Paid out:</p>
+                <p className="text-xl font-bold text-green-300">50 $</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-300">Total:</p>
+                <p className="text-xl font-bold">92 $</p>
+              </div>
             </div>
           </div>
 

@@ -30,7 +30,6 @@ const LandingPage = () => {
               <li>REAL-TIME</li>
               <li>TRACKING</li>
               <li>MANAGE</li>
-              <li>DISCOVER</li>
             </ul>
 
             <div className="w-full md:w-[75%] mb-8 md:bg-zinc-900 rounded-xl p-6">
@@ -47,7 +46,7 @@ const LandingPage = () => {
                   className="btn-primary w-64"
                   onClick={() => navigate("/signup")}
                 >
-                  Create Account
+                  New Account
                 </button>
                 <button
                   className="btn-secondary w-64"

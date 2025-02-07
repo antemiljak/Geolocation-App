@@ -11,7 +11,7 @@ const MonthPicker = ({ onMonthChange, onAllTime }) => {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 ml-4">
       <p className="txt-color font-bold">Month:</p>
       <DatePicker
         selected={startDate}

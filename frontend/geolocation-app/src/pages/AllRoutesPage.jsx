@@ -68,7 +68,7 @@ const AllRoutesPage = () => {
           </span>
         </p>
       </div>
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center md:block my-4 md:ml-[4%]">
         <MonthPicker
           onMonthChange={handleMonthChange}
           onAllTime={handleAllTimeClick}

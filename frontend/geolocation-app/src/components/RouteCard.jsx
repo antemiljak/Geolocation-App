@@ -108,11 +108,11 @@ const RouteCard = ({
         <h4 className="text-3xl font-bold txt-color">{title}</h4>
         <h6 className="text-xs text-slate-500">#{id.slice(0, 10)}</h6>
       </div>
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2 my-1">
         <p className="text-slate-500 text-sm">Date:</p>
-        <p>{formatedDate}</p>
+        <p className="font-semibold">{formatedDate}</p>
       </div>
-      <div className="flex gap-6">
+      <div className="md:flex gap-6">
         <ul className=" mt-2">
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Duration:</li>
@@ -133,7 +133,7 @@ const RouteCard = ({
             </li>
           </div>
         </ul>
-        <ul className=" mt-2">
+        <ul className="md:mt-2">
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Payment:</li>
             {status ? (

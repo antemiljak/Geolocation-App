@@ -85,13 +85,13 @@ const AdminDashboard = () => {
       />
       <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2">
         <div className=" bg-zinc-800 rounded-xl">
-          <div className="p-2 text-3xl font-bold txt-color">
+          <div className="p-2 text-lg md:text-3xl font-bold txt-color">
             Select employee:
           </div>
-          <div className="overflow-y-auto max-h-36 custom-scrollbar m-2">
+          <div className="overflow-y-auto max-h-36 custom-scrollbar md:m-2">
             <ul>
               <li
-                className="text-2xl txt-color font-bold cursor-pointer hover:text-white mx-4"
+                className="md:text-2xl txt-color font-bold cursor-pointer hover:text-white mx-4"
                 onClick={() => handleUserSelect("all")}
               >
                 Show all
@@ -107,7 +107,7 @@ const AdminDashboard = () => {
                     <i class="fas fa-user" />
                     <li
                       key={item._id}
-                      className="text-xl txt-color font-bold cursor-pointer  hover:text-white"
+                      className="md:text-xl txt-color font-bold cursor-pointer  hover:text-white"
                     >
                       {item.name}
                     </li>
@@ -118,30 +118,43 @@ const AdminDashboard = () => {
         </div>
 
         <div className=" bg-zinc-800 rounded-xl">
-          <div className="p-2 text-3xl font-bold txt-color">Comissions:</div>
+          <div className="p-2 text-lg md:text-3xl font-bold txt-color">
+            Comissions:
+          </div>
           <ul className=" m-2">
             <div className="flex items-center gap-2 m-2">
-              <li className="text-slate-300">Payed out:</li>
-              <li className="text-xl font-semibold text-green-300">
+              <li className="text-sm md:text-md text-slate-300">Payed out:</li>
+              <li className="md:text-xl font-semibold text-green-300">
                 {paidCommissions.toFixed(2)}€
               </li>
             </div>
             <div className="flex items-center gap-2 m-2">
-              <li className="text-slate-300">To be paid: </li>
-              <li className="text-xl font-semibold text-rose-500">
+              <li className="text-sm md:text-md text-slate-300">
+                To be paid:{" "}
+              </li>
+              <li className="md:text-xl font-semibold text-rose-500">
                 {unpaidCommissions.toFixed(2)}€
               </li>
             </div>
             <div className="flex items-center gap-2 m-2">
-              <li className="text-slate-300">Total:</li>
-              <li className="text-xl font-semibold">
+              <li className="text-sm md:text-md text-slate-300">Total:</li>
+              <li className="md:text-xl font-semibold">
                 {(paidCommissions + unpaidCommissions).toFixed(2)}€
               </li>
             </div>
+            {unpaidCommissions ? (
+              ""
+            ) : (
+              <p className="m-2 font-bold">
+                All commisions paid <i class="fas fa-check"></i>
+              </p>
+            )}
           </ul>
         </div>
         <div className=" bg-zinc-800 rounded-xl">
-          <div className="p-2 text-3xl font-bold txt-color">Employees:</div>
+          <div className="p-2 text-xl md:text-3xl font-bold txt-color">
+            Employees:
+          </div>
           <div className="w-24 h-24 flex items-center justify-center rounded-full text-green-300 text-4xl font-bold bg-zinc-900 mx-auto my-4">
             {allUsers.length - 1}
           </div>
@@ -152,7 +165,7 @@ const AdminDashboard = () => {
           </h1>
         </div>
       </div>
-      <div className="w-full h-full m-2">
+      <div className="m-2 md:m-0">
         {allUsers
           ?.filter((user) =>
             selectedUser !== "all"
