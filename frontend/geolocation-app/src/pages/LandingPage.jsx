@@ -79,7 +79,7 @@ const LandingPage = () => {
             also reproduced in their exact original form.
           </p>
         </div>
-        <div className="mt-6 flex items-center justify-start md:justify-center gap-8 md:gap-12 overflow-x-auto md:overflow-hidden mx-4 scroll-snap-type-x mandatory">
+        <div className="mt-6 flex items-center justify-start md:justify-center gap-8 md:gap-12 overflow-x-auto md:overflow-hidden mx-4 scroll-snap-type-x mandatory scrollbar-thin">
           <img
             src={Driving}
             alt="Driving"

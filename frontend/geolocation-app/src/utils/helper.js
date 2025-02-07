@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const validateEmail = (email) => {
   const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   return regex.test(email);
@@ -49,6 +47,18 @@ export const calculateDuration = (durationMs) => {
   const hours = Math.floor(durationMs / (1000 * 60 * 60));
 
   return `${hours}h ${minutes}m ${seconds}s`;
+};
+
+export const filterRoutesByMonth = (routes, month) => {
+  if (!month) return routes;
+
+  const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
+  const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+
+  return routes.filter((route) => {
+    const routeDate = new Date(route.startTime); // Assuming startTime exists in the route
+    return routeDate >= monthStart && routeDate <= monthEnd;
+  });
 };
 
 export const options = {

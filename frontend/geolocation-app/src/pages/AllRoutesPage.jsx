@@ -7,11 +7,15 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import axiosInstance from "../utils/axiosInstance";
 import AllRoutesPagination from "../components/AllRoutesPagination";
 import Footer from "../components/Footer";
+import MonthPicker from "../components/MonthPicker";
+import { filterRoutesByMonth } from "../utils/helper";
 
 const AllRoutesPage = () => {
   const [allRoutes, setAllRoutes] = useState(null);
   const [allRoutesSaved, setAllRoutesSaved] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(null);
+
   const navigate = useNavigate();
   const { state } = useLocation();
   const { userInfo } = state;
@@ -21,80 +25,30 @@ const AllRoutesPage = () => {
       const response = await axiosInstance.get("/get-all-map-routes");
 
       if (response.data && response.data.mapRoute) {
-        setAllRoutes(response.data.mapRoute);
-        setAllRoutesSaved(response.data.mapRoute);
+        const filteredRoutes = filterRoutesByMonth(
+          response.data.mapRoute,
+          selectedMonth
+        );
+        setAllRoutes(filteredRoutes);
+        setAllRoutesSaved(filteredRoutes);
       }
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
     }
   };
 
-  const handleFilter = (time) => {
-    console.log("Handle called");
-    let filterRoutes;
-    const now = new Date();
-    if (time === "last-year") {
-      filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear() - 1,
-            now.getMonth(),
-            now.getDate(),
-            0,
-            0,
-            0
-          )
-      );
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "last-month") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear(),
-            now.getMonth() - 1,
-            now.getDate(),
-            0,
-            0,
-            0
-          )
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "last-week") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate() - 7,
-            0,
-            0,
-            0
-          )
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "today") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
-    }
+  const handleMonthChange = (month) => {
+    setSelectedMonth(month);
+  };
+
+  const handleAllTimeClick = () => {
+    setSelectedMonth(null);
   };
 
   useEffect(() => {
     getAllRoutes();
     return () => {};
-  }, []);
+  }, [selectedMonth]);
 
   return (
     <div>
@@ -106,15 +60,7 @@ const AllRoutesPage = () => {
         >
           Home
         </button>
-        <select
-          className="btn-primary w-32"
-          onChange={(e) => handleFilter(e.target.value)} // Handle filtering on change
-        >
-          <option value="last-year">Last Year</option>
-          <option value="last-month">Last Month</option>
-          <option value="last-week">Last Week</option>
-          <option value="today">Today</option>
-        </select>
+
         <p className="text-slate-300 text-xs italic">
           Press Map Icon For More Info{" "}
           <span>
@@ -122,10 +68,16 @@ const AllRoutesPage = () => {
           </span>
         </p>
       </div>
+      <div className="flex justify-center my-4">
+        <MonthPicker
+          onMonthChange={handleMonthChange}
+          onAllTime={handleAllTimeClick}
+        />
+      </div>
 
       <button
         onClick={() => setShowModal(true)}
-        className="btn-primary md:absolute md:bottom-9 md:right-9 flex w-72 mx-auto mt-6 text-md items-center justify-center"
+        className="btn-primary md:absolute md:bottom-9 md:right-9 flex w-72 m-4  items-center justify-center"
       >
         Show all recorded routes
       </button>

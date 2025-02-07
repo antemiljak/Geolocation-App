@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Charts from "../components/Charts";
-import { getInitials, calculateDuration } from "../utils/helper";
+import { filterRoutesByMonth, calculateDuration } from "../utils/helper";
 import axiosInstance from "../utils/axiosInstance";
 import Footer from "../components/Footer";
+import MonthPicker from "../components/MonthPicker";
 
 const Stats = () => {
   const [allRoutes, setAllRoutes] = useState(null);
   const [allRoutesSaved, setAllRoutesSaved] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState(null);
   const navigate = useNavigate();
   const { state } = useLocation();
   const { userInfo } = state;
@@ -19,74 +21,14 @@ const Stats = () => {
     try {
       const response = await axiosInstance.get("/get-all-map-routes");
 
-      if (response.data && response.data.mapRoute) {
-        setAllRoutes(response.data.mapRoute);
-        setAllRoutesSaved(response.data.mapRoute);
-      }
+      const filteredRoutes = filterRoutesByMonth(
+        response.data.mapRoute,
+        selectedMonth
+      );
+      setAllRoutes(filteredRoutes);
+      setAllRoutesSaved(filteredRoutes);
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
-    }
-  };
-
-  const handleFilter = (time) => {
-    console.log("Handle called");
-    let filterRoutes;
-    const now = new Date();
-    if (time === "last-year") {
-      filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear() - 1,
-            now.getMonth(),
-            now.getDate(),
-            0,
-            0,
-            0
-          )
-      );
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "last-month") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear(),
-            now.getMonth() - 1,
-            now.getDate(),
-            0,
-            0,
-            0
-          )
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "last-week") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate() - 7,
-            0,
-            0,
-            0
-          )
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
-    }
-    if (time === "today") {
-      const filterRoutes = allRoutesSaved.filter(
-        (route) =>
-          new Date(route.startTime) >=
-          new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
-      );
-      console.log(filterRoutes);
-      setAllRoutes(filterRoutes);
     }
   };
 
@@ -111,11 +53,19 @@ const Stats = () => {
     {}
   );
 
+  const handleMonthChange = (month) => {
+    setSelectedMonth(month);
+  };
+
+  const handleAllTimeClick = () => {
+    setSelectedMonth(null);
+  };
+
   useEffect(() => {
     getAllRoutes();
 
     return () => {};
-  }, []);
+  }, [selectedMonth]);
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -140,16 +90,15 @@ const Stats = () => {
         >
           Profile Info
         </button>
-        <select
-          className="btn-primary w-32"
-          onChange={(e) => handleFilter(e.target.value)} // Handle filtering on change
-        >
-          <option value="last-year">Last Year</option>
-          <option value="last-month">Last Month</option>
-          <option value="last-week">Last Week</option>
-          <option value="today">Today</option>
-        </select>
       </div>
+
+      <div className="flex justify-center my-4">
+        <MonthPicker
+          onMonthChange={handleMonthChange}
+          onAllTime={handleAllTimeClick}
+        />
+      </div>
+
       <div className="md:flex items-center justify-center gap-12 mt-20 mb-10">
         <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
           <h2 className="text-5xl txt-color font-bold mb-4 italic">CHARTS</h2>

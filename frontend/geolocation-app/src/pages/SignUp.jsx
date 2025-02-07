@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../utils/helper";
 import PasswordInput from "../components/PasswordInput";
 import axiosInstance from "../utils/axiosInstance";
+import Footer from "../components/Footer";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -87,7 +88,7 @@ const Signup = () => {
     <div>
       <div>
         <Navbar />
-        <div className="flex items-center justify-center mt-4">
+        <div className="flex items-center justify-center my-4">
           <div className="w-3/4 md:w-5/12 p-5 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
               <h4 className="text-4xl font-bold mb-4 txt-color">Sign Up</h4>
@@ -106,7 +107,7 @@ const Signup = () => {
                   <p className="mb-2">Age</p>
                   <input
                     type="number"
-                    placeholder="years"
+                    placeholder="Years"
                     className="input-box"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
@@ -166,6 +167,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

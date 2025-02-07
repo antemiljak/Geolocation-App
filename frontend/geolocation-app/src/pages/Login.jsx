@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../utils/helper";
 import PasswordInput from "../components/PasswordInput";
 import axiosInstance from "../utils/axiosInstance";
+import Footer from "../components/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -58,7 +59,7 @@ const Login = () => {
     <div>
       <Navbar />
 
-      <div className="flex items-center justify-center mt-28">
+      <div className="flex items-center justify-center h-[90vh]">
         <div className="w-96 p-5 flex items-center justify-center">
           <form onSubmit={handleLogin}>
             <h4 className="text-4xl font-bold mb-4 txt-color">Login</h4>
@@ -94,6 +95,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

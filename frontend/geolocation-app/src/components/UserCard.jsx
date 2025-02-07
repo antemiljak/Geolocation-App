@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import RouteCard from "./RouteCard";
 import { getInitials } from "../utils/helper";
+import { filterRoutesByMonth } from "../utils/helper";
 
 const UserCard = ({
   id,
@@ -21,19 +22,6 @@ const UserCard = ({
   const navigate = useNavigate();
 
   const rate = 0.6;
-
-  // Function to filter routes by selected month
-  const filterRoutesByMonth = (routes, month) => {
-    if (!month) return routes; // If no month is selected, show all routes
-
-    const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
-    const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
-
-    return routes.filter((route) => {
-      const routeDate = new Date(route.startTime); // Assuming startTime exists in the route
-      return routeDate >= monthStart && routeDate <= monthEnd;
-    });
-  };
 
   const getAllRoutes = async () => {
     try {

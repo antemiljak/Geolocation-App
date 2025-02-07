@@ -11,7 +11,8 @@ const MonthPicker = ({ onMonthChange, onAllTime }) => {
   };
 
   return (
-    <div className="flex items-center gap-4 mx-2">
+    <div className="flex items-center gap-4">
+      <p className="txt-color font-bold">Month:</p>
       <DatePicker
         selected={startDate}
         onChange={handleChange}
@@ -22,6 +23,7 @@ const MonthPicker = ({ onMonthChange, onAllTime }) => {
         className="btn-primary"
         popperClassName="custom-datepicker-dropdown"
         placeholderText={startDate ? "" : "All time"}
+        customInput={<input readOnly className="btn-primary" />}
       />
       <button
         className="txt-color font-bold btn-secondary w-32"

@@ -83,7 +83,7 @@ const AdminDashboard = () => {
         onMonthChange={handleMonthChange}
         onAllTime={handleAllTimeClick}
       />
-      <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 mt-2 mb-2 px-2">
+      <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2">
         <div className=" bg-zinc-800 rounded-xl">
           <div className="p-2 text-3xl font-bold txt-color">
             Select employee:
@@ -151,9 +151,8 @@ const AdminDashboard = () => {
             {company}
           </h1>
         </div>
-        <div className="flex items-center justify-center m-4 md:m-0"></div>
       </div>
-      <div className="w-full h-full">
+      <div className="w-full h-full m-2">
         {allUsers
           ?.filter((user) =>
             selectedUser !== "all"
