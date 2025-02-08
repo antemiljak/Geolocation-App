@@ -241,8 +241,16 @@ app.get("/get-all-users", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-map-route", authenticateToken, async (req, res) => {
-  const { title, coordinates, distance, startTime, endTime, duration, status } =
-    req.body;
+  const {
+    title,
+    coordinates,
+    distance,
+    startTime,
+    endTime,
+    duration,
+    description,
+    status,
+  } = req.body;
   const { user } = req.user;
 
   if (!title) {
@@ -287,6 +295,7 @@ app.post("/add-map-route", authenticateToken, async (req, res) => {
       startTime,
       endTime,
       duration,
+      description,
       status,
       userId: user._id,
     });
@@ -428,6 +437,45 @@ app.put("/update-route-status", authenticateToken, async (req, res) => {
       .json({ error: true, message: "Failed to update routes" });
   }
 });
+
+app.put("/update-route-description", authenticateToken, async (req, res) => {
+  const { routeId, description } = req.body; // Get routeId and description from the request body
+
+  try {
+    if (!description || typeof description !== "string") {
+      return res
+        .status(400)
+        .json({ error: true, message: "Description must be a valid string" });
+    }
+
+    if (!routeId) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Route ID is required" });
+    }
+
+    const updatedRoute = await MapRoute.findByIdAndUpdate(
+      routeId,
+      { $set: { description } },
+      { new: true }
+    );
+
+    if (!updatedRoute) {
+      return res.status(404).json({ error: true, message: "Route not found" });
+    }
+
+    return res.json({
+      message: "Route description updated successfully",
+      updatedRoute,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: true, message: "Failed to update route" });
+  }
+});
+
 app.listen(8000, "0.0.0.0", () => {
   console.log("Server is running on 0.0.0.0");
 });

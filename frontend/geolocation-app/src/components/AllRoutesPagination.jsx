@@ -37,6 +37,7 @@ const AllRoutesPagination = ({ allRoutes, getAllRoutes }) => {
                 startTime={item.startTime}
                 endTime={item.endTime}
                 duration={item.duration}
+                description={item.description}
                 status={item.status}
                 getAllRoutes={getAllRoutes}
               />

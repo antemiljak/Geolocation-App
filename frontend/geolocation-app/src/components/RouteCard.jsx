@@ -14,10 +14,12 @@ const RouteCard = ({
   startTime,
   endTime,
   duration,
+  description,
   status,
   getAllRoutes,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [workDescription, setWorkDescription] = useState("");
   const [startAddress, setStartAddress] = useState("");
   const [middleAddress, setMiddleAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
@@ -39,7 +41,7 @@ const RouteCard = ({
   };
 
   const getAddress = async (lat, lng) => {
-    const apiKey = "AIzaSyDoxLwouyKMFoNPRZLtW1S93LL_I2hFxCc"; // Replace with your Google API key
+    const apiKey = "AIzaSyDoxLwouyKMFoNPRZLtW1S93LL_I2hFxCc";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
 
     try {
@@ -56,25 +58,22 @@ const RouteCard = ({
         return "No address found";
       }
     } catch (err) {
-      console.error("Error fetching address:", err); // Log error if request fails
+      console.error("Error fetching address:", err);
       return "Error fetching address";
     }
   };
 
-  // Automatically fetch addresses when the component mounts and coords change
-
   const fetchAddresses = async () => {
     if (coords && coords.length > 0) {
       try {
-        const firstCoordinate = coords[0]; // First coordinate
-        const middleCoordinate = coords[Math.floor(coords.length / 2)]; // Middle coordinate
-        const lastCoordinate = coords[coords.length - 1]; // Last coordinate
+        const firstCoordinate = coords[0];
+        const middleCoordinate = coords[Math.floor(coords.length / 2)];
+        const lastCoordinate = coords[coords.length - 1];
 
         console.log("First Coordinate:", firstCoordinate);
         console.log("Middle Coordinate:", middleCoordinate);
         console.log("Last Coordinate:", lastCoordinate);
 
-        // Fetch addresses for the first, middle, and last coordinates
         const firstAddress = await getAddress(
           firstCoordinate[0],
           firstCoordinate[1]
@@ -88,11 +87,10 @@ const RouteCard = ({
           lastCoordinate[1]
         );
 
-        // Update state with the fetched addresses
         setStartAddress(firstAddress);
         setMiddleAddress(middleAddress);
         setEndAddress(endAddress);
-        setError(""); // Reset error state
+        setError("");
       } catch (err) {
         setError("Error fetching addresses");
       }
@@ -101,6 +99,28 @@ const RouteCard = ({
 
   const formatedDate = new Date(startTime).toLocaleString();
   const avgSpeed = ((distance * 1000000) / (endTime - startTime)) * 3.6;
+
+  const handleDescriptionUpdate = async () => {
+    if (!workDescription) {
+      setError("Description cannot be empty.");
+      return;
+    }
+
+    try {
+      const response = await axiosInstance.put("/update-route-description", {
+        routeId: id,
+        description: workDescription,
+      });
+
+      if (response.data && response.data.message) {
+        setError("");
+        getAllRoutes();
+      }
+    } catch (error) {
+      setError("Failed to update route description");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="rounded-xl p-4 bg-zinc-900 relative transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:mb-0">
@@ -219,7 +239,37 @@ const RouteCard = ({
                   </span>
                 </li>
               </ul>
-              <div className="md:mt-6 md:mt-12">
+              <div className="md:mt-2 md:mt-12">
+                <h2 className="text-lg font-bold txt-color mb-2">
+                  Work descrition:
+                </h2>
+                {workDescription ? (
+                  <input
+                    type="text"
+                    placeholder="Work description"
+                    className="input-box mb-0"
+                    value={description}
+                    disabled
+                  />
+                ) : (
+                  <div className="flex gap-2 justify-center items-center">
+                    <input
+                      type="text"
+                      placeholder="Work description"
+                      className="input-box mb-0"
+                      value={description}
+                      onChange={(e) => setWorkDescription(e.target.value)}
+                    ></input>
+                    <button
+                      className="btn-primary w-16"
+                      onClick={handleDescriptionUpdate}
+                    >
+                      OK
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="md:mt-2 md:mt-12">
                 <h2 className="text-lg font-bold txt-color">Route Details:</h2>
                 <p className="text-slate-300">
                   From:{" "}

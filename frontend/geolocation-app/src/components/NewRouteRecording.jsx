@@ -27,6 +27,7 @@ const NewRouteRecording = ({ userInfo }) => {
     startTime,
     endTime,
     duration,
+    description,
     status
   ) => {
     try {
@@ -37,6 +38,7 @@ const NewRouteRecording = ({ userInfo }) => {
         startTime: startTime,
         endTime: endTime,
         duration: duration,
+        description: "",
         status: status,
       };
 
@@ -104,6 +106,7 @@ const NewRouteRecording = ({ userInfo }) => {
           startTime,
           endTime,
           totalDuration,
+          description,
           status
         );
 

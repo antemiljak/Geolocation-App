@@ -128,7 +128,7 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-2 m-2">
               <li className="text-sm md:text-md text-slate-300">Payed out:</li>
               <li className="md:text-xl font-semibold text-green-300">
-                {paidCommissions.toFixed(2)}€
+                {paidCommissions.toFixed(2) / 2}€
               </li>
             </div>
             <div className="flex items-center gap-2 m-2">
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-2 m-2">
               <li className="text-sm md:text-md text-slate-300">Total:</li>
               <li className="md:text-xl font-semibold">
-                {(paidCommissions + unpaidCommissions).toFixed(2)}€
+                {(paidCommissions + unpaidCommissions).toFixed(2) / 2}€
               </li>
             </div>
             {unpaidCommissions ? (
