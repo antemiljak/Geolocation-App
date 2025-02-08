@@ -57,44 +57,45 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
+      <section className="w-screen h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+        <Navbar />
+        <div className="flex items-center justify-center mt-16">
+          <div className="w-96 p-5 flex items-center justify-center">
+            <form onSubmit={handleLogin}>
+              <h4 className="text-4xl font-bold mb-4 txt-color">Login</h4>
+              <p className="text-sm mb-4">
+                Enter your email and password to continue
+              </p>
+              <p className="mb-2">Email</p>
+              <input
+                type="text"
+                placeholder="Email"
+                className="input-box"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="mb-2">Password</p>
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-      <div className="flex items-center justify-center h-[90vh]">
-        <div className="w-96 p-5 flex items-center justify-center">
-          <form onSubmit={handleLogin}>
-            <h4 className="text-4xl font-bold mb-4 txt-color">Login</h4>
-            <p className="text-sm mb-4">
-              Enter your email and password to continue
-            </p>
-            <p className="mb-2">Email</p>
-            <input
-              type="text"
-              placeholder="Email"
-              className="input-box"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <p className="mb-2">Password</p>
-            <PasswordInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <button type="submit" className="btn-primary my-2">
-              Login
-            </button>
-            {error && (
-              <p className="text-red-500 text-xs pb-1 text-center">{error}</p>
-            )}
-            <p className="text-sm text-center">
-              Not registered yet?{" "}
-              <Link to="/signup" className="underline font-medium">
-                Create Account
-              </Link>
-            </p>
-          </form>
+              <button type="submit" className="btn-primary my-2">
+                Login
+              </button>
+              {error && (
+                <p className="text-red-500 text-xs pb-1 text-center">{error}</p>
+              )}
+              <p className="text-sm text-center">
+                Not registered yet?{" "}
+                <Link to="/signup" className="underline font-medium">
+                  Create Account
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
-      </div>
+      </section>
       <Footer />
     </div>
   );

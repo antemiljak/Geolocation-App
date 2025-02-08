@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import LandingPic from "../assets/landingpic.png";
 import Footer from "../components/Footer";
 import Traffic from "../assets/traffic.jpg";
 import Road from "../assets/road.jpg";
@@ -18,14 +17,11 @@ const LandingPage = () => {
 
   return (
     <div>
-      <section className="md:w-screen md:h-screen">
+      <section className="md:w-screen md:h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
-        <div className="md:flex md:justify-center mt-24 md:mr-[4%]">
-          <div className="flex flex-col items-center md:ml-[4%] md:w-1/2 relative">
-            <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 txt-color">
-              All In One Place
-              <br /> LoCCo Drive
-            </p>
+        <div className="md:flex md:justify-center mt-16 md:mr-[4%]">
+          <div className="flex flex-col items-center md:ml-[4%] md:w-2/3 relative">
+            <h1 className="text-7xl txt-color font-bold mb-4">GeoLoCC</h1>
             <ul className="flex justify-center justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic text-sm">
               <li>REAL-TIME</li>
               <li>TRACKING</li>
@@ -33,8 +29,8 @@ const LandingPage = () => {
               <li>PAY</li>
             </ul>
 
-            <div className="w-full md:w-[75%] mb-8 md:bg-zinc-900 rounded-xl p-6">
-              <p className="mb-8 rounded-lg p-2 text-lg font-semibold txt-color">
+            <div className="w-full mb-8 rounded-xl p-6">
+              <p className="mb-8 rounded-lg p-2 text-lg txt-color">
                 Experience the power of accurate and real-time location tracking
                 with <span className="font-bold text-green-300">GeoLocc </span>
                 app. Automatically track your movement in real-time. Calculate
@@ -54,21 +50,20 @@ const LandingPage = () => {
                   className="btn-secondary w-64"
                   onClick={() => scrollToSection("about")}
                 >
-                  Learn more...
+                  About Us
                 </button>
               </div>
             </div>
+            <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 txt-color">
+              All In One Place
+              <br /> LoCCo Drive
+            </p>
           </div>
-          <img
-            src={LandingPic}
-            alt=""
-            className="rounded-lg w-[100%] md:w-[50%] md:h-auto mx-auto mb-8 transition duration-500 ease-out hover:scale-110 hover:ease-in"
-          />{" "}
         </div>
       </section>
       <section id="about" className="w-screen bg-white">
         <div className="md:flex items-center justify-between px-8 md:px-36 py-12 text-black">
-          <h1 className="mt-12 text-3xl md:text-5xl font-bold md:w-1/2">
+          <h1 className="mt-12 text-3xl md:text-7xl font-bold md:w-1/2">
             About Us
           </h1>
           <p className=" mt-12 md:w-1/2 text-lg text-black">
@@ -92,45 +87,60 @@ const LandingPage = () => {
               <img
                 src={Driving}
                 alt="Driving"
-                className="w-64 h-64 md:w-80 md:h-80 rounded brightness-50"
+                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center text-white text-lg text-center p-4">
-                💼 For businesses & freelancers – Keep every drive organized,
+              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+                For businesses & freelancers – Keep every drive organized,
                 optimize routes, and ensure accurate compensation for your team.
               </p>
+              <div className="flex items-center">
+                <i class="fas fa-lightbulb text-green-300 text-6xl m-4"></i>
+                <p className="text-lg text-black">Enhance productivity.</p>
+              </div>
             </div>
 
             <div className="relative">
               <img
                 src={Road}
                 alt="Road"
-                className="w-64 h-64 md:w-80 md:h-80 rounded brightness-50"
+                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center text-white text-lg text-center p-4">
-                📊 All-in-One Solution – Say goodbye to messy logs! Get
-                insights, reports, and payment tracking all in one place.
+              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+                All-in-One Solution – Say goodbye to messy logs! Get insights,
+                reports, and payment tracking all in one place.
               </p>
+              <div className="flex items-center">
+                <i class="fas fa-money-bill-wave text-green-300 text-6xl m-4"></i>
+                <p className="text-lg text-black">Free to use.</p>
+              </div>
             </div>
 
             <div className="relative">
               <img
                 src={Traffic}
                 alt="Traffic"
-                className="w-64 h-64 md:w-80 md:h-80 rounded brightness-50"
+                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center text-white text-lg text-center p-4">
-                🔗 Start tracking today! Maximize efficiency, minimize effort.
+              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+                Start tracking today! Maximize efficiency, minimize effort.
               </p>
+              <div className="flex items-center">
+                <i class="fas fa-cloud text-green-300 text-6xl m-4"></i>
+                <p className="text-lg text-black">
+                  Keep all info at one place.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center py-16">
+        <div className="flex flex-col items-center justify-center py-12">
           <button
             className="btn-primary w-64"
             onClick={() => navigate("/signup")}
           >
             Get Started
           </button>
+          <p className="text-black text-lg mt-2">Start managing today.</p>
         </div>
       </section>
 
