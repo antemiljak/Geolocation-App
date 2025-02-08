@@ -51,7 +51,7 @@ const UserCard = ({
         setTotalPayDue(totalDue * rate);
         reportUnpaidComission(totalDue * rate);
         setTotalPaidOut(total * rate);
-        reportPaidComission(total * rate); 
+        reportPaidComission(total * rate);
       }
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
@@ -78,7 +78,7 @@ const UserCard = ({
   }, [id, selectedMonth]);
 
   return (
-    <div className="rounded-xl p-4 bg-zinc-800 transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:m-2">
+    <div className="rounded-xl p-4 bg-zinc-800 mb-4 md:m-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 flex items-center justify-center rounded-full text-green-300 text-2xl font-bold bg-zinc-900">
@@ -131,6 +131,7 @@ const UserCard = ({
                   startTime={item.startTime}
                   endTime={item.endTime}
                   duration={item.duration}
+                  description={item.description}
                   status={item.status}
                   getAllRoutes={getAllRoutes}
                 />

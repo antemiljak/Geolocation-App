@@ -26,8 +26,8 @@ const AllRoutesPagination = ({ allRoutes, getAllRoutes }) => {
       {" "}
       <div className="flex items-center justify-center md:max-w-[95%] p-4 md:p-6 mx-auto">
         {allRoutes?.length > 0 ? (
-          <div className="w-full h-full md:grid md:grid-cols-3 gap-2 mb-6 ">
-            {currentCards?.map((item, index) => (
+          <div className="w-full h-full md:grid md:grid-cols-3 gap-2 ">
+            {currentCards?.map((item) => (
               <RouteCard
                 key={item._id}
                 id={item._id}

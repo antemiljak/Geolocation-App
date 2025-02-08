@@ -79,7 +79,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <div className="flex justify-between">
+      <div className="md:flex md:justify-between">
         <MonthPicker
           onMonthChange={handleMonthChange}
           onAllTime={handleAllTimeClick}
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-2 m-2">
               <li className="text-sm md:text-md text-slate-300">Total:</li>
               <li className="md:text-xl font-semibold">
-                {(paidCommissions + unpaidCommissions).toFixed(2) / 2}€
+                {(paidCommissions / 2 + unpaidCommissions).toFixed(2)}€
               </li>
             </div>
             {unpaidCommissions ? (

@@ -56,7 +56,7 @@ export const filterRoutesByMonth = (routes, month) => {
   const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
 
   return routes.filter((route) => {
-    const routeDate = new Date(route.startTime); // Assuming startTime exists in the route
+    const routeDate = new Date(route.startTime);
     return routeDate >= monthStart && routeDate <= monthEnd;
   });
 };

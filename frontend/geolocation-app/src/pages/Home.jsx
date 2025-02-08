@@ -43,7 +43,7 @@ const Home = () => {
           onClick={() => navigate("/stats", { state: { userInfo } })}
           className="btn-secondary w-32"
         >
-          Stats
+          Profile
         </button>
       </div>
       <div className="md:flex md:h-[85vh] py-6 md:p-6 mx-auto md:max-w-[95%]">

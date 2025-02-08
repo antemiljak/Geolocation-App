@@ -9,6 +9,12 @@ const MonthlyList = ({ selectedMonth }) => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  const date = new Date(selectedMonth);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
+
   useEffect(() => {
     if (isOpen) fetchRoutes();
     console.log(selectedMonth);
@@ -39,15 +45,23 @@ const MonthlyList = ({ selectedMonth }) => {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    doc.text(`Monthly Routes Report - ${selectedMonth || "All"}`, 10, 10);
+    doc.text(`Monthly Routes Report - ${formattedDatem || "All"}`, 10, 10);
 
-    const tableColumn = ["UserId", "Route", "Distance", "Time", "Price"];
+    const tableColumn = [
+      "EmployeeId",
+      "Route",
+      "Distance",
+      "Time",
+      "Price",
+      "Work description",
+    ];
     const tableRows = allRoutes.map((route) => [
       route.userId,
       route.title,
       `${route.distance} km`,
       `${calculateDuration(route.duration)}`,
       `${(route.distance * 0.6).toFixed(2)} €`,
+      `${route.description}`,
     ]);
 
     doc.autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
@@ -62,22 +76,22 @@ const MonthlyList = ({ selectedMonth }) => {
 
   return (
     <div className="mx-2">
-      <button className="btn-primary" onClick={() => setIsOpen(true)}>
+      <button className="btn-primary w-48" onClick={() => setIsOpen(true)}>
         View Monthly List
       </button>
 
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-zinc-800 p-6 rounded-md shadow-lg w-3/4">
+          <div className="bg-zinc-800 p-6 rounded-xl shadow-lg w-3/4">
             <h2 className="text-3xl txt-color font-bold mb-4">
-              Monthly Routes
+              Monthly Routes: {formattedDate}
             </h2>
 
             {loading ? (
               <p>Loading...</p>
             ) : (
               <>
-                <table className="w-full border-collapse border">
+                <table className="w-full border-collapse border rounded">
                   <thead>
                     <tr className="bg-zinc-900">
                       <th className="border p-2">UserId</th>
@@ -104,7 +118,7 @@ const MonthlyList = ({ selectedMonth }) => {
                         <td className="border p-2">
                           {(route.distance * 0.6).toFixed(2)} €
                         </td>
-                        <td className="border p-2">Descr</td>
+                        <td className="border p-2">{route.description}</td>
                       </tr>
                     ))}
                   </tbody>

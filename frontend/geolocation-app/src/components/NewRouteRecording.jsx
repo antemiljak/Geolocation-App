@@ -15,6 +15,7 @@ const NewRouteRecording = ({ userInfo }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [description, setDescription] = useState("");
   const [status, setStatus] = useState(null);
 
   const position = useGeolocation();
@@ -38,7 +39,7 @@ const NewRouteRecording = ({ userInfo }) => {
         startTime: startTime,
         endTime: endTime,
         duration: duration,
-        description: "",
+        description: description,
         status: status,
       };
 

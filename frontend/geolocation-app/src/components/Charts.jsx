@@ -91,7 +91,7 @@ const Charts = ({ allRoutes }) => {
   return (
     <div>
       <div className="flex items-center justify-between md:gap-8">
-        <div className="mb-8 bg-zinc-900 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out md:hover:scale-105 hover:ease-in w-full h-full p-2">
+        <div className="mb-8 bg-zinc-900 rounded-lg hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] transition duration-150 ease-out  hover:ease-in w-full h-full p-2">
           {currentChartIndex === 0 && (
             <Line data={distance} options={options} />
           )}

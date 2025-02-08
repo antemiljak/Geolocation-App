@@ -77,7 +77,7 @@ const AllRoutesPage = () => {
 
       <button
         onClick={() => setShowModal(true)}
-        className="btn-primary md:absolute md:bottom-9 md:right-9 flex w-72 m-4  items-center justify-center"
+        className="btn-primary flex w-72 ml-[4%] items-center justify-center"
       >
         Show all recorded routes
       </button>

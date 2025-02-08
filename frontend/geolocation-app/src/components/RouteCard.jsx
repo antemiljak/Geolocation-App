@@ -20,6 +20,7 @@ const RouteCard = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [workDescription, setWorkDescription] = useState("");
+  const [coinfirmDescription, setCoinfirmDescription] = useState(false);
   const [startAddress, setStartAddress] = useState("");
   const [middleAddress, setMiddleAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
@@ -115,6 +116,7 @@ const RouteCard = ({
       if (response.data && response.data.message) {
         setError("");
         getAllRoutes();
+        console.log("updated route description" + workDescription + id);
       }
     } catch (error) {
       setError("Failed to update route description");
@@ -243,26 +245,24 @@ const RouteCard = ({
                 <h2 className="text-lg font-bold txt-color mb-2">
                   Work descrition:
                 </h2>
-                {workDescription ? (
-                  <input
-                    type="text"
-                    placeholder="Work description"
-                    className="input-box mb-0"
-                    value={description}
-                    disabled
-                  />
+                {description ||
+                window.location.pathname !== "/admindashboard" ? (
+                  <p className="">{description}</p>
                 ) : (
                   <div className="flex gap-2 justify-center items-center">
                     <input
                       type="text"
                       placeholder="Work description"
                       className="input-box mb-0"
-                      value={description}
+                      value={workDescription}
                       onChange={(e) => setWorkDescription(e.target.value)}
                     ></input>
                     <button
                       className="btn-primary w-16"
-                      onClick={handleDescriptionUpdate}
+                      onClick={() => {
+                        handleDescriptionUpdate();
+                        setCoinfirmDescription(true);
+                      }}
                     >
                       OK
                     </button>

@@ -14,7 +14,7 @@ const Stats = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { userInfo } = state;
-
+  const rate = 0.6;
   console.log(userInfo);
 
   const getAllRoutes = async () => {
@@ -52,6 +52,18 @@ const Stats = () => {
     (max, route) => (route.duration > (max.duration || 0) ? route : max),
     {}
   );
+
+  const calcPayedRoutes = allRoutes?.length
+    ? allRoutes
+        .filter((route) => route.status === true)
+        .reduce((sum, route) => sum + route.distance * rate, 0)
+    : 0;
+
+  const calcUnpayedRoutes = allRoutes?.length
+    ? allRoutes
+        .filter((route) => route.status === false)
+        .reduce((sum, route) => sum + route.distance * rate, 0)
+    : 0;
 
   const handleMonthChange = (month) => {
     setSelectedMonth(month);
@@ -99,17 +111,16 @@ const Stats = () => {
         />
       </div>
 
-      <div className="md:flex items-center justify-center gap-12 mt-20 mb-10">
+      <div className="md:flex items-center justify-center gap-12 mb-10">
         <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
           <h2 className="text-5xl txt-color font-bold mb-4 italic">CHARTS</h2>
           <div className="md:bg-zinc-900 md:p-6 rounded-xl">
             <p className="txt-color font-semibold text-lg">
               Welcome to{" "}
               <span className="font-bold text-green-300">GeoLocc </span> app
-              chart section, take a look at your stats, workouts, routes,
-              profile info and more. Data is visulaized using js library
-              Charts.js. To take a look at drawn routes on map go to All routes
-              section.
+              chart section, take a look at your stats, routes, profile info and
+              more. Data is visulaized using js library Charts.js. To take a
+              look at drawn routes on map go to All routes section.
             </p>
           </div>
         </div>
@@ -119,7 +130,7 @@ const Stats = () => {
       </div>
       <div
         id="profile-section"
-        className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[90%] md:max-w-[75%] mx-auto transition duration-150 ease-out md:hover:scale-105 hover:ease-in"
+        className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[90%] md:max-w-[75%] mx-auto "
       >
         <h2 className="text-3xl md:text-5xl font-bold italic txt-color">
           PROFILE INFO
@@ -161,21 +172,27 @@ const Stats = () => {
             <div className="md:flex gap-12">
               <div>
                 <p className="text-sm text-slate-300">Rate:</p>
-                <p className="text-xl font-bold">0,60 $/km</p>
+                <p className="text-xl font-bold">0,60 €/km</p>
               </div>
               <div>
                 <p className="text-sm text-slate-300">To be paid:</p>
-                <p className="text-xl font-bold text-rose-500">42 $</p>
+                <p className="text-xl font-bold text-rose-500">
+                  {calcUnpayedRoutes.toFixed(2)}€
+                </p>
               </div>
             </div>
             <div className="md:flex gap-12">
               <div>
                 <p className="text-sm text-slate-300">Paid out:</p>
-                <p className="text-xl font-bold text-green-300">50 $</p>
+                <p className="text-xl font-bold text-green-300">
+                  {calcPayedRoutes.toFixed(2)}€
+                </p>
               </div>
               <div>
                 <p className="text-sm text-slate-300">Total:</p>
-                <p className="text-xl font-bold">92 $</p>
+                <p className="text-xl font-bold">
+                  {(calcPayedRoutes + calcUnpayedRoutes).toFixed(2)}€
+                </p>
               </div>
             </div>
           </div>
