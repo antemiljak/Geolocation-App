@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 
-// Custom hook to track geolocation
 const useGeolocation = () => {
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
-    // Check if geolocation is available
     if (navigator.geolocation) {
       const id = navigator.geolocation.watchPosition(
         (position) => {
@@ -25,7 +23,7 @@ const useGeolocation = () => {
       );
 
       return () => {
-        navigator.geolocation.clearWatch(id); // Cleanup on unmount
+        navigator.geolocation.clearWatch(id);
       };
     } else {
       alert("Geolocation is not supported by your browser.");

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import UserCard from "../components/UserCard";
 import Footer from "../components/Footer";
 import MonthPicker from "../components/MonthPicker";
+import MonthlyList from "../components/MonthlyList";
+
 const AdminDashboard = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
@@ -33,7 +35,6 @@ const AdminDashboard = () => {
   const getAllUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log(token); // Retrieve stored token
       const response = await axiosInstance.get("/get-all-users", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,7 +42,6 @@ const AdminDashboard = () => {
       });
       if (response.data && response.data.users) {
         setAllUsers(response.data.users);
-        console.log(response.data.users);
       }
     } catch (error) {
       console.log(error);
@@ -79,10 +79,13 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar userInfo={userInfo} />
-      <MonthPicker
-        onMonthChange={handleMonthChange}
-        onAllTime={handleAllTimeClick}
-      />
+      <div className="flex justify-between">
+        <MonthPicker
+          onMonthChange={handleMonthChange}
+          onAllTime={handleAllTimeClick}
+        />
+        <MonthlyList selectedMonth={selectedMonth} />
+      </div>
       <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2">
         <div className=" bg-zinc-800 rounded-xl">
           <div className="p-2 text-lg md:text-3xl font-bold txt-color">
@@ -160,9 +163,7 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="flex items-center justify-center bg-zinc-800 rounded-xl p-2">
-          <h1 className="text-rose-500 text-3xl md:text-5xl font-bold">
-            {company}
-          </h1>
+          <h1 className="text-3xl md:text-5xl font-bold">{company}</h1>
         </div>
       </div>
       <div className="m-2 md:m-0">

@@ -331,6 +331,35 @@ app.get("/get-all-map-routes", authenticateToken, async (req, res) => {
   }
 });
 
+app.get("/get-all-company-routes", authenticateToken, async (req, res) => {
+  const { user } = req.user;
+
+  try {
+    if (user.role !== "admin") {
+      return res.status(403).json({
+        error: true,
+        message: "Unauthorized access",
+      });
+    }
+
+    const companyUsers = await User.find({ company: user.company }, "_id");
+    const userIds = companyUsers.map((u) => u._id.toString());
+
+    const mapRoutes = await MapRoute.find({ userId: { $in: userIds } });
+
+    return res.json({
+      error: false,
+      mapRoutes,
+      message: "All map routes retrieved successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Internal Server Error",
+    });
+  }
+});
+
 app.delete(
   "/delete-map-route/:mapRouteId",
   authenticateToken,

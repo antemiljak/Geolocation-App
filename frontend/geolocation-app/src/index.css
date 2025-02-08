@@ -60,7 +60,7 @@
   }
 
   .custom-datepicker-dropdown {
-    @apply ml-16;
+    @apply md:ml-16;
   }
   .custom-datepicker-dropdown .react-datepicker__header {
     @apply bg-zinc-900 text-white text-lg;
@@ -73,7 +73,7 @@
   .custom-datepicker-dropdown
     .react-datepicker__month
     .react-datepicker__month-text {
-    @apply w-24 text-sm px-2 py-1 mx-2 transition-all ease-in-out duration-300;
+    @apply w-24 text-sm md:px-2 py-1 md:mx-2 transition-all ease-in-out duration-300;
   }
 
   .custom-datepicker-dropdown

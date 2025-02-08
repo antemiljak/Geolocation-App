@@ -38,11 +38,11 @@ const UserCard = ({
         setAllRoutes(filteredRoutes);
 
         const total = filteredRoutes
-          .filter((route) => route.status === true) // Filter routes with status: true
-          .reduce((acc, route) => acc + route.distance, 0); // Sum the distances
+          .filter((route) => route.status === true)
+          .reduce((acc, route) => acc + route.distance, 0);
 
         const totalDue = filteredRoutes
-          .filter((route) => route.status === false) // Filter routes with status: false
+          .filter((route) => route.status === false)
           .reduce((acc, route) => acc + route.distance, 0);
 
         setUnpaidRoutes(
@@ -51,7 +51,7 @@ const UserCard = ({
         setTotalPayDue(totalDue * rate);
         reportUnpaidComission(totalDue * rate);
         setTotalPaidOut(total * rate);
-        reportPaidComission(total * rate);
+        reportPaidComission(total * rate); 
       }
     } catch (error) {
       console.log("An unexpected error occured. Please try again.");
@@ -61,9 +61,9 @@ const UserCard = ({
   const updateRouteStatus = async (paidRoutes) => {
     try {
       await axiosInstance.put("/update-route-status", {
-        routes: paidRoutes, // Array of route IDs that need to be marked as paid
+        routes: paidRoutes,
       });
-      getAllRoutes(); // Refresh routes after payment
+      getAllRoutes();
     } catch (error) {
       console.error("Failed to update route status:", error);
     }
@@ -75,7 +75,7 @@ const UserCard = ({
 
   useEffect(() => {
     getAllRoutes();
-  }, [id, selectedMonth]); // Trigger on user id or selected month change
+  }, [id, selectedMonth]);
 
   return (
     <div className="rounded-xl p-4 bg-zinc-800 transition-shadow duration-300 shadow-none hover:shadow-[0px_0px_3px_3px_rgba(107,114,128,0.8)] mb-4 md:m-2">
@@ -93,11 +93,11 @@ const UserCard = ({
         <ul className=" mt-2 md:flex gap-4 mb-4">
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Email:</li>
-            <li className="text-xl font-semibold text-rose-500">{email}</li>
+            <li className="text-xl font-semibold ">{email}</li>
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Car licence plate: </li>
-            <li className="text-xl font-semibold text-rose-500">{carPlate}</li>
+            <li className="text-xl font-semibold">{carPlate}</li>
           </div>
           <div className="flex items-center gap-2">
             <li className="text-slate-300">Number of routes: </li>
@@ -146,7 +146,7 @@ const UserCard = ({
       <hr className="m-4 border-slate-300"></hr>
 
       <div className="flex items-center justify-center gap-4">
-        <h4 className="text-xl text-slate-300">Payment due:</h4>
+        <h4 className="text-lg text-slate-300">Payment due:</h4>
 
         {totalPayDue ? (
           <div className="flex gap-4">
