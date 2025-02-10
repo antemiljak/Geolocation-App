@@ -17,16 +17,18 @@ const LandingPage = () => {
 
   return (
     <div>
-      <section className="md:w-screen md:h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="md:w-screen md:h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
         <div className="md:flex md:justify-center mt-16 md:mr-[4%]">
           <div className="flex flex-col items-center md:ml-[4%] md:w-2/3 relative">
-            <h1 className="text-7xl txt-color font-bold mb-4">GeoLoCC</h1>
+            <h1 className="text-6xl md:text-8xl txt-color font-bold mb-4">
+              GeoLoCC
+            </h1>
             <ul className="flex justify-center justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic text-sm">
-              <li>REAL-TIME</li>
-              <li>TRACKING</li>
+              <li>RECORD</li>
+              <li className="text-rose-500">TRACK</li>
               <li>MANAGE</li>
-              <li>PAY</li>
+              <li className="text-rose-500">PAY</li>
             </ul>
 
             <div className="w-full mb-8 rounded-xl p-6">
@@ -54,7 +56,7 @@ const LandingPage = () => {
                 </button>
               </div>
             </div>
-            <p className="text-4xl font-bold md:text-6xl mb-6 md:mb-8 txt-color">
+            <p className="text-4xl font-bold md:text-5xl mb-24 md:mb-6 md:mb-8 txt-color">
               All In One Place
               <br /> LoCCo Drive
             </p>
@@ -89,12 +91,12 @@ const LandingPage = () => {
                 alt="Driving"
                 className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
                 For businesses & freelancers – Keep every drive organized,
                 optimize routes, and ensure accurate compensation for your team.
               </p>
               <div className="flex items-center">
-                <i class="fas fa-lightbulb text-green-300 text-6xl m-4"></i>
+                <i class="fas fa-lightbulb text-green-300 hover:text-rose-500 text-5xl m-4"></i>
                 <p className="text-lg text-black">Enhance productivity.</p>
               </div>
             </div>
@@ -105,12 +107,12 @@ const LandingPage = () => {
                 alt="Road"
                 className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
                 All-in-One Solution – Say goodbye to messy logs! Get insights,
                 reports, and payment tracking all in one place.
               </p>
               <div className="flex items-center">
-                <i class="fas fa-money-bill-wave text-green-300 text-6xl m-4"></i>
+                <i class="fas fa-money-bill-wave text-green-300 text-5xl m-4"></i>
                 <p className="text-lg text-black">Free to use.</p>
               </div>
             </div>
@@ -121,12 +123,12 @@ const LandingPage = () => {
                 alt="Traffic"
                 className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
               />
-              <p className="absolute inset-0 flex items-center justify-center txt-color text-lg text-center p-4">
+              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
                 Start tracking today! Maximize efficiency, minimize effort.
               </p>
               <div className="flex items-center">
-                <i class="fas fa-cloud text-green-300 text-6xl m-4"></i>
-                <p className="text-lg text-black">
+                <i class="fas fa-cloud text-green-300 text-5xl m-4"></i>
+                <p className="text-lg text-black hover:text-rose-500">
                   Keep all info at one place.
                 </p>
               </div>

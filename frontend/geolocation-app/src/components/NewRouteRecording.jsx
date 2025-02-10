@@ -11,7 +11,7 @@ const NewRouteRecording = ({ userInfo }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [coords, setCoords] = useState([]);
-  const [watchId, setWatchId] = useState(null); // Track geolocation watcher ID
+  const [watchId, setWatchId] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);

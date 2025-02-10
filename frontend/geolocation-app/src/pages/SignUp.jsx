@@ -89,7 +89,7 @@ const Signup = () => {
       <section className="w-screen h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
         <div className="flex items-center justify-center my-4">
-          <div className="w-3/4 md:w-5/12 p-5 flex justify-center items-center">
+          <div className="w-3/4 md:w-5/12 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
               <h4 className="text-4xl font-bold mb-4 txt-color">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
@@ -149,7 +149,7 @@ const Signup = () => {
                   className=""
                 />
               </div>
-              <div className="mt-4 md:mt-2 flex gap-2 items-center justify-center">
+              <div className="my-4 md:mt-2 flex gap-2 items-center justify-center">
                 <button type="submit" className="btn-primary w-1/2">
                   Sign Up
                 </button>

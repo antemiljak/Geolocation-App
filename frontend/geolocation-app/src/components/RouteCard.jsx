@@ -194,8 +194,8 @@ const RouteCard = ({
             {/* Map Section */}
             <div className="md:w-2/3 h-full md:rounded-l-lg">
               <MapContainer
-                center={coords[Math.round(coords.length / 2)]}
-                zoom={16}
+                center={coords[Math.round(coords.length / 3)]}
+                zoom={14}
                 className="h-full w-full md:rounded"
               >
                 <TileLayer
@@ -301,7 +301,7 @@ const RouteCard = ({
                 <p className="text-slate-300">
                   Total:{" "}
                   <span className="text-rose-500 md:text-lg font-semibold">
-                    {(1.6 * distance).toFixed(2)} €
+                    {(rate * distance).toFixed(2)} €
                   </span>
                 </p>
                 <p className="text-slate-300">

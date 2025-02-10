@@ -31,30 +31,31 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar userInfo={userInfo} />
-      <div className="flex gap-3 text-lg ml-[4%]">
-        <button
-          onClick={() => navigate("/allroutespage", { state: { userInfo } })}
-          className="btn-secondary w-32"
-        >
-          All Routes
-        </button>
-        <button
-          onClick={() => navigate("/stats", { state: { userInfo } })}
-          className="btn-secondary w-32"
-        >
-          Profile
-        </button>
-      </div>
-      <div className="md:flex md:h-[85vh] py-6 md:p-6 mx-auto md:max-w-[95%]">
-        <div className="md:flex-[0.8] w-full h-[55vh] md:h-full">
-          <Map />
+      <section className="md:w-screen md:h-screen-min bg-[url('assets/bg-landingpage.jpg')] md:bg-cover md:bg-center">
+        <Navbar userInfo={userInfo} />
+        <div className="flex gap-3 text-lg ml-[4%]">
+          <button
+            onClick={() => navigate("/allroutespage", { state: { userInfo } })}
+            className="btn-secondary w-32"
+          >
+            All Routes
+          </button>
+          <button
+            onClick={() => navigate("/stats", { state: { userInfo } })}
+            className="btn-secondary w-32"
+          >
+            Profile
+          </button>
         </div>
-        <div className="p-6 md:p-0 md:flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
-          <NewRouteRecording userInfo={userInfo} />
+        <div className="md:flex md:h-[85vh] py-6 md:p-6 mx-auto md:max-w-[95%]">
+          <div className="md:flex-[0.8] w-full h-[55vh] md:h-full">
+            <Map />
+          </div>
+          <div className="p-6 md:p-0 md:flex-[0.4] flex flex-col gap-y-4 justify-center items-center">
+            <NewRouteRecording userInfo={userInfo} />
+          </div>
         </div>
-      </div>
-
+      </section>
       <Footer />
     </div>
   );

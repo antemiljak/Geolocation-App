@@ -4,7 +4,7 @@ import { filterRoutesByMonth, calculateDuration } from "../utils/helper";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const MonthlyList = ({ selectedMonth }) => {
+const MonthlyList = ({ selectedMonth, userInfo }) => {
   const [allRoutes, setAllRoutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,20 @@ const MonthlyList = ({ selectedMonth }) => {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    doc.text(`Monthly Routes Report - ${formattedDatem || "All"}`, 10, 10);
+
+    const companyName = userInfo.company;
+    const adminName = userInfo.name;
+    const creationDate = new Date().toLocaleDateString();
+
+    doc.setFontSize(14);
+    doc.text(companyName, 10, 10);
+
+    doc.setFontSize(12);
+    doc.text(`Admin: ${adminName}`, 10, 20);
+    doc.text(`Date: ${creationDate}`, 10, 30);
+
+    doc.setFontSize(16);
+    doc.text(`Monthly Routes Report - ${formattedDate || "All"}`, 10, 40);
 
     const tableColumn = [
       "EmployeeId",
@@ -58,20 +71,27 @@ const MonthlyList = ({ selectedMonth }) => {
     const tableRows = allRoutes.map((route) => [
       route.userId,
       route.title,
-      `${route.distance} km`,
+      `${route.distance.toFixed(2)} km`,
       `${calculateDuration(route.duration)}`,
       `${(route.distance * 0.6).toFixed(2)} €`,
       `${route.description}`,
     ]);
 
-    doc.autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.autoTable({ head: [tableColumn], body: tableRows, startY: 50 });
 
     doc.text(
       `Total Cost: ${calculateTotalCost()} €`,
       10,
       doc.autoTable.previous.finalY + 10
     );
-    doc.save(`MonthlyRoutes_${selectedMonth || "All"}.pdf`);
+
+    doc.text(
+      "Approved by: ______________________",
+      10,
+      doc.autoTable.previous.finalY + 30
+    );
+
+    doc.save(`MonthlyRoutes_${formattedDate || "All"}.pdf`);
   };
 
   return (

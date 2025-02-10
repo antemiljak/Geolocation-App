@@ -88,46 +88,48 @@ const Stats = () => {
 
   return (
     <div>
-      <Navbar userInfo={userInfo} />
-      <div className="flex gap-3">
-        <button
-          onClick={() => navigate("/home")}
-          className="btn-secondary w-32 ml-[4%]"
-        >
-          Home
-        </button>
-        <button
-          onClick={() => scrollToSection("profile-section")}
-          className="btn-secondary w-32"
-        >
-          Profile Info
-        </button>
-      </div>
+      <section className="md:w-screen md:h-screen-min bg-[url('assets/bg-landingpage.jpg')] md:bg-cover md:bg-center">
+        <Navbar userInfo={userInfo} />
+        <div className="flex gap-3">
+          <button
+            onClick={() => navigate("/home")}
+            className="btn-secondary w-32 ml-[4%]"
+          >
+            Home
+          </button>
+          <button
+            onClick={() => scrollToSection("profile-section")}
+            className="btn-secondary w-32"
+          >
+            Profile Info
+          </button>
+        </div>
 
-      <div className="flex justify-center my-4 md:block md:ml-[4%]">
-        <MonthPicker
-          onMonthChange={handleMonthChange}
-          onAllTime={handleAllTimeClick}
-        />
-      </div>
+        <div className="flex justify-center my-4 md:block md:ml-[4%]">
+          <MonthPicker
+            onMonthChange={handleMonthChange}
+            onAllTime={handleAllTimeClick}
+          />
+        </div>
 
-      <div className="md:flex items-center justify-center gap-12 mb-10">
-        <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
-          <h2 className="text-5xl txt-color font-bold mb-4 italic">CHARTS</h2>
-          <div className="md:bg-zinc-900 md:p-6 rounded-xl">
-            <p className="txt-color font-semibold text-lg">
-              Welcome to{" "}
-              <span className="font-bold text-green-300">GeoLocc </span> app
-              chart section, take a look at your stats, routes, profile info and
-              more. Data is visulaized using js library Charts.js. To take a
-              look at drawn routes on map go to All routes section.
-            </p>
+        <div className="md:flex items-center justify-center gap-12 mb-10">
+          <div className="flex-[0.4] mx-4 md:mx-0 md:ml-[4%]">
+            <h2 className="text-5xl txt-color font-bold mb-4 italic">CHARTS</h2>
+            <div className="md:bg-zinc-900 md:p-6 rounded-xl">
+              <p className="txt-color text-lg">
+                Welcome to{" "}
+                <span className="font-bold text-green-300">GeoLocc </span> app
+                chart section, take a look at your stats, routes, profile info
+                and more. Data is visulaized using js library Charts.js. To take
+                a look at drawn routes on map go to All routes section.
+              </p>
+            </div>
+          </div>
+          <div className="flex-[0.8] p-4 md:mr-[4%] mt-4 md:mt-0 mb-8">
+            <Charts allRoutes={allRoutes} />
           </div>
         </div>
-        <div className="flex-[0.8] p-4 md:mr-[4%] mt-4 md:mt-0 mb-8">
-          <Charts allRoutes={allRoutes} />
-        </div>
-      </div>
+      </section>
       <div
         id="profile-section"
         className="bg-zinc-900 rounded-xl mt-6 mb-8 p-6 max-w-[90%] md:max-w-[75%] mx-auto "

@@ -84,7 +84,7 @@ const AdminDashboard = () => {
           onMonthChange={handleMonthChange}
           onAllTime={handleAllTimeClick}
         />
-        <MonthlyList selectedMonth={selectedMonth} />
+        <MonthlyList selectedMonth={selectedMonth} userInfo={userInfo} />
       </div>
       <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2">
         <div className=" bg-zinc-800 rounded-xl">
