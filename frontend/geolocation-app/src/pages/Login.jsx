@@ -57,7 +57,7 @@ const Login = () => {
 
   return (
     <div>
-      <section className="w-screen h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
         <div className="flex items-center justify-center mt-16">
           <div className="w-96 p-5 flex items-center justify-center">

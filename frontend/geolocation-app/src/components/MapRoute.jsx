@@ -1,6 +1,4 @@
 import React from "react";
-import StartLogo from "../assets/running.png";
-import EndLogo from "../assets/racing-flag.png";
 import { TileLayer, Polyline, Popup, Marker } from "react-leaflet";
 import L from "leaflet";
 

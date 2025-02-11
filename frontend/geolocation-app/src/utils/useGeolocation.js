@@ -4,8 +4,14 @@ const useGeolocation = () => {
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      const id = navigator.geolocation.watchPosition(
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+
+    // Function to fetch location
+    const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(
         (position) => {
           setPosition({
             lat: position.coords.latitude,
@@ -15,19 +21,14 @@ const useGeolocation = () => {
         (error) => {
           console.error("Error getting location:", error);
         },
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 5000,
-        }
+        { enableHighAccuracy: true }
       );
+    };
 
-      return () => {
-        navigator.geolocation.clearWatch(id);
-      };
-    } else {
-      alert("Geolocation is not supported by your browser.");
-    }
+    // Call getLocation every 1 second
+    const intervalId = setInterval(getLocation, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
   return position;

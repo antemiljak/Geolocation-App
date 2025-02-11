@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <div>
-      <section className="md:w-screen md:h-screen-min bg-[url('assets/bg-landingpage.jpg')] md:bg-cover md:bg-center">
+      <section className="md:h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar userInfo={userInfo} />
         <div className="flex gap-3 text-lg ml-[4%]">
           <button

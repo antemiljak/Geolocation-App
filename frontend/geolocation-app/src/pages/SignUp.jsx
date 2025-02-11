@@ -86,7 +86,7 @@ const Signup = () => {
   };
   return (
     <div>
-      <section className="w-screen h-screen bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
         <div className="flex items-center justify-center my-4">
           <div className="w-3/4 md:w-5/12 flex justify-center items-center">

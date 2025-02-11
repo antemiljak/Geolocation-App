@@ -11,7 +11,6 @@ const NewRouteRecording = ({ userInfo }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [coords, setCoords] = useState([]);
-  const [watchId, setWatchId] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -56,11 +55,10 @@ const NewRouteRecording = ({ userInfo }) => {
   };
 
   useEffect(() => {
-    // Save coordinates only if we are recording
     if (isRecording && position) {
       setCoords((prevCoords) => [...prevCoords, [position.lat, position.lng]]);
     }
-  }, [position, isRecording]); // When position changes, and recording is true, save the position
+  }, [position, isRecording]);
 
   const startRoute = () => {
     setRouteTitle(inputValue);
@@ -73,10 +71,6 @@ const NewRouteRecording = ({ userInfo }) => {
     setIsRecording(false);
     setEndTime(Date.now());
     setStatus(false);
-    // Stop the geolocation watch
-    if (watchId) {
-      navigator.geolocation.clearWatch(watchId);
-    }
   };
 
   const onClear = () => {
@@ -122,17 +116,17 @@ const NewRouteRecording = ({ userInfo }) => {
     <div className="w-full md:w-5/6 h-full rounded-xl flex flex-col">
       <div className="h-1/3 relative bg-zinc-900 rounded-lg mb-4">
         <h1 className="text-3xl font-semibold ml-4 my-2 italic txt-color">
-          Record Route
+          Start new drive
         </h1>
         <p className="text-sm text-slate-200 text-left mx-4 mb-4">
           {!endTime
-            ? "To track movement on map press Start."
-            : "Route recording complete! Clear to record again."}
+            ? "To start your loCCo drive press Start."
+            : "Drive recording complete! Clear to record again."}
         </p>
         <div className=" mx-auto flex flex-col items-center">
           <input
             type="text"
-            placeholder="Route Title"
+            placeholder="Title"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isRecording}
@@ -171,7 +165,7 @@ const NewRouteRecording = ({ userInfo }) => {
       <div className="h-2/3 bg-zinc-900 rounded-xl">
         <ul className="text-slate-200 w-4/5 mt-4 mx-auto">
           <li className="input-box py-1 flex justify-between items-center">
-            Route Title: {routeTitle}
+            Title: {routeTitle}
             <span>
               <i class="fas fa-tag text-lg text-rose-500"></i>
             </span>
@@ -190,7 +184,7 @@ const NewRouteRecording = ({ userInfo }) => {
             </span>
           </li>
           <li className="input-box py-1 flex justify-between items-center">
-            Route Duration: {endTime ? calculateDuration(duration) : ""}
+            Duration: {endTime ? calculateDuration(duration) : ""}
             <span>
               <i class="fas fa-clock text-lg text-rose-500"></i>
             </span>

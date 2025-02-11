@@ -17,7 +17,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      <section className="md:w-screen md:h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="md:h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
         <div className="md:flex md:justify-center mt-16 md:mr-[4%]">
           <div className="flex flex-col items-center md:ml-[4%] md:w-2/3 relative">
@@ -63,7 +63,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <section id="about" className="w-screen bg-white">
+      <section id="about" className="bg-white">
         <div className="md:flex items-center justify-between px-8 md:px-36 py-12 text-black">
           <h1 className="mt-12 text-3xl md:text-7xl font-bold md:w-1/2">
             About Us
@@ -83,59 +83,57 @@ const LandingPage = () => {
             faster, and more efficient!
           </p>
         </div>
-        <div className="mt-6 flex items-center justify-start md:justify-center gap-8 md:gap-12 overflow-x-auto md:overflow-hidden mx-4 scroll-snap-type-x mandatory scrollbar-thin">
-          <div className="relative flex flex-wrap justify-center gap-6">
-            <div className="relative">
-              <img
-                src={Driving}
-                alt="Driving"
-                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
-              />
-              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
-                For businesses & freelancers – Keep every drive organized,
-                optimize routes, and ensure accurate compensation for your team.
-              </p>
-              <div className="flex items-center">
-                <i class="fas fa-lightbulb text-green-300 hover:text-rose-500 text-5xl m-4"></i>
-                <p className="text-lg text-black">Enhance productivity.</p>
-              </div>
-            </div>
 
-            <div className="relative">
-              <img
-                src={Road}
-                alt="Road"
-                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
-              />
-              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
-                All-in-One Solution – Say goodbye to messy logs! Get insights,
-                reports, and payment tracking all in one place.
-              </p>
-              <div className="flex items-center">
-                <i class="fas fa-money-bill-wave text-green-300 text-5xl m-4"></i>
-                <p className="text-lg text-black">Free to use.</p>
-              </div>
+        <div className="relative flex flex-wrap justify-center gap-6">
+          <div className="relative">
+            <img
+              src={Driving}
+              alt="Driving"
+              className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
+            />
+            <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
+              For businesses & freelancers - Keep every drive organized,
+              optimize routes, and ensure accurate compensation for your team.
+            </p>
+            <div className="flex items-center">
+              <i class="fas fa-lightbulb text-green-300 hover:text-rose-500 text-5xl m-4"></i>
+              <p className="text-lg text-black">Enhance productivity.</p>
             </div>
+          </div>
 
-            <div className="relative">
-              <img
-                src={Traffic}
-                alt="Traffic"
-                className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
-              />
-              <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
-                Start tracking today! Maximize efficiency, minimize effort.
-              </p>
-              <div className="flex items-center">
-                <i class="fas fa-cloud text-green-300 text-5xl m-4"></i>
-                <p className="text-lg text-black hover:text-rose-500">
-                  Keep all info at one place.
-                </p>
-              </div>
+          <div className="relative">
+            <img
+              src={Road}
+              alt="Road"
+              className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
+            />
+            <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
+              All-in-One Solution – Say goodbye to messy logs! Get insights,
+              reports, and payment tracking all in one place.
+            </p>
+            <div className="flex items-center">
+              <i class="fas fa-money-bill-wave text-green-300 text-5xl m-4"></i>
+              <p className="text-lg text-black">Free to use.</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <img
+              src={Traffic}
+              alt="Traffic"
+              className="w-72 h-64 md:w-96 md:h-80 rounded brightness-50"
+            />
+            <p className="absolute inset-0 flex items-center justify-center txt-color md:text-lg text-center p-4">
+              Start tracking today! Maximize efficiency, minimize effort.
+            </p>
+            <div className="flex items-center">
+              <i class="fas fa-cloud text-green-300 text-5xl m-4"></i>
+              <p className="text-lg text-black">Keep all info at one place.</p>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center py-12">
+
+        <div className="flex flex-col items-center justify-center py-8">
           <button
             className="btn-primary w-64"
             onClick={() => navigate("/signup")}
