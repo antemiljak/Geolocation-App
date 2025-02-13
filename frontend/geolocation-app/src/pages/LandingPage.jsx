@@ -58,7 +58,7 @@ const LandingPage = () => {
             </div>
             <p className="text-4xl font-bold md:text-5xl mb-24 md:mb-6 md:mb-8 txt-color">
               All In One Place
-              <br /> LoCCo Drive
+              <br /> GeoLoCC Drive
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@ const LandingPage = () => {
             </p>
             <div className="flex items-center">
               <i class="fas fa-cloud text-green-300 text-5xl m-4"></i>
-              <p className="text-lg text-black">Keep all info at one place.</p>
+              <p className="text-lg text-black">All info at one place.</p>
             </div>
           </div>
         </div>
