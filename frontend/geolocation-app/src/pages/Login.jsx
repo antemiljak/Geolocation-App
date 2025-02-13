@@ -10,6 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,13 +27,14 @@ const Login = () => {
     }
     setError("");
 
+    setLoading(true);
+
     try {
       const response = await axiosInstance.post("/login", {
         email: email,
         password: password,
       });
 
-      //Handle successful login response
       if (response.data && response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
         if (response.data.isAdmin) {
@@ -42,7 +44,6 @@ const Login = () => {
         }
       }
     } catch (error) {
-      //Handle login error
       if (
         error.response &&
         error.response.data &&
@@ -52,6 +53,8 @@ const Login = () => {
       } else {
         setError("An unexpected error occured. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,15 +86,26 @@ const Login = () => {
               <button type="submit" className="btn-primary my-2">
                 Login
               </button>
-              {error && (
-                <p className="text-red-500 text-xs pb-1 text-center">{error}</p>
-              )}
+
               <p className="text-sm text-center">
                 Not registered yet?{" "}
                 <Link to="/signup" className="underline font-medium">
                   Create Account
                 </Link>
               </p>
+              {loading && (
+                <div className="flex justify-center mt-4">
+                  <div
+                    className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-solid border-gray-300 border-t-transparent rounded-full"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </div>
+              )}
+              {error && (
+                <p className="text-red-500 text-xs p-1 text-center">{error}</p>
+              )}
             </form>
           </div>
         </div>
