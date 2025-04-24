@@ -51,7 +51,6 @@ const Signup = () => {
 
     setError("");
 
-    //Sign up API Call
     try {
       const response = await axiosInstance.post("/create-account", {
         name: name,
@@ -62,7 +61,6 @@ const Signup = () => {
         password: password,
       });
 
-      //Handle successful create account response
       if (response.data && response.data.error) {
         setError(response.data.message);
         return;
@@ -72,7 +70,6 @@ const Signup = () => {
         navigate("/home");
       }
     } catch (error) {
-      //Handle register error
       if (
         error.response &&
         error.response.data &&
@@ -88,10 +85,10 @@ const Signup = () => {
     <div>
       <section className="h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
         <Navbar />
-        <div className="flex items-center justify-center my-4">
+        <div className="flex items-center justify-center">
           <div className="w-3/4 md:w-5/12 flex justify-center items-center">
             <form onSubmit={handleSignUp}>
-              <h4 className="text-4xl font-bold mb-4 txt-color">Sign Up</h4>
+              <h4 className="text-4xl font-bold mb-2 txt-color">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
               <div className=" gap-4">
                 <p className="mb-2">Name</p>

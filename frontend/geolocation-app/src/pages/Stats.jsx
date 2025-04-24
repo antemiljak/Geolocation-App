@@ -139,7 +139,6 @@ const Stats = () => {
         </h2>
 
         <div className=" mt-6 ">
-          {/* Profile Info */}
           <div className="flex items-center gap-4 mb-6">
             <div className="md:flex w-full md:justify-between">
               <div>

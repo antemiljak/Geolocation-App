@@ -6,7 +6,7 @@ import Logo from "../assets/logo.png";
 const Navbar = ({ userInfo }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false); // State for menu visibility
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const onLogout = () => {
     localStorage.clear();
@@ -22,7 +22,6 @@ const Navbar = ({ userInfo }) => {
 
   return (
     <nav className="flex items-center justify-between p-4 relative">
-      {/* Logo */}
       <img
         className="w-32 md:w-36 h-auto cursor-pointer"
         onClick={() => navigate("/")}
@@ -58,7 +57,6 @@ const Navbar = ({ userInfo }) => {
             </button>
           </div>
 
-          {/* Full-Screen Sidebar Menu */}
           <div
             className={`fixed top-0 right-0 h-full w-2/3 sm:w-1/2 md:w-1/3 bg-zinc-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
               menuOpen ? "translate-x-0" : "translate-x-full"

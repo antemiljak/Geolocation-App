@@ -11,7 +11,6 @@ const Map = () => {
 
     useEffect(() => {
       if (position) {
-        // Center the map to the user's position once it's available
         map.setView([position.lat, position.lng], 16);
       }
     }, [position, map]);
@@ -22,7 +21,7 @@ const Map = () => {
   const customIcon = L.divIcon({
     html: '<i class="fas fa-map-marker-alt fa-2x" style="color: black;"></i>',
     className: "custom-marker-icon",
-    iconSize: [32, 32], // Adjust icon size
+    iconSize: [32, 32],
     iconAnchor: [10, 20],
   });
 

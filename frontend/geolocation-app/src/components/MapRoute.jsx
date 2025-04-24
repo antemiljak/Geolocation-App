@@ -9,7 +9,7 @@ const MapRoute = ({ coordinates, title }) => {
   const startIcon = L.divIcon({
     html: '<i class="fas fa-car fa-2x" style="color: black;"></i>',
     className: "custom-start-icon",
-    iconSize: [32, 32], // Adjust icon size
+    iconSize: [32, 32],
     iconAnchor: [3, 25],
     popupAnchor: [4, -31],
   });
@@ -17,7 +17,7 @@ const MapRoute = ({ coordinates, title }) => {
   const endIcon = L.divIcon({
     html: '<i class="fas fa-flag-checkered fa-2x" style="color: black;"></i>',
     className: "custom-start-icon",
-    iconSize: [32, 32], // Adjust icon size
+    iconSize: [32, 32],
     iconAnchor: [3, 25],
     popupAnchor: [4, -31],
   });

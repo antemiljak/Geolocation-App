@@ -64,7 +64,7 @@ const NewRouteRecording = ({ userInfo }) => {
     setRouteTitle(inputValue);
     setStartTime(Date.now());
     setIsRecording(true);
-    setCoords([]); // Reset coordinates
+    setCoords([]);
   };
 
   const stopRoute = async () => {
@@ -87,7 +87,7 @@ const NewRouteRecording = ({ userInfo }) => {
         if (index === 0) return acc;
         return acc + haversineDistance(coords[index - 1], curr);
       }, 0);
-      const totalDistance = totalLength / 1000; // Calculate distance in km
+      const totalDistance = totalLength / 1000;
       const totalDuration = endTime - startTime;
 
       setDistance(totalDistance);
@@ -108,7 +108,7 @@ const NewRouteRecording = ({ userInfo }) => {
         console.log("Route added to base");
       };
 
-      addRoute(); // Call the function to save the route
+      addRoute();
     }
   }, [routeTitle, startTime, endTime]);
 

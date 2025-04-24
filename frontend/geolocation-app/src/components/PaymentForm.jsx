@@ -28,7 +28,6 @@ const PaymentForm = () => {
       console.error("Payment failed:", error);
       setLoading(false);
     } else {
-      // Here, you would typically send `paymentMethod.id` to your backend
       console.log("Payment method created:", paymentMethod);
       setLoading(false);
       alert("Payment successful!");

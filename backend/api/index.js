@@ -30,7 +30,6 @@ app.get("/", (req, res) => {
   res.json({ data: "hello" });
 });
 
-//Create Account
 app.post("/create-account", async (req, res) => {
   const { name, age, company, carPlate, email, password, role } = req.body;
 
