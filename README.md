@@ -77,3 +77,19 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
 });
+```
+
+### Route Model:
+```javascript
+const routeSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  startLocation: { type: String, required: true },
+  endLocation: { type: String, required: true },
+  distance: { type: Number, required: true },
+  duration: { type: Number, required: true },
+  averageSpeed: { type: Number, required: true },
+  allowance: { type: Number },
+  routeCoordinates: [{ lat: Number, lng: Number }],
+  timestamps: { type: Date, default: Date.now }
+});
+```
