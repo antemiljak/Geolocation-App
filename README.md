@@ -41,7 +41,8 @@ This project uses a range of technologies for both the backend and frontend:
   - ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
 
 - **Frontend**: 
-  - ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)  
+  - ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+  - ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38BDF8?style=flat&logo=tailwind-css&logoColor=white)  
 
 - **Database**: 
   - ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
