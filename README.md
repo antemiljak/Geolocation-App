@@ -71,25 +71,30 @@ The application uses MongoDB for storing user data and routes. Below are the key
 
 ### User Model:
 ```javascript
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+const userSchema = new Schema({
+  name: { type: String },
+  age: { type: Number },
+  company: { type: String },
+  carPlate: { type: String },
+  email: { type: String },
+  password: { type: String },
+  role: { type: String, enum: ["user", "admin"], default: "user" },
+  createdOn: { type: Date, default: new Date().getTime() },
 });
 ```
 
 ### Route Model:
 ```javascript
-const routeSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  startLocation: { type: String, required: true },
-  endLocation: { type: String, required: true },
+const mapRouteSchema = new Schema({
+  title: { type: String, required: true },
+  coordinates: { type: Array, required: true },
   distance: { type: Number, required: true },
+  startTime: { type: Number, required: true },
+  endTime: { type: Number, required: true },
   duration: { type: Number, required: true },
-  averageSpeed: { type: Number, required: true },
-  allowance: { type: Number },
-  routeCoordinates: [{ lat: Number, lng: Number }],
-  timestamps: { type: Date, default: Date.now }
+  description: { type: String },
+  status: { type: Boolean, required: true },
+  userId: { type: String, required: true },
+});
 });
 ```
