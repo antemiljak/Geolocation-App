@@ -5,10 +5,7 @@
 2. [Features](#features)
 3. [Technologies](#technologies)
 4. [Database Model](#database-model)
-5. [API Documentation](#api-documentation)
-6. [Project Assignment](#project-assignment)
-7. [Getting Started](#getting-started)
-8. [Credits](#credits)
+6. [Deployed Version](#deployed-version)
 
 ---
 
@@ -98,3 +95,9 @@ const mapRouteSchema = new Schema({
 });
 });
 ```
+
+## Deployed Version
+
+You can access the live, deployed version of the application here:
+
+- [Live App on Vercel](https://geolocation-app-swart.vercel.app/)
