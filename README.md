@@ -39,13 +39,28 @@ The app is built using the MERN stack (MongoDB, Express.js, React, Node.js), whi
 ## Technologies
 This project uses a range of technologies for both the backend and frontend:
 
-- **Backend**: Node.js, Express.js
-- **Frontend**: React.js
-- **Database**: MongoDB
-- **Real-time Communication**: Geolocation API
-- **Map Visualization**: Leaflet.js
-- **Charts**: Charts.js for displaying statistics like distance, time, and average speed
-- **Geocoding**: Google Geocoding API for converting GPS coordinates to human-readable addresses
+- **Backend**: 
+  - ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)  
+  - ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
+
+- **Frontend**: 
+  - ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)  
+
+- **Database**: 
+  - ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
+
+- **Real-time Communication**: 
+  - Geolocation API
+
+- **Map Visualization**: 
+  - ![Leaflet](https://img.shields.io/badge/Leaflet-3c3c3c?style=flat&logo=leaflet&logoColor=white)
+
+- **Charts**: 
+  - ![Charts.js](https://img.shields.io/badge/Charts.js-F7A400?style=flat&logo=chart.js&logoColor=white)
+
+- **Geocoding**: 
+  - Google Geocoding API
+
 
 The app utilizes the MERN stack, which is a popular combination of technologies for building modern, scalable web applications.
 
