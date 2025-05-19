@@ -22,7 +22,7 @@ The app is built using the MERN stack (MongoDB, Express.js, React, Node.js), whi
 ###  Screenshots
 
 ####  Landing page
-![Dashboard](./screenshots/landingpage.png)
+![Landing page](./screenshots/landingpage.png)
 
 ####  Login Page
 ![Login](./screenshots/login.png)
@@ -31,10 +31,10 @@ The app is built using the MERN stack (MongoDB, Express.js, React, Node.js), whi
 ![Home](./screenshots/homepage.png)
 
 ####  All routes 
-![Login](./screenshots/allroutes.png)
+![All routes](./screenshots/allroutes.png)
 
 ####  Charts 
-![Login](./screenshots/charts.png)
+![Charts](./screenshots/charts.png)
 
 
 ---
