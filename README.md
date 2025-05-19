@@ -5,6 +5,7 @@
 2. [Features](#features)
 3. [Technologies](#technologies)
 4. [Database Model](#database-model)
+5. [Installation](#installation)
 6. [Deployed Version](#deployed-version)
 
 ---
@@ -17,6 +18,24 @@ Users of this application represent employees of a specific company, while the a
 The goal of this project is to develop a functional application that allows users to track their routes in a precise yet simple way, while enabling the employer to effectively monitor business local trips, costs, and payments for each user’s route.
 
 The app is built using the MERN stack (MongoDB, Express.js, React, Node.js), which ensures a fast and efficient implementation for a large number of users and companies while keeping up with modern trends in web development.
+
+###  Screenshots
+
+####  Landing page
+![Dashboard](./screenshots/landingpage.png)
+
+####  Login Page
+![Login](./screenshots/login.png)
+
+#### Home Page
+![Home](./screenshots/homepage.png)
+
+####  All routes 
+![Login](./screenshots/allroutes.png)
+
+####  Charts 
+![Login](./screenshots/charts.png)
+
 
 ---
 
@@ -96,6 +115,76 @@ const mapRouteSchema = new Schema({
 });
 });
 ```
+---
+
+## Installation
+Follow these steps to set up the project locally.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/geolocation-app.git
+cd geolocation-app
+```
+
+### 2. Install Dependencies
+
+#### Frontend
+
+```bash
+cd frontend
+cd geolocation-app
+npm install
+```
+
+#### Backend
+
+```bash
+cd ../backend
+cd api
+npm install
+```
+
+### 3. Run the App Locally
+
+#### Frontend (React)
+
+```bash
+npm run dev
+```
+
+> Starts the frontend development server (usually at http://localhost:3000 or http://localhost:5173).
+
+#### Backend (Node.js/Express)
+
+```bash
+npm start
+```
+
+> Starts the backend server (usually at http://localhost:5000).
+
+---
+
+### 🧪 Environment Variables
+
+Create `.env` files in both the `frontend` and `backend` directories.
+
+#### `backend/.env`
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+#### `frontend/.env`
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+---
+
 
 ## Deployed Version
 
