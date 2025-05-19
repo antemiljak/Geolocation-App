@@ -1,4 +1,4 @@
-# GPS Tracking Web Application
+# GeoloCC - GPS Tracking Web Application
 
 ## Table of Contents
 1. [General Info](#general-info)
@@ -14,7 +14,7 @@ This web application is designed to track and analyze the movement of users base
 
 Users of this application represent employees of a specific company, while the administrator represents the employer. The user can view information about all their past routes, see all recorded routes on a map, access statistics for their profile, and visualize the data they've collected during their travels. On the other hand, the administrator has access to all data about users' routes. The admin can view the total generated cost of all routes and generate monthly reports for individual or all users within the company.
 
-The goal of this project is to develop a functional application that allows users to track their routes in a precise yet simple way, while enabling the employer to effectively monitor business trips, costs, and payments for each user’s route.
+The goal of this project is to develop a functional application that allows users to track their routes in a precise yet simple way, while enabling the employer to effectively monitor business local trips, costs, and payments for each user’s route.
 
 The app is built using the MERN stack (MongoDB, Express.js, React, Node.js), which ensures a fast and efficient implementation for a large number of users and companies while keeping up with modern trends in web development.
 
