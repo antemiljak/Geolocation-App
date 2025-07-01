@@ -9,15 +9,17 @@ const MonthlyList = ({ selectedMonth, userInfo }) => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const date = new Date(selectedMonth);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-  });
+  // Format selected month if not "All Time", otherwise leave it as "All Time"
+  const formattedDate =
+    selectedMonth && selectedMonth !== "All Time"
+      ? new Date(selectedMonth).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+        })
+      : "All Time";
 
   useEffect(() => {
-    if (isOpen) fetchRoutes();
-    console.log(selectedMonth);
+    if (selectedMonth && isOpen) fetchRoutes();
   }, [selectedMonth, isOpen]);
 
   const fetchRoutes = async () => {
@@ -25,10 +27,10 @@ const MonthlyList = ({ selectedMonth, userInfo }) => {
     try {
       const response = await axiosInstance.get("/get-all-company-routes");
       if (response.data && response.data.mapRoutes) {
-        const filteredRoutes = filterRoutesByMonth(
-          response.data.mapRoutes,
-          selectedMonth
-        );
+        const filteredRoutes =
+          selectedMonth !== "All Time"
+            ? filterRoutesByMonth(response.data.mapRoutes, selectedMonth)
+            : response.data.mapRoutes; // Don't filter if "All Time"
         setAllRoutes(filteredRoutes);
       }
     } catch (error) {
@@ -58,7 +60,7 @@ const MonthlyList = ({ selectedMonth, userInfo }) => {
     doc.text(`Date: ${creationDate}`, 10, 30);
 
     doc.setFontSize(16);
-    doc.text(`Monthly Routes Report - ${formattedDate || "All"}`, 10, 40);
+    doc.text(`Monthly Routes Report - ${formattedDate}`, 10, 40);
 
     const tableColumn = [
       "EmployeeId",
@@ -95,9 +97,18 @@ const MonthlyList = ({ selectedMonth, userInfo }) => {
   };
 
   return (
-    <div className="mx-2">
-      <button className="btn-primary w-48" onClick={() => setIsOpen(true)}>
-        View Monthly List
+    <div className="mx-2 flex justify-center items-center gap-2">
+      <p className="text-lg">Select month to generate report.</p>
+      <button
+        className={`btn-primary w-48 ${
+          !selectedMonth || selectedMonth === "All Time"
+            ? "text-gray-400 cursor-not-allowed"
+            : ""
+        }`}
+        onClick={() => setIsOpen(true)}
+        disabled={!selectedMonth || selectedMonth === "All Time"}
+      >
+        Generate report
       </button>
 
       {isOpen && (

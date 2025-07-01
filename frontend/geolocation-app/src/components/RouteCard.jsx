@@ -241,13 +241,24 @@ const RouteCard = ({
                   </span>
                 </li>
               </ul>
-              <div className="md:mt-2 md:mt-12">
+              <div className="mt-2">
                 <h2 className="text-lg font-bold txt-color mb-2">
-                  Work descrition:
+                  Work description:
                 </h2>
-                {description ||
-                window.location.pathname !== "/admindashboard" ? (
-                  <p className="">{description}</p>
+
+                {description && !coinfirmDescription ? (
+                  <div className="flex justify-between items-center">
+                    <p className="">{description}</p>
+                    <button
+                      className="btn-secondary p-2 w-16"
+                      onClick={() => {
+                        setCoinfirmDescription(true);
+                        setWorkDescription(description);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </div>
                 ) : (
                   <div className="flex gap-2 justify-center items-center">
                     <input
@@ -256,20 +267,21 @@ const RouteCard = ({
                       className="input-box mb-0"
                       value={workDescription}
                       onChange={(e) => setWorkDescription(e.target.value)}
-                    ></input>
+                    />
                     <button
-                      className="btn-primary w-16"
+                      className="btn-primary p-2 w-16"
                       onClick={() => {
                         handleDescriptionUpdate();
-                        setCoinfirmDescription(true);
+                        setCoinfirmDescription(false);
                       }}
                     >
-                      OK
+                      Save
                     </button>
                   </div>
                 )}
               </div>
-              <div className="md:mt-2 md:mt-12">
+
+              <div className="mt-2">
                 <h2 className="text-lg font-bold txt-color">Route Details:</h2>
                 <p className="text-slate-300">
                   From:{" "}
@@ -290,25 +302,25 @@ const RouteCard = ({
                   </span>
                 </p>
               </div>
-              <div>
+              <div className="mb-2">
                 <h2 className="text-lg font-bold txt-color">Payment:</h2>
                 <p className="text-slate-300">
                   Rate:{" "}
-                  <span className="text-rose-500 md:text-lg font-semibold">
-                    {rate} €/km
-                  </span>
+                  <span className="md:text-lg font-semibold">{rate} €/km</span>
                 </p>
                 <p className="text-slate-300">
                   Total:{" "}
-                  <span className="text-rose-500 md:text-lg font-semibold">
+                  <span className=" md:text-lg font-semibold">
                     {(rate * distance).toFixed(2)} €
                   </span>
                 </p>
                 <p className="text-slate-300">
                   Status:{" "}
-                  <span className="text-rose-500 md:text-lg font-semibold">
-                    To be paid
-                  </span>
+                  {status ? (
+                    <span className="font-semibold text-green-300">Payed</span>
+                  ) : (
+                    <span className="font-semibold text-rose-500">Pending</span>
+                  )}
                 </p>
               </div>
 
