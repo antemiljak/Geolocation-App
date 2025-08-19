@@ -3,6 +3,11 @@ export const validateEmail = (email) => {
   return regex.test(email);
 };
 
+export const validateCarPlate = (carPlate) => {
+  const regex = /^[A-Z]{2}-\d{3,4}-[A-Z]{1,2}$/;
+  return regex.test(carPlate);
+};
+
 export const getInitials = (name) => {
   if (!name) return "";
 
@@ -17,12 +22,11 @@ export const getInitials = (name) => {
 };
 
 export const haversineDistance = (point1, point2) => {
-  const R = 6371e3; // Radius of Earth in meters.
+  const R = 6371e3;
   const toRad = (deg) => (deg * Math.PI) / 180;
 
-  // Destructure the arrays into latitudes and longitudes
-  const [lat1, lon1] = point1; // Point 1 is an array [latitude, longitude]
-  const [lat2, lon2] = point2; // Point 2 is an array [latitude, longitude]
+  const [lat1, lon1] = point1;
+  const [lat2, lon2] = point2;
 
   const lat1Rad = toRad(lat1);
   const lat2Rad = toRad(lat2);
@@ -36,7 +40,7 @@ export const haversineDistance = (point1, point2) => {
       Math.sin(deltaLon / 2) *
       Math.sin(deltaLon / 2);
 
-  const distance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // Haversine formula
+  const distance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return distance;
 };
@@ -68,8 +72,8 @@ export const options = {
         color: "white",
         font: {
           family: "Montserrat",
-          size: 13, // Change the font size of X-axis labels
-        }, // X-axis label color
+          size: 13,
+        },
       },
     },
     y: {
@@ -77,15 +81,15 @@ export const options = {
         color: "white",
         font: {
           family: "Montserrat",
-          size: 13, // Change the font size of X-axis labels
+          size: 13,
         },
       },
     },
   },
   plugins: {
     tooltip: {
-      titleColor: "white", // Tooltip title color
-      bodyColor: "white", // Tooltip body color
+      titleColor: "white",
+      bodyColor: "white",
     },
     legend: {
       labels: {
@@ -93,8 +97,7 @@ export const options = {
         font: {
           family: "Montserrat",
           size: 16,
-          // Change the font size of X-axis labels
-        }, // Legend text color
+        },
       },
     },
   },

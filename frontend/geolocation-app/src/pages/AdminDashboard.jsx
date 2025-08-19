@@ -122,7 +122,7 @@ const AdminDashboard = () => {
 
         <div className=" bg-zinc-800 rounded-xl">
           <div className="p-2 text-lg md:text-3xl font-bold txt-color">
-            Comissions:
+            All Comissions:
           </div>
           <ul className=" m-2">
             <div className="flex items-center gap-2 m-2">
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                 To be paid:{" "}
               </li>
               <li className="md:text-xl font-semibold text-rose-500">
-                {unpaidCommissions.toFixed(2)}€
+                {unpaidCommissions.toFixed(2) / 2}€
               </li>
             </div>
             <div className="flex items-center gap-2 m-2">

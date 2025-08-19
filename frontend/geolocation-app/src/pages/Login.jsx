@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../utils/helper";
@@ -60,10 +60,10 @@ const Login = () => {
 
   return (
     <div>
-      <section className="h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="h-screen">
         <Navbar />
         <div className="flex items-center justify-center mt-16">
-          <div className="w-96 p-5 flex items-center justify-center">
+          <div className="w-96 p-4">
             <form onSubmit={handleLogin}>
               <h4 className="text-4xl font-bold mb-4 txt-color">Login</h4>
               <p className="text-sm mb-4">

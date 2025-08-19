@@ -18,6 +18,8 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./utilities");
 
+const bcrypt = require("bcrypt");
+
 app.use(express.json());
 
 app.use(
@@ -56,79 +58,91 @@ app.post("/create-account", async (req, res) => {
       .status(400)
       .json({ error: true, message: "License plate is required" });
   }
+
   if (!password) {
     return res
       .status(400)
       .json({ error: true, message: "Password is required" });
   }
 
-  const isUser = await User.findOne({ email: email });
+  console.log(password);
 
-  if (isUser) {
-    return res.json({
-      error: true,
-      message: "User already exist",
-    });
-  }
+  try {
+    const isUser = await User.findOne({ email: email });
 
-  // Default role is "user"
-  let userRole = "user";
-
-  // If trying to create an admin, check authorization
-  if (role === "admin") {
-    if (!req.headers.authorization) {
-      return res
-        .status(403)
-        .json({ error: true, message: "Unauthorized to create admin" });
+    if (isUser) {
+      return res.json({
+        error: true,
+        message: "User already exist",
+      });
     }
 
-    const token = req.headers.authorization.split(" ")[1];
-    try {
-      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-      if (decoded.role !== "admin") {
-        return res.status(403).json({
-          error: true,
-          message: "Only admins can create another admin",
-        });
+    let userRole = "user";
+
+    if (role === "admin") {
+      if (!req.headers.authorization) {
+        return res
+          .status(403)
+          .json({ error: true, message: "Unauthorized to create admin" });
       }
-      userRole = "admin";
-    } catch (error) {
-      return res
-        .status(403)
-        .json({ error: true, message: "Invalid or expired token" });
+
+      const token = req.headers.authorization.split(" ")[1];
+      try {
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        if (decoded.role !== "admin") {
+          return res.status(403).json({
+            error: true,
+            message: "Only admins can create another admin",
+          });
+        }
+        userRole = "admin";
+      } catch (error) {
+        return res
+          .status(403)
+          .json({ error: true, message: "Invalid or expired token" });
+      }
     }
-  }
 
-  const user = new User({
-    name,
-    age,
-    company,
-    carPlate,
-    email,
-    password,
-    role: userRole,
-  });
-
-  await user.save();
-
-  const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "36000m",
-  });
-
-  return res.json({
-    error: false,
-    user: {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword);
+    const user = new User({
       name,
       age,
       company,
       carPlate,
       email,
+      password: hashedPassword,
       role: userRole,
-      _id: user._id,
-    },
-    accessToken,
-    message: "Registration Successful",
-  });
+    });
+
+    console.log(name, age, password, hashedPassword);
+    await user.save();
+
+    const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "36000m",
+    });
+
+    return res.json({
+      error: false,
+      user: {
+        name,
+        age,
+        company,
+        carPlate,
+        email,
+        role: userRole,
+        _id: user._id,
+      },
+      accessToken,
+      message: "Registration Successful",
+    });
+  } catch (error) {
+    console.error("Error creating account:", error);
+    return res.status(500).json({
+      error: true,
+      message: "Internal server error",
+    });
+  }
 });
 
 app.post("/login", async (req, res) => {
@@ -136,23 +150,38 @@ app.post("/login", async (req, res) => {
 
   if (!email) {
     return res.status(400).json({
+      error: true,
       message: "Email required",
     });
   }
 
   if (!password) {
     return res.status(400).json({
+      error: true,
       message: "Password required",
     });
   }
 
-  const userInfo = await User.findOne({ email: email });
+  try {
+    const userInfo = await User.findOne({ email: email });
 
-  if (!userInfo) {
-    return res.status(400).json({ message: "User not found" });
-  }
+    if (!userInfo) {
+      return res.status(400).json({
+        error: true,
+        message: "Invalid credentials",
+      });
+    }
 
-  if (userInfo.email == email && userInfo.password == password) {
+    const isMatch = await bcrypt.compare(password, userInfo.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        error: true,
+        message: "Invalid credentials",
+      });
+    }
+
+    // If password matches, generate token
     const user = { user: userInfo };
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "36000m",
@@ -167,10 +196,11 @@ app.post("/login", async (req, res) => {
       accessToken,
       isAdmin,
     });
-  } else {
-    return res.status(400).json({
+  } catch (error) {
+    console.error("Error during login:", error);
+    return res.status(500).json({
       error: true,
-      message: "Invalid Credentials",
+      message: "Internal server error",
     });
   }
 });

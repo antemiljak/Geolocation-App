@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -17,14 +16,14 @@ const LandingPage = () => {
 
   return (
     <div>
-      <section className="md:h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section className="md:h-screen">
         <Navbar />
         <div className="md:flex md:justify-center mt-16 md:mr-[4%]">
           <div className="flex flex-col items-center md:ml-[4%] md:w-2/3 relative">
             <h1 className="text-6xl md:text-8xl txt-color font-bold mb-4">
               GeoLoCC
             </h1>
-            <ul className="flex justify-center justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic text-sm">
+            <ul className="flex justify-center gap-8 md:gap-12 text-slate-200 w-[85%] md:w-[75%] mb-6 md:mb-4 italic text-sm">
               <li>RECORD</li>
               <li className="text-rose-500">TRACK</li>
               <li>MANAGE</li>
@@ -56,7 +55,7 @@ const LandingPage = () => {
                 </button>
               </div>
             </div>
-            <p className="text-4xl font-bold md:text-5xl mb-24 md:mb-6 md:mb-8 txt-color">
+            <p className="text-4xl font-bold md:text-5xl mb-24 md:mb-8 txt-color">
               All In One Place
               <br /> GeoLoCC Drive
             </p>

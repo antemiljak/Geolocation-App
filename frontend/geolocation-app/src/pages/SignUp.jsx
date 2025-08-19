@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import { validateEmail } from "../utils/helper";
+import { validateCarPlate, validateEmail } from "../utils/helper";
 import PasswordInput from "../components/PasswordInput";
 import axiosInstance from "../utils/axiosInstance";
 import Footer from "../components/Footer";
@@ -24,7 +24,7 @@ const Signup = () => {
       return;
     }
 
-    if (!age || age < 0 || age > 110) {
+    if (!age || age < 18 || age > 110) {
       setError("Please enter valid age");
       return;
     }
@@ -34,8 +34,8 @@ const Signup = () => {
       return;
     }
 
-    if (!carPlate) {
-      setError("Please enter car licence plate");
+    if (!validateCarPlate(carPlate)) {
+      setError("Please enter valid car licence plate");
       return;
     }
 
@@ -83,14 +83,14 @@ const Signup = () => {
   };
   return (
     <div>
-      <section className="h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section>
         <Navbar />
         <div className="flex items-center justify-center">
-          <div className="w-3/4 md:w-5/12 flex justify-center items-center">
+          <div className="w-3/4 md:w-96">
             <form onSubmit={handleSignUp}>
               <h4 className="text-4xl font-bold mb-2 txt-color">Sign Up</h4>
               <p className="text-sm mb-4">Enter your information down below</p>
-              <div className=" gap-4">
+              <div className="gap-4">
                 <p className="mb-2">Name</p>
                 <input
                   type="text"
@@ -130,7 +130,6 @@ const Signup = () => {
                     onChange={(e) => setCarPlate(e.target.value)}
                   />
                 </div>
-
                 <p className="mb-2">Email</p>
                 <input
                   type="text"

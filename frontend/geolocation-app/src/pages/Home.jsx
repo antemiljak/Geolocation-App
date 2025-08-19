@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Map from "../components/Map";
 import NewRouteRecording from "../components/NewRouteRecording";
@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <div>
-      <section className="md:min-h-screen bg-[url('assets/bg-landingpage-mobile.jpg')] md:bg-[url('assets/bg-landingpage.jpg')] bg-cover bg-center">
+      <section>
         <Navbar userInfo={userInfo} />
         <div className="flex gap-3 text-lg ml-[4%]">
           <button
