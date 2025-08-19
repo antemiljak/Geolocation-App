@@ -113,7 +113,6 @@ const mapRouteSchema = new Schema({
   status: { type: Boolean, required: true },
   userId: { type: String, required: true },
 });
-});
 ```
 ---
 
